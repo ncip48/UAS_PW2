@@ -34,7 +34,8 @@ class Admin extends CI_Controller
 
     public function dosen()
     {
-        $this->load->view('admin/templates/header');
+        $data['title'] = 'Dosen';
+        $this->load->view('admin/templates/header', $data);
         $this->load->view('admin/dosen/index');
         $this->load->view('admin/templates/footer');
     }

@@ -1,7 +1,7 @@
 <!-- footer -->
 <!-- ============================================================== -->
 <footer class="footer text-center">
-    <i class="mdi mdi-copyright"></i> <?= date('Y') ?> Kelompok 1 - RPS System</a>.
+    <i class="mdi mdi-copyright"></i> <?= date('Y') ?> Kelompok 1 - RPS System
 </footer>
 <!-- ============================================================== -->
 <!-- End footer -->

@@ -135,9 +135,6 @@
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url('admin/prodi') ?>" aria-expanded="false"><i class="mdi mdi-book"></i><span class="hide-menu">Program Studi</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url('admin/matkul') ?>" aria-expanded="false"><i class="mdi mdi-file-tree"></i><span class="hide-menu">Mata Kuliah</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url('admin/rps') ?>" aria-expanded="false"><i class="mdi mdi-file-document"></i><span class="hide-menu">RPS</span></a></li>
-                        <li class="text-center p-40 upgrade-btn">
-                            <a href="https://www.wrappixel.com/templates/flexy-bootstrap-admin-template/" class="btn d-block w-100 btn-danger text-white" target="_blank">Upgrade to Pro</a>
-                        </li>
                     </ul>
 
                 </nav>

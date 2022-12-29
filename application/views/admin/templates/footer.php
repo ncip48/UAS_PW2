@@ -1,7 +1,7 @@
 <!-- footer -->
 <!-- ============================================================== -->
 <footer class="footer text-center">
-    <i class="mdi mdi-copyright"></i> <?= date('Y') ?> Kelompok 1 - RPS System
+	<i class="mdi mdi-copyright"></i> <?= date('Y') ?> Kelompok 1 - RPS System
 </footer>
 <!-- ============================================================== -->
 <!-- End footer -->
@@ -18,6 +18,7 @@
 <!-- All Jquery -->
 <!-- ============================================================== -->
 <script src="<?= base_url('assets/libs/jquery/dist/jquery.min.js') ?>"></script>
+<script src="<?= base_url('assets/dist/js/datatables.min.js') ?>"></script>
 <!-- Bootstrap tether Core JavaScript -->
 <script src="<?= base_url('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') ?>"></script>
 <script src="<?= base_url('assets/dist/js/app-style-switcher.js') ?>"></script>
@@ -32,6 +33,30 @@
 <script src="<?= base_url('assets/libs/chartist/dist/chartist.min.js') ?>"></script>
 <script src="<?= base_url('assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') ?>"></script>
 <script src="<?= base_url('assets/dist/js/pages/dashboards/dashboard1.js') ?>"></script>
+<script>
+	$(document).ready(function() {
+		$('#datatables').DataTable({
+			"paging": false,
+			"ordering": false,
+			"searching": false,
+			"lengthChange": false,
+			"language": {
+				"info": "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+				"infoEmpty": "Menampilkan 0 sampai 0 dari 0 data",
+				"infoFiltered": "(disaring dari _MAX_ total data)",
+				"zeroRecords": "Tidak ada data yang cocok",
+				"emptyTable": "Tidak ada data",
+				"search": "Cari:",
+				"paginate": {
+					"first": "Pertama",
+					"last": "Terakhir",
+					"next": "Selanjutnya",
+					"previous": "Sebelumnya"
+				}
+			}
+		});
+	});
+</script>
 </body>
 
 </html>

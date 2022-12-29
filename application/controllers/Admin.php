@@ -34,19 +34,108 @@ class Admin extends CI_Controller
 		}
 	}
 
+	//contoh crud
+
 	public function user()
 	{
 		$data['title'] = 'User';
+		$data['users'] = $this->db->get('tb_user')->result_array();
 		$this->load->view('admin/templates/header', $data);
-		$this->load->view('admin/user/index');
+		$this->load->view('admin/user/index', $data);
 		$this->load->view('admin/templates/footer');
 	}
+
+	public function tambah_user()
+	{
+		$data['title'] = 'Tambah User';
+		$this->load->view('admin/templates/header', $data);
+		$this->load->view('admin/user/tambah', $data);
+		$this->load->view('admin/templates/footer');
+	}
+
+	public function tambah_user_aksi()
+	{
+		$this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
+			'is_unique' => 'Email sudah terdaftar'
+		]);
+		$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[3]|matches[password2]', [
+			'matches' => 'Password tidak sama',
+			'min_length' => 'Password terlalu pendek'
+		]);
+		$this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password]');
+
+		if ($this->form_validation->run() == false) {
+			$this->tambah_user();
+		} else {
+			$data = [
+				'nama' => htmlspecialchars($this->input->post('nama', true)),
+				'email' => htmlspecialchars($this->input->post('email', true)),
+				'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+				'role_id' => 2,
+				'is_active' => 1,
+				'date_created' => time()
+			];
+
+			$this->db->insert('tb_user', $data);
+			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">User berhasil ditambahkan</div>');
+			redirect('admin/user');
+		}
+	}
+
+	public function edit_user($id)
+	{
+		$data['title'] = 'Edit User';
+		$data['user'] = $this->db->get_where('tb_user', ['id' => $id])->row_array();
+		$this->load->view('admin/templates/header', $data);
+		$this->load->view('admin/user/edit', $data);
+		$this->load->view('admin/templates/footer');
+	}
+
+	public function edit_user_aksi()
+	{
+		$this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+
+		if ($this->form_validation->run() == false) {
+			$this->edit_user($this->input->post('id'));
+		} else {
+			$data = [
+				'nama' => htmlspecialchars($this->input->post('nama', true)),
+				'email' => htmlspecialchars($this->input->post('email', true)),
+				'role_id' => 2,
+				'is_active' => 1,
+				'date_created' => time()
+			];
+
+			$this->db->where('id', $this->input->post('id'));
+			$this->db->update('tb_user', $data);
+			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">User berhasil diubah</div>');
+			redirect('admin/user');
+		}
+	}
+
+	public function hapus_user($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('tb_user');
+		$this->session->set_flashdata('message', 'User berhasil dihapus');
+		redirect('admin/user');
+	}
+
+	// end contoh crud
 
 	public function home()
 	{
 		$this->load->model('Auth_model', 'auth');
 		$data['title'] = 'Home';
 		$data['user'] = $this->auth->current_user();
+		$data['jumlah_dosen'] = $this->db->get('tb_dosen')->num_rows();
+		$data['jumlah_user'] = $this->db->get('tb_user')->num_rows();
+		$data['jumlah_fakultas'] = $this->db->get('tb_fakultas')->num_rows();
+		$data['jumlah_prodi'] = $this->db->get('tb_prodi')->num_rows();
+		// $data['jumlah_matakuliah'] = $this->db->get('tb_matakuliah')->num_rows();
+		$data['jumlah_rps'] = $this->db->get('tb_rps')->num_rows();
 		$this->load->view('admin/templates/header', $data);
 		$this->load->view('admin/home/index', $data);
 		$this->load->view('admin/templates/footer');

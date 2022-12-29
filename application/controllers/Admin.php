@@ -19,9 +19,19 @@ class Admin extends CI_Controller
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
-	public function login()
+
+	public function __construct()
 	{
-		$this->load->view('home');
+		parent::__construct();
+		$this->load->model('Auth_model', 'auth');
+		$is_login = $this->auth->is_login();
+		if (!$is_login) {
+			redirect('login');
+		}
+		$is_admin = $this->auth->is_admin();
+		if (!$is_admin) {
+			redirect('dosen/home');
+		}
 	}
 
 	public function user()

@@ -103,15 +103,6 @@ class Admin extends CI_Controller
 		}
 	}
 
-	public function edit_user($id)
-	{
-		$data['title'] = 'Edit User';
-		$data['user'] = $this->db->get_where('tb_user', ['id' => $id])->row_array();
-		$this->load->view('admin/templates/header', $data);
-		$this->load->view('admin/user/edit', $data);
-		$this->load->view('admin/templates/footer');
-	}
-
 	public function edit_user_aksi()
 	{
 		$this->form_validation->set_rules('nama', 'Nama', 'required', [

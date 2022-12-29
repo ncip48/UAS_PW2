@@ -141,7 +141,7 @@ a:hover, a:active {
 
 /* button style */
 .butn {
-  background: #00CF12;
+  background: #1a9bfc;
   cursor: pointer;
   font-weight: 600;
   color: #fff;
@@ -178,11 +178,11 @@ a:hover, a:active {
 
   .butn:hover, .butn:active {
     color: #fff;
-    background: #232323; }
+    background: #1589e2; }
 
 a.butn:hover, a.butn:active {
   color: #fff;
-  background: #232323; }
+  background: #1589e2; }
 
 .butn:focus {
   color: #fff; }

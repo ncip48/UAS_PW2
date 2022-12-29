@@ -3,10 +3,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth extends CI_Controller
 {
-
-	public function __construct()
+	public function login()
 	{
-		parent::__construct();
 		$this->load->model('Auth_model', 'auth');
 		$is_login = $this->auth->is_login();
 		if ($is_login) {
@@ -17,9 +15,6 @@ class Auth extends CI_Controller
 				redirect('dosen/home');
 			}
 		}
-	}
-	public function login()
-	{
 		if ($_POST) {
 			//create validation
 			$this->form_validation->set_rules('email', 'Email', 'required', [

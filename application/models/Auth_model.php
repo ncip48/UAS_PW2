@@ -66,4 +66,10 @@ class Auth_model extends CI_Model
 		$role = $this->session->userdata('role');
 		return $role;
 	}
+
+	public function current_user()
+	{
+		$id = $this->session->userdata('userdata')['id'];
+		return $this->db->get_where('tb_user', ['id' => $id], 1, 0)->row();
+	}
 }

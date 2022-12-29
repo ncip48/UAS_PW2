@@ -23,7 +23,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/uas_pw2_herly';
+$config['base_url'] = 'http://localhost/UAS_PW2';
 
 /*
 |--------------------------------------------------------------------------

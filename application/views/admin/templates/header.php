@@ -688,6 +688,7 @@ $user = $this->db->get_where('tb_user', ['id' => $user_data['id']], 1, 0)->row()
 				<nav class="sidebar-nav">
 					<ul id="sidebarnav">
 						<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url('admin/home') ?>" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
+						<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url('admin/user') ?>" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a></li>
 						<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url('admin/dosen') ?>" aria-expanded="false"><i class="mdi mdi-account-circle"></i><span class="hide-menu">Dosen</span></a></li>
 						<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url('admin/fakultas') ?>" aria-expanded="false"><i class="mdi mdi-home-modern"></i><span class="hide-menu">Fakultas</span></a></li>
 						<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= base_url('admin/prodi') ?>" aria-expanded="false"><i class="mdi mdi-book"></i><span class="hide-menu">Program Studi</span></a></li>

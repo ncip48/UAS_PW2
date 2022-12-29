@@ -50,4 +50,20 @@ class Auth_model extends CI_Model
 			return false;
 		}
 	}
+
+	public function is_dosen()
+	{
+		$role = $this->session->userdata('role');
+		if ($role == 'dosen') {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function role()
+	{
+		$role = $this->session->userdata('role');
+		return $role;
+	}
 }

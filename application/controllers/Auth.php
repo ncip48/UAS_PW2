@@ -3,6 +3,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth extends CI_Controller
 {
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('Auth_model', 'auth');
+		$is_login = $this->auth->is_login();
+		if ($is_login) {
+			$role = $this->auth->role();
+			if ($role == 'admin') {
+				redirect('admin/home');
+			} else {
+				redirect('dosen/home');
+			}
+		}
+	}
 	public function login()
 	{
 		if ($_POST) {

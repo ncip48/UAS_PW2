@@ -38,33 +38,54 @@ class Admin extends CI_Controller
 
 	public function user()
 	{
-		$data['title'] = 'User';
-		$data['users'] = $this->db->get('tb_user')->result_array();
-		$this->load->view('admin/templates/header', $data);
-		$this->load->view('admin/user/index', $data);
-		$this->load->view('admin/templates/footer');
+		$id = $this->input->get('id');
+		if ($id) {
+			$id = $this->encrypt->decode($id);
+			$data['title'] = 'Edit User';
+			$data['user'] = $this->db->get_where('tb_user', ['id' => $id])->row();
+			$data['dosens'] = $this->db->get('tb_dosen')->result();
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/user/edit', $data);
+			$this->load->view('admin/templates/footer');
+		} else {
+			$data['title'] = 'User';
+			$data['users'] = $this->db->get('tb_user')->result_array();
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/user/index', $data);
+			$this->load->view('admin/templates/footer');
+		}
 	}
 
 	public function tambah_user()
 	{
 		$data['title'] = 'Tambah User';
+		$data['dosens'] = $this->db->get('tb_dosen')->result_array();
 		$this->load->view('admin/templates/header', $data);
-		$this->load->view('admin/user/tambah', $data);
+		$this->load->view('admin/user/add', $data);
 		$this->load->view('admin/templates/footer');
 	}
 
 	public function tambah_user_aksi()
 	{
-		$this->form_validation->set_rules('nama', 'Nama', 'required|trim');
-		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
-			'is_unique' => 'Email sudah terdaftar'
+		$this->form_validation->set_rules('nama', 'Nama', 'required', [
+			'required' => 'Nama harus diisi'
 		]);
-		$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[3]|matches[password2]', [
-			'matches' => 'Password tidak sama',
-			'min_length' => 'Password terlalu pendek'
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[tb_user.email]', [
+			'is_unique' => 'Email sudah terdaftar',
+			'required' => 'Email harus diisi',
+			'valid_email' => 'Email tidak valid',
 		]);
-		$this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password]');
-
+		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]', [
+			'min_length' => 'Password terlalu pendek',
+			'required' => 'Password harus diisi',
+		]);
+		$this->form_validation->set_rules('password2', 'Password', 'required|matches[password]', [
+			'required' => 'Konfirmasi password harus diisi',
+			'matches' => 'Konfirmasi password tidak sama',
+		]);
+		$this->form_validation->set_rules('role', 'Role', 'required', [
+			'required' => 'Role harus dipilih',
+		]);
 		if ($this->form_validation->run() == false) {
 			$this->tambah_user();
 		} else {
@@ -72,13 +93,12 @@ class Admin extends CI_Controller
 				'nama' => htmlspecialchars($this->input->post('nama', true)),
 				'email' => htmlspecialchars($this->input->post('email', true)),
 				'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-				'role_id' => 2,
-				'is_active' => 1,
-				'date_created' => time()
+				'role' => htmlspecialchars($this->input->post('role', true)),
+				'id_dosen' => htmlspecialchars($this->input->post('id_dosen', true)),
 			];
 
 			$this->db->insert('tb_user', $data);
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">User berhasil ditambahkan</div>');
+			$this->session->set_flashdata('message', 'User berhasil ditambahkan');
 			redirect('admin/user');
 		}
 	}
@@ -94,8 +114,16 @@ class Admin extends CI_Controller
 
 	public function edit_user_aksi()
 	{
-		$this->form_validation->set_rules('nama', 'Nama', 'required|trim');
-		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+		$this->form_validation->set_rules('nama', 'Nama', 'required', [
+			'required' => 'Nama harus diisi'
+		]);
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email', [
+			'required' => 'Email harus diisi',
+			'valid_email' => 'Email tidak valid',
+		]);
+		$this->form_validation->set_rules('role', 'Role', 'required', [
+			'required' => 'Role harus dipilih',
+		]);
 
 		if ($this->form_validation->run() == false) {
 			$this->edit_user($this->input->post('id'));
@@ -103,14 +131,17 @@ class Admin extends CI_Controller
 			$data = [
 				'nama' => htmlspecialchars($this->input->post('nama', true)),
 				'email' => htmlspecialchars($this->input->post('email', true)),
-				'role_id' => 2,
-				'is_active' => 1,
-				'date_created' => time()
+				'role' => htmlspecialchars($this->input->post('role', true)),
+				'id_dosen' => htmlspecialchars($this->input->post('id_dosen', true)),
 			];
+
+			if ($this->input->post('password') != null) {
+				$data['password'] = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+			}
 
 			$this->db->where('id', $this->input->post('id'));
 			$this->db->update('tb_user', $data);
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">User berhasil diubah</div>');
+			$this->session->set_flashdata('message', 'User berhasil diubah');
 			redirect('admin/user');
 		}
 	}

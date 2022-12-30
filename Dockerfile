@@ -17,7 +17,6 @@ RUN docker-php-ext-install zip
 
 RUN docker-php-ext-install gd
 
-RUN apt-get update && apt-get install -y libmcrypt-dev \
-    && pecl install mcrypt-1.0.2 \
-    && docker-php-ext-enable mcrypt
+RUN apt-get install libmcrypt-dev
+RUN pecl install mcrypt-1.0.4 && docker-php-ext-enable mcrypt
 

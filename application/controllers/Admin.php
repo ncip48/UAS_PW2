@@ -146,13 +146,7 @@ class Admin extends CI_Controller
 	}
 
 	// end contoh crud
-
-	public function home()
-	{
-		$this->load->model('Auth_model', 'auth');
-		$data['title'] = 'Home';
-		$data['user'] = $this->auth->current_user();
-			
+	
 	public function dosen()
 	{
 		$id = $this->input->get('id');
@@ -253,8 +247,7 @@ class Admin extends CI_Controller
 	}
 
 	
- = array();
-		$aktivitas_pembelajaran = array();
+
 		$waktu = array();
 		$penilaian = array();
 

@@ -79,7 +79,8 @@
 			<!-- end left content -->
 
 			<!-- start right content -->
-			<div class="container-fluid bg-img height-100vh xs-display-none" data-background="/img/content/login-register.jpg">
+			<div class="container-fluid bg-img height-100vh xs-display-none d-flex justify-content-center align-items-center">
+				<img src="<?= base_url('assets/images/rps.png') ?>" alt="bg" />
 			</div>
 			<!-- end right content -->
 

@@ -15,6 +15,8 @@ RUN docker-php-ext-install mbstring
 
 RUN docker-php-ext-install zip
 
+apt-get update && apt-get install -y libmcrypt-dev
+
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \

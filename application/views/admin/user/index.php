@@ -75,7 +75,7 @@
 											<td><span class="badge <?= $user['role'] == 1 ? 'bg-danger' : 'bg-success' ?>"><?= $user['role'] == 1 ? 'Administrator' : 'Dosen' ?></span></td>
 											<td><?= $user['id_dosen'] ? "YA" : "TIDAK" ?></td>
 											<td>
-												<a href="<?= base_url('admin/user?id=') . $this->encryption->encode($user['id']) ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
+												<a href="<?= base_url('admin/user?id=') . $this->encrypt->encode($user['id']) ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
 												<form id="hapus-user-<?= $user['id'] ?>" action="<?= base_url('admin/hapus_user/') . $user['id'] ?>" hidden>
 												</form>
 												<a onclick="event.preventDefault(); document.getElementById('hapus-user-<?= $user['id'] ?>').submit();" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i> Hapus</a>

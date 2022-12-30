@@ -78,7 +78,7 @@
 											<td><?= $dosen['alamat_dosen'] ?></td>
 
 											<td>
-												<a href="<?= base_url('admin/dosen?id=') . $this->encryption->encode($dosen['id_dosen']) ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
+												<a href="<?= base_url('admin/dosen?id=') . $this->encrypt->encode($dosen['id_dosen']) ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
 												<form id="hapus-user-<?= $dosen['id_dosen'] ?>" action="<?= base_url('admin/hapus_dosen/') . $dosen['id_dosen'] ?>" hidden>
 												</form>
 												<a onclick="event.preventDefault(); document.getElementById('hapus-user-<?= $dosen['id_dosen'] ?>').submit();" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i> Hapus</a>

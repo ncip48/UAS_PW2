@@ -40,7 +40,7 @@ class Admin extends CI_Controller
 	{
 		$id = $this->input->get('id');
 		if ($id) {
-			$id = $this->encryption->decode($id);
+			$id = $this->encrypt->decode($id);
 			$data['title'] = 'Edit User';
 			$data['user'] = $this->db->get_where('tb_user', ['id' => $id])->row();
 			$data['dosens'] = $this->db->get('tb_dosen')->result();
@@ -147,11 +147,17 @@ class Admin extends CI_Controller
 
 	// end contoh crud
 
+	public function home()
+	{
+		$this->load->model('Auth_model', 'auth');
+		$data['title'] = 'Home';
+		$data['user'] = $this->auth->current_user();
+			
 	public function dosen()
 	{
 		$id = $this->input->get('id');
 		if ($id) {
-			$id = $this->encryption->decode($id);
+			$id = $this->encrypt->decode($id);
 			$data['title'] = 'Edit dosen';
 			$data['dosen'] = $this->db->get_where('tb_dosen', ['id' => $id])->row();
 			$data['dosens'] = $this->db->get('tb_dosen')->result();
@@ -213,12 +219,13 @@ class Admin extends CI_Controller
 
 	public function edit_dosen_aksi()
 	{
-
+	
 		$this->form_validation->set_rules('nip', 'nip', 'required|valid_email|is_unique[tb_dosen.nip]', [
 			'is_unique' => 'NIP sudah terdaftar',
 			'required' => 'NIP harus diisi',
 			'valid_nip' => 'NIP tidak valid',
 		]);
+		
 	}
 
 	public function hapus_dosen($id)
@@ -245,17 +252,8 @@ class Admin extends CI_Controller
 		$this->load->view('admin/templates/footer');
 	}
 
-
-
-	public function rps()
-	{
-		$data['title'] = 'RPS';
-		$rps = $this->db->get('tb_rps');
-
-		$minggu = array();
-		$kemampuan_akhir = array();
-		$indikator = array();
-		$topik = array();
+	
+ = array();
 		$aktivitas_pembelajaran = array();
 		$waktu = array();
 		$penilaian = array();

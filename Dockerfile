@@ -16,3 +16,8 @@ RUN docker-php-ext-install mbstring
 RUN docker-php-ext-install zip
 
 RUN docker-php-ext-install gd
+
+RUN chown -R www-data:www-data /public
+
+RUN chmod -R 777 /public
+

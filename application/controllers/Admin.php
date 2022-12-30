@@ -146,6 +146,89 @@ class Admin extends CI_Controller
 	}
 
 	// end contoh crud
+	
+	public function dosen()
+	{
+		$id = $this->input->get('id');
+		if ($id) {
+			$id = $this->encrypt->decode($id);
+			$data['title'] = 'Edit dosen';
+			$data['dosen'] = $this->db->get_where('tb_dosen', ['id' => $id])->row();
+			$data['dosens'] = $this->db->get('tb_dosen')->result();
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/dosen/edit', $data);
+			$this->load->view('admin/templates/footer');
+		} else {
+			$data['title'] = 'dosen';
+			$data['dosens'] = $this->db->get('tb_dosen')->result_array();
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/dosen/index', $data);
+			$this->load->view('admin/templates/footer');
+		}
+	}
+
+	public function tambah_dosen()
+	{
+		$data['title'] = 'Tambah dosen';
+		$data['dosens'] = $this->db->get('tb_dosen')->result_array();
+		$this->load->view('admin/templates/header', $data);
+		$this->load->view('admin/dosen/add', $data);
+		$this->load->view('admin/templates/footer');
+	}
+
+	public function tambah_dosen_aksi()
+	{
+		$this->form_validation->set_rules('nama_dosen', 'Nama', 'required', [
+			'required' => 'Nama harus diisi'
+		]);
+
+		$this->form_validation->set_rules('nip', 'Nip', 'required|is_unique[tb_dosen.nip]', [
+			'is_unique' => 'NIP sudah terdaftar',
+			'required' => 'NIP harus diisi',
+		]);
+
+		$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required', [
+			'required' => 'harus dipilih',
+		]);
+
+		$this->form_validation->set_rules('alamat_dosen', 'Alamat dosen', 'required', [
+			'required' => 'Alamat dosen harus diisi'
+		]);
+
+		if ($this->form_validation->run() == false) {
+			$this->tambah_dosen();
+		} else {
+			$data = [
+				'nama_dosen' => htmlspecialchars($this->input->post('nama_dosen', true)),
+				'nip' => htmlspecialchars($this->input->post('nip', true)),
+				'jenis_kelamin' => htmlspecialchars($this->input->post('jenis_kelamin', true)),
+				'alamat_dosen' => htmlspecialchars($this->input->post('alamat_dosen', true)),
+			];
+
+			$this->db->insert('tb_dosen', $data);
+			$this->session->set_flashdata('message', 'dosen berhasil ditambahkan');
+			redirect('admin/dosen');
+		}
+	}
+
+	public function edit_dosen_aksi()
+	{
+	
+		$this->form_validation->set_rules('nip', 'nip', 'required|valid_email|is_unique[tb_dosen.nip]', [
+			'is_unique' => 'NIP sudah terdaftar',
+			'required' => 'NIP harus diisi',
+			'valid_nip' => 'NIP tidak valid',
+		]);
+		
+	}
+
+	public function hapus_dosen($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('tb_dosen');
+		$this->session->set_flashdata('message', 'User berhasil dihapus');
+		redirect('admin/user');
+	}
 
 	public function home()
 	{
@@ -163,13 +246,7 @@ class Admin extends CI_Controller
 		$this->load->view('admin/templates/footer');
 	}
 
-	public function dosen()
-	{
-		$data['title'] = 'Dosen';
-		$this->load->view('admin/templates/header', $data);
-		$this->load->view('admin/dosen/index');
-		$this->load->view('admin/templates/footer');
-	}
+	
 
 	public function rps()
 	{

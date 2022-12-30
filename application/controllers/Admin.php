@@ -40,7 +40,7 @@ class Admin extends CI_Controller
 	{
 		$id = $this->input->get('id');
 		if ($id) {
-			$id = $this->encrypt->decode($id);
+			$id = $this->encryption->decode($id);
 			$data['title'] = 'Edit User';
 			$data['user'] = $this->db->get_where('tb_user', ['id' => $id])->row();
 			$data['dosens'] = $this->db->get('tb_dosen')->result();
@@ -146,12 +146,12 @@ class Admin extends CI_Controller
 	}
 
 	// end contoh crud
-	
+
 	public function dosen()
 	{
 		$id = $this->input->get('id');
 		if ($id) {
-			$id = $this->encrypt->decode($id);
+			$id = $this->encryption->decode($id);
 			$data['title'] = 'Edit dosen';
 			$data['dosen'] = $this->db->get_where('tb_dosen', ['id' => $id])->row();
 			$data['dosens'] = $this->db->get('tb_dosen')->result();
@@ -213,13 +213,12 @@ class Admin extends CI_Controller
 
 	public function edit_dosen_aksi()
 	{
-	
+
 		$this->form_validation->set_rules('nip', 'nip', 'required|valid_email|is_unique[tb_dosen.nip]', [
 			'is_unique' => 'NIP sudah terdaftar',
 			'required' => 'NIP harus diisi',
 			'valid_nip' => 'NIP tidak valid',
 		]);
-		
 	}
 
 	public function hapus_dosen($id)
@@ -246,7 +245,7 @@ class Admin extends CI_Controller
 		$this->load->view('admin/templates/footer');
 	}
 
-	
+
 
 	public function rps()
 	{

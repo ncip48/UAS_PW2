@@ -8,7 +8,8 @@ RUN apt-get update && \
     apt-get install -y \
         zlib1g-dev \
 		libonig-dev \
-		libzip-dev
+		libzip-dev \
+		nano
 
 RUN docker-php-ext-install mbstring
 

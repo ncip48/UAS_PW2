@@ -146,7 +146,7 @@ class Admin extends CI_Controller
 	}
 
 	// end contoh crud
-	
+
 	public function dosen()
 	{
 		$id = $this->input->get('id');
@@ -213,13 +213,12 @@ class Admin extends CI_Controller
 
 	public function edit_dosen_aksi()
 	{
-	
+
 		$this->form_validation->set_rules('nip', 'nip', 'required|valid_email|is_unique[tb_dosen.nip]', [
 			'is_unique' => 'NIP sudah terdaftar',
 			'required' => 'NIP harus diisi',
 			'valid_nip' => 'NIP tidak valid',
 		]);
-		
 	}
 
 	public function hapus_dosen($id)
@@ -246,8 +245,18 @@ class Admin extends CI_Controller
 		$this->load->view('admin/templates/footer');
 	}
 
-	
 
+
+	public function rps()
+	{
+		$data['title'] = 'RPS';
+		$rps = $this->db->get('tb_rps');
+
+		$minggu = array();
+		$kemampuan_akhir = array();
+		$indikator = array();
+		$topik = array();
+		$aktivitas_pembelajaran = array();
 		$waktu = array();
 		$penilaian = array();
 

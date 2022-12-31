@@ -229,7 +229,7 @@ class Admin extends CI_Controller
 		]);
 
 		if ($this->form_validation->run() == false) {
-			$this->edit_dosen($this->input->post('id_dosen'));
+			$this->edit_dosen($this->input->post('id'));
 		} else {
 			$data = [
 				'nama_dosen' => htmlspecialchars($this->input->post('nama_dosen', true)),
@@ -237,7 +237,7 @@ class Admin extends CI_Controller
 				'jenis_kelamin' => htmlspecialchars($this->input->post('jenis_kelamin', true)),
 				'alamat_dosen' => htmlspecialchars($this->input->post('alamat_dosen', true)),
 			];
-
+			$this->db->where('id_dosen', $this->input->post('id'));
 			$this->db->update('tb_dosen', $data);
 			$this->session->set_flashdata('message', 'Dosen berhasil diubah');
 			redirect('admin/dosen');

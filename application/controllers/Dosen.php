@@ -19,97 +19,9 @@ class Dosen extends CI_Controller
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
-
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->model('Auth_model', 'auth');
-		$is_login = $this->auth->is_login();
-		if (!$is_login) {
-			redirect('login');
-		}
-		$is_admin = $this->auth->is_dosen();
-		if (!$is_admin) {
-			redirect('admin/home');
-		}
-	}
-
-	public function home()
-	{
-		$data['title'] = 'Home';
-		$this->load->view('dosen/templates/header', $data);
-		$this->load->view('dosen/home/index');
-		$this->load->view('dosen/templates/footer');
-	}
-
-	public function matkul()
-	{
-		$data['title'] = 'Mata Kuliah';
-		$user = $this->db->get_where('tb_user', ['id' =>  $this->session->userdata('userdata')['id']])->row();
-		$dosen = $this->db->get_where('tb_dosen', ['id_dosen' => $user->id_dosen])->row();
-		$data['matkuls'] = $this->db->get_where('tb_matkul', ['id_dosen' => $dosen->id_dosen])->result_array();
-		$this->load->view('dosen/templates/header', $data);
-		$this->load->view('dosen/matkul/index', $data);
-		$this->load->view('dosen/templates/footer');
-	}
-
-	public function rps()
-	{
-		$data['title'] = 'RPS';
-		$user = $this->db->get_where('tb_user', ['id' =>  $this->session->userdata('userdata')['id']])->row();
-		$dosen = $this->db->get_where('tb_dosen', ['id_dosen' => $user->id_dosen])->row();
-		$matkul = $this->db->get_where('tb_matkul', ['id_dosen' => $dosen->id_dosen])->row();
-		$this->db->get_where('tb_rps', ['id_matkul' => $matkul->id]);
-		$this->db->join('tb_matkul', 'tb_matkul.id = tb_rps.id_matkul');
-		$data['rpss'] = $this->db->get('tb_rps')->result_array();
-		$this->load->view('dosen/templates/header', $data);
-		$this->load->view('dosen/rps/index', $data);
-		$this->load->view('dosen/templates/footer');
-	}
-
 	public function cetak_rps()
 	{
-		$id = $this->input->get('id');
-		$id = $this->encrypt->decode($id);
-		$rpss = $this->db->get_where('tb_rps', ['id' => $id])->row();
-		$rps = $this->db->get_where('tb_rps_detail', ['id_rps' => $rpss->id]);
-
-		$this->db->select('tb_matkul.*, tb_prodi.*, tb_fakultas.nama as nama_fakultas, tb_fakultas.id as id_fakultas');
-		$this->db->from('tb_matkul');
-		$this->db->join('tb_prodi', 'tb_prodi.id_prodi = tb_matkul.id_prodi');
-		$this->db->join('tb_fakultas', 'tb_fakultas.id = tb_prodi.id_fakultas');
-		$this->db->where('tb_matkul.id', $rpss->id_matkul);
-		$matkul = $this->db->get()->row();
-
-		$this->db->select('tb_fakultas.*, tb_dosen.nama_dosen as nama_dekan, tb_dosen.nip as nip_dekan');
-		$this->db->from('tb_fakultas');
-		$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_fakultas.id_dekan');
-		$this->db->where('tb_fakultas.id', $matkul->id_fakultas);
-		$fakultas = $this->db->get()->row();
-
-		$this->db->select('tb_prodi.*, tb_dosen.nama_dosen as nama_kaprodi, tb_dosen.nip as nip_kaprodi');
-		$this->db->from('tb_prodi');
-		$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_prodi.kaprodi');
-		$this->db->where('tb_prodi.id_fakultas', $matkul->id_fakultas);
-		$prodi = $this->db->get()->row();
-
-		$this->db->select('tb_dosen.nama_dosen as nama_pembuat, tb_dosen.nip as nip_pembuat, tb_rps.*');
-		$this->db->from('tb_dosen');
-		$this->db->join('tb_rps', 'tb_rps.id_pembuat = tb_dosen.id_dosen');
-		$this->db->where('tb_rps.id', $rpss->id);
-		$pembuat = $this->db->get()->row();
-
-		$this->db->select('tb_prodi.*, tb_dosen.nama_dosen as nama_sekprodi, tb_dosen.nip as nip_sekprodi');
-		$this->db->from('tb_prodi');
-		$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_prodi.sekprodi');
-		$this->db->where('tb_prodi.id_fakultas', $matkul->id_fakultas);
-		$sekprodi = $this->db->get()->row();
-
-		$dosen_pengampu = $this->db->get_where('tb_dosen', ['id_dosen' => $matkul->id_dosen])->row();
-
-		$unit_pembelajaran = $this->db->get_where('tb_rps_unit_pembelajaran', ['id_rps' => $rpss->id])->result();
-
-		$tugas_aktivitas = $this->db->get_where('tb_rps_tugas', ['id_rps' => $rpss->id])->result();
+		$rps = $this->db->get('tb_rps');
 
 		$minggu = array();
 		$kemampuan_akhir = array();
@@ -248,21 +160,11 @@ class Dosen extends CI_Controller
 		$data['waktu'] = $waktu;
 		$data['penilaian_arr'] = $penilaian_arr;
 		$data['penilaian'] = $penilaian;
-		$data['matkul'] = $matkul;
-		$data['rps'] = $rpss;
-		$data['fakultas'] = $fakultas;
-		$data['prodi'] = $prodi;
-		$data['pembuat'] = $pembuat;
-		$data['sekprodi'] = $sekprodi;
-		$data['dosen_pengampu'] = $dosen_pengampu;
-		$data['unit_pembelajaran'] = $unit_pembelajaran;
-		$data['tugas_aktivitas'] = $tugas_aktivitas;
 
 		$this->load->library('pdf');
 
 		$this->pdf->setPaper('A4', 'landscape');
-		$this->pdf->filename = $rpss->nomor . ".pdf";
+		$this->pdf->filename = "laporan-petanikode.pdf";
 		$this->pdf->load_view('dosen/rps/cetak', $data);
-		// $this->load->view('dosen/rps/cetak', $data);
 	}
 }

@@ -42,7 +42,7 @@
 							silahkan input untuk mengedit Dosen
 						</h5>
 						<form autocomplete="off" method="POST" action="<?= base_url('admin/edit_dosen_aksi') ?>">
-	
+							<input type="hidden" class="form-control border border-info" name="id" placeholder="ID" value="<?= $dosen->id_dosen ?>">
 							<div class="form-floating mb-3">
 								<input type="text" class="form-control border border-info" name="nama_dosen" placeholder="Nama" value="<?= $dosen->nama_dosen ?>">
 								<label>
@@ -54,7 +54,7 @@
 								</span>
 							</div>
 							<div class="form-floating mb-3">
-								<input type="text" class="form-control border border-info" name="nip" placeholder="NIP">
+								<input type="text" class="form-control border border-info" name="nip" placeholder="NIP" value="<?= $dosen->nip ?>">
 								<label>
 									<i data-feather="lock" class="feather feather-lock feather-sm text-info fill-white me-2"></i>
 									<span class="border-start border-info ps-3">NIP</span>
@@ -65,7 +65,7 @@
 							</div>
 							<div class="form-floating mb-3">
 								<select class="form-select border border-info" name="jenis_kelamin" aria-label="Floating label select example">
-								<option value="1" <?php if ($dosen->jenis_kelamin == 1) {
+									<option value="1" <?php if ($dosen->jenis_kelamin == 1) {
 															echo "selected";
 														} ?>>Laki-laki</option>
 									<option value="0" <?php if ($dosen->jenis_kelamin == 0) {
@@ -81,7 +81,7 @@
 								</span>
 							</div>
 							<div class="form-floating mb-3">
-								<input type="text" class="form-control border border-info" name="alamat_dosen" placeholder="Alamat">
+								<input type="text" class="form-control border border-info" name="alamat_dosen" placeholder="Alamat" value="<?= $dosen->alamat_dosen ?>">
 								<label>
 									<i data-feather="lock" class="feather feather-lock feather-sm text-info fill-white me-2"></i>
 									<span class="border-start border-info ps-3">Alamat Dosen</span>
@@ -90,7 +90,7 @@
 									<?php echo form_error('alamat_dosen'); ?>
 								</span>
 							</div>
-							
+
 							<div class="d-md-flex align-items-center justify-content-end">
 								<div class="mt-3 mt-md-0 ms-auto">
 									<a href="<?= base_url('admin/dosen') ?>" class="btn btn-danger font-weight-medium rounded-pill px-4 ">

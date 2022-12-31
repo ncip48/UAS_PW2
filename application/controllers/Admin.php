@@ -273,8 +273,6 @@ class Admin extends CI_Controller
 		$this->load->view('admin/templates/footer');
 	}
 
-
-
 	public function rps()
 	{
 		$data['title'] = 'RPS';

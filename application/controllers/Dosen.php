@@ -53,10 +53,27 @@ class Dosen extends CI_Controller
 		$this->load->view('dosen/templates/footer');
 	}
 
+	public function rps()
+	{
+		$data['title'] = 'RPS';
+		$user = $this->db->get_where('tb_user', ['id' =>  $this->session->userdata('userdata')['id']])->row();
+		$dosen = $this->db->get_where('tb_dosen', ['id_dosen' => $user->id_dosen])->row();
+		$matkul = $this->db->get_where('tb_matkul', ['id_dosen' => $dosen->id_dosen])->row();
+		$this->db->get_where('tb_rps', ['id_matkul' => $matkul->id]);
+		$this->db->join('tb_matkul', 'tb_matkul.id = tb_rps.id_matkul');
+		$data['rpss'] = $this->db->get('tb_rps')->result_array();
+		$this->load->view('dosen/templates/header', $data);
+		$this->load->view('dosen/rps/index', $data);
+		$this->load->view('dosen/templates/footer');
+	}
+
 	public function cetak_rps()
 	{
-		$rps = $this->db->get('tb_rps');
-
+		$id = $this->input->get('id');
+		$id = $this->encrypt->decode($id);
+		$rpss = $this->db->get_where('tb_rps', ['id' => $id])->row();
+		$rps = $this->db->get_where('tb_rps_detail', ['id_rps' => $rpss->id]);
+		$matkul = $this->db->get_where('tb_matkul', ['id' => $rpss->id_matkul])->row();
 		$minggu = array();
 		$kemampuan_akhir = array();
 		$indikator = array();
@@ -194,11 +211,13 @@ class Dosen extends CI_Controller
 		$data['waktu'] = $waktu;
 		$data['penilaian_arr'] = $penilaian_arr;
 		$data['penilaian'] = $penilaian;
+		$data['matkul'] = $matkul;
+		$data['rps'] = $rps;
 
 		$this->load->library('pdf');
 
 		$this->pdf->setPaper('A4', 'landscape');
-		$this->pdf->filename = "laporan-petanikode.pdf";
+		$this->pdf->filename = $rpss->nomor . ".pdf";
 		$this->pdf->load_view('dosen/rps/cetak', $data);
 	}
 }

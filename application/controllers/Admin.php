@@ -117,7 +117,13 @@ class Admin extends CI_Controller
 		]);
 
 		if ($this->form_validation->run() == false) {
-			$this->edit_user($this->input->post('id'));
+			$id = $this->input->post('id');
+			$data['title'] = 'Edit User';
+			$data['user'] = $this->db->get_where('tb_user', ['id' => $id])->row();
+			$data['dosens'] = $this->db->get('tb_dosen')->result();
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/user/edit', $data);
+			$this->load->view('admin/templates/footer');
 		} else {
 			$data = [
 				'nama' => htmlspecialchars($this->input->post('nama', true)),
@@ -146,7 +152,7 @@ class Admin extends CI_Controller
 	}
 
 	// end contoh crud
-	
+
 	public function dosen()
 	{
 		$id = $this->input->get('id_dosen');
@@ -213,35 +219,12 @@ class Admin extends CI_Controller
 
 	public function edit_dosen_aksi()
 	{
-		$this->form_validation->set_rules('nama_dosen', 'Nama', 'required', [
-			'required' => 'Nama harus diisi'
-		]);
-		$this->form_validation->set_rules('nip', 'Nip', 'required|is_unique[tb_dosen.nip]', [
+	
+		$this->form_validation->set_rules('nip', 'nip', 'required|valid_email|is_unique[tb_dosen.nip]', [
 			'is_unique' => 'NIP sudah terdaftar',
 			'required' => 'NIP harus diisi',
 		]);
 		
-		$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required', [
-			'required' => 'harus dipilih',
-		]);
-		$this->form_validation->set_rules('alamat_dosen', 'Alamat dosen', 'required', [
-			'required' => 'Alamat dosen harus diisi'
-		]);
-
-		if ($this->form_validation->run() == false) {
-			$this->edit_dosen($this->input->post('id_dosen'));
-		} else {
-			$data = [
-				'nama_dosen' => htmlspecialchars($this->input->post('nama_dosen', true)),
-				'nip' => htmlspecialchars($this->input->post('nip', true)),
-				'jenis_kelamin' => htmlspecialchars($this->input->post('jenis_kelamin', true)),
-				'alamat_dosen' => htmlspecialchars($this->input->post('alamat_dosen', true)),
-			];
-
-			$this->db->update('tb_dosen', $data);
-			$this->session->set_flashdata('message', 'Dosen berhasil diubah');
-			redirect('admin/dosen');
-		}
 	}
 
 	public function hapus_dosen($id_dosen)
@@ -268,7 +251,7 @@ class Admin extends CI_Controller
 		$this->load->view('admin/templates/footer');
 	}
 
-	
+
 
 	public function rps()
 	{

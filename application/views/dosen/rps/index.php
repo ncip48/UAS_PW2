@@ -36,6 +36,20 @@
 						<h4 class="mb-0">List RPS</h4>
 					</div>
 					<div class="card-body">
+						<div class="d-flex justify-content-between align-items-center">
+							<div>
+								<?php if ($this->session->flashdata('message')) : ?>
+									<div class="alert alert-success alert-dismissible fade show px-2 py-1 d-flex justify-content-between align-items-center" role="alert">
+										<?= $this->session->flashdata('message') ?>
+										<button type="button" class="btn-close position-static px-0 py-0 ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
+									</div>
+								<?php endif; ?>
+							</div>
+							<a href="<?= base_url('dosen/tambah_rps') ?>" class="btn btn-info btn-rounded m-t-10 mb-2">
+								<i class="mdi mdi-plus"></i>
+								Tambah RPS
+							</a>
+						</div>
 						<div class="table-responsive">
 							<table id="datatables" class="table m-t-30 table-hover contact-list v-middle text-nowrap footable footable-5 footable-paging footable-paging-center breakpoint-lg" data-paging="true" data-paging-size="7" style="">
 								<thead>

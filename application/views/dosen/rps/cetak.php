@@ -101,7 +101,7 @@
 	$data = file_get_contents($path);
 	$base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 	?>
-	<table style="width: 100%;margin-top:-3.5cm">
+	<table style="width: 100%;margin-top:-4cm">
 		<tr>
 			<td style="width: 100px;text-align:center;" class="td-no-top-border td-no-left-right-border" colspan="4">
 				<h1 style="text-transform: capitalize;margin:0px">Rencana Pembelajaran Semester (RPS)</h1>
@@ -157,16 +157,16 @@
 		</tr>
 		<tr>
 			<td style="text-align:center" class="td-no-left-border">
-				Disetujui oleh, Dekan <?= $matkul->nama_fakultas ?>
+				Disetujui oleh, <br>Dekan <?= $matkul->nama_fakultas ?>
 			</td>
 			<td style="text-align:center">
-				Diperiksa oleh, Kaprodi <?= $matkul->nama_prodi ?>
+				Diperiksa oleh, <br>Kaprodi <?= $matkul->nama_prodi ?>
 			</td>
 			<td style="text-align:center">
-				Disusun oleh, Koordinator Matakuliah
+				Disusun oleh, <br>Koordinator Matakuliah
 			</td>
 			<td style="text-align:center" class="td-no-left-right-border">
-				Dikendalikan oleh, Sekretaris Prodi <?= $matkul->nama_prodi ?>
+				Dikendalikan oleh, <br>Sekretaris Prodi <?= $matkul->nama_prodi ?>
 			</td>
 		</tr>
 		<tr>
@@ -483,12 +483,12 @@
 				$aktivitasName = $aktivitas_pembelajaran[$i];
 				$waktuName = $waktu[$i];
 				$penilaianName = $penilaian[$i];
-				echo "<tr style='text-align:justify;vertical-align:middle'>";
+				echo "<tbody><tr style='text-align:justify;vertical-align:middle'>";
 
 				# If this row is not printed then print.
 				# and make the printed value to "yes", so that
 				# next time it will not printed.
-				echo "<tbody><td style='text-align:center'>" . $minggu[$i] . "</td>";
+				echo "<td style='text-align:center'>" . $minggu[$i] . "</td>";
 				if ($kemampuan_arr[$empName]['printed'] == 'no') {
 					echo "<td rowspan='" . $kemampuan_arr[$empName]['rowspan'] . "'>" . $empName . "</td>";
 					$kemampuan_arr[$empName]['printed'] = 'yes';

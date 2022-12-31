@@ -146,7 +146,7 @@ class Admin extends CI_Controller
 	}
 
 	// end contoh crud
-	
+
 	public function dosen()
 	{
 		$id = $this->input->get('id');
@@ -216,11 +216,10 @@ class Admin extends CI_Controller
 		$this->form_validation->set_rules('nama_dosen', 'Nama', 'required', [
 			'required' => 'Nama harus diisi'
 		]);
-		$this->form_validation->set_rules('nip', 'Nip', 'required|is_unique[tb_dosen.nip]', [
-			'is_unique' => 'NIP sudah terdaftar',
+		$this->form_validation->set_rules('nip', 'Nip', 'required', [
 			'required' => 'NIP harus diisi',
 		]);
-		
+
 		$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required', [
 			'required' => 'harus dipilih',
 		]);
@@ -229,7 +228,13 @@ class Admin extends CI_Controller
 		]);
 
 		if ($this->form_validation->run() == false) {
-			$this->edit_dosen($this->input->post('id'));
+			$id = $this->input->post('id');
+			$data['title'] = 'Edit dosen';
+			$data['dosen'] = $this->db->get_where('tb_dosen', ['id_dosen' => $id])->row();
+			$data['dosens'] = $this->db->get('tb_dosen')->result();
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/dosen/edit', $data);
+			$this->load->view('admin/templates/footer');
 		} else {
 			$data = [
 				'nama_dosen' => htmlspecialchars($this->input->post('nama_dosen', true)),
@@ -268,7 +273,7 @@ class Admin extends CI_Controller
 		$this->load->view('admin/templates/footer');
 	}
 
-	
+
 
 	public function rps()
 	{

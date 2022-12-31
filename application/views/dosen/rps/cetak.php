@@ -32,6 +32,23 @@
 		table {
 			page-break-inside: avoid !important;
 		}
+
+		.page_break {
+			page-break-before: always;
+		}
+
+		.td-no-top-border {
+			border-top: 1px solid transparent !important;
+		}
+
+		.td-no-left-right-border {
+			border-left: 1px solid transparent !important;
+			border-right: 1px solid transparent !important;
+		}
+
+		.td-no-left-border {
+			border-left: 1px solid transparent !important;
+		}
 	</style>
 </head>
 
@@ -42,11 +59,112 @@
 	$data = file_get_contents($path);
 	$base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 	?>
+	<table style="width: 100%;">
+		<tr>
+			<td style="width: 100px;text-align:center;" class="td-no-top-border td-no-left-right-border" colspan="4">
+				<h1 style="text-transform: capitalize;margin:0px">Rencana Pembelajaran Semester (RPS)</h1>
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 100px;text-align:center" colspan="4" class="td-no-left-right-border">
+				<img src="<?= $base64 ?>" alt="Logo" style="width: 300px;">
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 100px;text-align:center" colspan="4" class="td-no-left-right-border">
+				<h2 style="margin:0px">Mata Kuliah: <?= $matkul->nama_matkul ?></h2>
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 100px;text-align:center" colspan="4" class="td-no-left-right-border">
+				<h2 style="margin: 0px;">Program Studi: <?= $matkul->nama_prodi ?></h2>
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align:center" class="td-no-left-border">
+				Nomor
+			</td>
+			<td style="text-align:center">
+				Tgl. Berlaku Mulai
+			</td>
+			<td style="text-align:center">
+				Tgl. Disusun
+			</td>
+			<td style="text-align:center" class="td-no-left-right-border">
+				Revisi
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align:center" class="td-no-left-border">
+				<?= $rps->nomor ?>
+			</td>
+			<td style="text-align:center">
+				<?= date('Y', strtotime($rps->tanggal_berlaku)) ?>
+			</td>
+			<td style="text-align:center">
+				<?= date('d M Y', strtotime($rps->tanggal_disusun)) ?>
+			</td>
+			<td style="text-align:center" class="td-no-left-right-border">
+				<?= $rps->revisi ?>
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align:center" class="td-no-left-right-border" colspan="4">
+				Blank Space
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align:center" class="td-no-left-border">
+				Disetujui oleh, Dekan <?= $matkul->nama_fakultas ?>
+			</td>
+			<td style="text-align:center">
+				Diperiksa oleh, Kaprodi <?= $matkul->nama_prodi ?>
+			</td>
+			<td style="text-align:center">
+				Disusun oleh, Koordinator Matakuliah
+			</td>
+			<td style="text-align:center" class="td-no-left-right-border">
+				Dikendalikan oleh, Sekretaris Prodi <?= $matkul->nama_prodi ?>
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align:center" class="td-no-left-border">
+				<div style="height:80px;"></div>
+				<b><u><?= $fakultas->nama_dekan ?></u></b>
+				<br>
+				NIK. <?= $fakultas->nip_dekan ?>
+			</td>
+			<td style="text-align:center">
+				<div style="height:80px;"></div>
+				<b><u><?= $prodi->nama_kaprodi ?></u></b>
+				<br>
+				NIK. <?= $prodi->nip_kaprodi ?>
+			</td>
+			<td style="text-align:center">
+				<div style="height:80px;"></div>
+				<b><u><?= $pembuat->nama_pembuat ?></u></b>
+				<br>
+				NIK. <?= $pembuat->nip_pembuat ?>
+			</td>
+			<td style="text-align:center" class="td-no-left-right-border">
+				<div style="height:80px;"></div>
+				<b><u><?= $sekprodi->nama_sekprodi ?></u></b>
+				<br>
+				NIK. <?= $sekprodi->nip_sekprodi ?>
+			</td>
+		</tr>
+	</table>
+	<center style="margin-top: 100px;">
+		<h2 style="margin:0px"><b>Universitas Amikom Yogyakarta</b></h2>
+		<h2 style="margin:0px"><b>Yogyakarta</b></h2>
+		<h2 style="margin:0px"><b>2021</b></h2>
+	</center>
+	<div class="page_break"></div>
 	<header>
 		<table>
 			<tr style="width: 100%;">
 				<td style="text-align: center; width: 100px;">
-					<img src="<?= $base64 ?>" alt="Logo" style="width: 100px;">
+					<img src="<?= $base64 ?>" alt="Logo" style="width: 10px;">
 				</td>
 				<td style="text-align: center;">
 					<h1 style="margin-bottom: 0px;">Rencana Pembelajaran Semester</h1>

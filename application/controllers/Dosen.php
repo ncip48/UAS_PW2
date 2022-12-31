@@ -73,7 +73,38 @@ class Dosen extends CI_Controller
 		$id = $this->encrypt->decode($id);
 		$rpss = $this->db->get_where('tb_rps', ['id' => $id])->row();
 		$rps = $this->db->get_where('tb_rps_detail', ['id_rps' => $rpss->id]);
-		$matkul = $this->db->get_where('tb_matkul', ['id' => $rpss->id_matkul])->row();
+
+		$this->db->select('tb_matkul.*, tb_prodi.*, tb_fakultas.nama as nama_fakultas, tb_fakultas.id as id_fakultas');
+		$this->db->from('tb_matkul');
+		$this->db->join('tb_prodi', 'tb_prodi.id_prodi = tb_matkul.id_prodi');
+		$this->db->join('tb_fakultas', 'tb_fakultas.id = tb_prodi.id_fakultas');
+		$this->db->where('tb_matkul.id', $rpss->id_matkul);
+		$matkul = $this->db->get()->row();
+
+		$this->db->select('tb_fakultas.*, tb_dosen.nama_dosen as nama_dekan, tb_dosen.nip as nip_dekan');
+		$this->db->from('tb_fakultas');
+		$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_fakultas.id_dekan');
+		$this->db->where('tb_fakultas.id', $matkul->id_fakultas);
+		$fakultas = $this->db->get()->row();
+
+		$this->db->select('tb_prodi.*, tb_dosen.nama_dosen as nama_kaprodi, tb_dosen.nip as nip_kaprodi');
+		$this->db->from('tb_prodi');
+		$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_prodi.kaprodi');
+		$this->db->where('tb_prodi.id_fakultas', $matkul->id_fakultas);
+		$prodi = $this->db->get()->row();
+
+		$this->db->select('tb_dosen.nama_dosen as nama_pembuat, tb_dosen.nip as nip_pembuat, tb_rps.*');
+		$this->db->from('tb_dosen');
+		$this->db->join('tb_rps', 'tb_rps.id_pembuat = tb_dosen.id_dosen');
+		$this->db->where('tb_rps.id', $rpss->id);
+		$pembuat = $this->db->get()->row();
+
+		$this->db->select('tb_prodi.*, tb_dosen.nama_dosen as nama_sekprodi, tb_dosen.nip as nip_sekprodi');
+		$this->db->from('tb_prodi');
+		$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_prodi.sekprodi');
+		$this->db->where('tb_prodi.id_fakultas', $matkul->id_fakultas);
+		$sekprodi = $this->db->get()->row();
+
 		$minggu = array();
 		$kemampuan_akhir = array();
 		$indikator = array();
@@ -212,12 +243,17 @@ class Dosen extends CI_Controller
 		$data['penilaian_arr'] = $penilaian_arr;
 		$data['penilaian'] = $penilaian;
 		$data['matkul'] = $matkul;
-		$data['rps'] = $rps;
+		$data['rps'] = $rpss;
+		$data['fakultas'] = $fakultas;
+		$data['prodi'] = $prodi;
+		$data['pembuat'] = $pembuat;
+		$data['sekprodi'] = $sekprodi;
 
 		$this->load->library('pdf');
 
 		$this->pdf->setPaper('A4', 'landscape');
 		$this->pdf->filename = $rpss->nomor . ".pdf";
 		$this->pdf->load_view('dosen/rps/cetak', $data);
+		// $this->load->view('dosen/rps/cetak', $data);
 	}
 }

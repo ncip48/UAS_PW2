@@ -105,6 +105,8 @@ class Dosen extends CI_Controller
 		$this->db->where('tb_prodi.id_fakultas', $matkul->id_fakultas);
 		$sekprodi = $this->db->get()->row();
 
+		$dosen_pengampu = $this->db->get_where('tb_dosen', ['id_dosen' => $matkul->id_dosen])->row();
+
 		$minggu = array();
 		$kemampuan_akhir = array();
 		$indikator = array();
@@ -248,6 +250,7 @@ class Dosen extends CI_Controller
 		$data['prodi'] = $prodi;
 		$data['pembuat'] = $pembuat;
 		$data['sekprodi'] = $sekprodi;
+		$data['dosen_pengampu'] = $dosen_pengampu;
 
 		$this->load->library('pdf');
 

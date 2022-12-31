@@ -49,6 +49,20 @@ class Pdf extends Dompdf
 
 		$html = $this->ci()->load->view($view, $data, TRUE);
 		$this->load_html($html);
+
+		// add the header
+		// $canvas = $this->get_canvas();
+		// $font = $this->getFontMetrics()->get_font("helvetica", "bold");
+
+		// // the same call as in my previous example
+		// $canvas->page_text(
+		// 	72,
+		// 	18,
+		// 	"Header: {PAGE_NUM} of {PAGE_COUNT}",
+		// 	$font,
+		// 	6,
+		// 	array(0, 0, 0)
+		// );
 		// Render the PDF
 		$this->render();
 		// Output the generated PDF to Browser

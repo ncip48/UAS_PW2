@@ -107,6 +107,10 @@ class Dosen extends CI_Controller
 
 		$dosen_pengampu = $this->db->get_where('tb_dosen', ['id_dosen' => $matkul->id_dosen])->row();
 
+		$unit_pembelajaran = $this->db->get_where('tb_rps_unit_pembelajaran', ['id_rps' => $rpss->id])->result();
+
+		$tugas_aktivitas = $this->db->get_where('tb_rps_tugas', ['id_rps' => $rpss->id])->result();
+
 		$minggu = array();
 		$kemampuan_akhir = array();
 		$indikator = array();
@@ -251,6 +255,8 @@ class Dosen extends CI_Controller
 		$data['pembuat'] = $pembuat;
 		$data['sekprodi'] = $sekprodi;
 		$data['dosen_pengampu'] = $dosen_pengampu;
+		$data['unit_pembelajaran'] = $unit_pembelajaran;
+		$data['tugas_aktivitas'] = $tugas_aktivitas;
 
 		$this->load->library('pdf');
 

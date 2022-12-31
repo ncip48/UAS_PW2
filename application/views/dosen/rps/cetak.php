@@ -350,8 +350,111 @@
 			<div style="background-color:grey;margin-bottom:20px;margin-top:20px">
 				<h4 style="margin:0px;padding:5px">5. Unit-Unit Pembelajaran secara spesifik</h4>
 			</div>
-			<table>
+			<table style="width: 100%;">
+				<thead>
+					<tr>
+						<th>
+							Kemampuan Akhir yang Diharapkan
+						</th>
+						<th>
+							Indikator
+						</th>
+						<th>
+							Bahan Kajian
+						</th>
+						<th>
+							Metode Pembelajaran
+						</th>
+						<th>
+							Waktu
+						</th>
+						<th>
+							Metode Penilaian
+						</th>
+						<th>
+							Bahan Ajar
+						</th>
+					</tr>
+				</thead>
+				<?php foreach ($unit_pembelajaran as $key => $value) : ?>
+					<tbody>
+						<tr>
+							<td>
+								<?= $value->kemampuan_akhir ?>
+							</td>
+							<td>
+								<?= $value->indikator ?>
+							</td>
+							<td>
+								<?= $value->bahan_kajian ?>
+							</td>
+							<td>
+								<?= $value->metode_pembelajaran ?>
+							</td>
+							<td>
+								<?= $value->waktu ?>
+							</td>
+							<td>
+								<?= $value->metode_penilaian ?>
+							</td>
+							<td>
+								<?= $value->bahan_ajar ?>
+							</td>
+						</tr>
+					</tbody>
+				<?php endforeach; ?>
+			</table>
 
+			<div style="background-color:grey;margin-bottom:20px;margin-top:20px">
+				<h4 style="margin:0px;padding:5px">6. Tugas/Aktivitas dan Penilaian</h4>
+			</div>
+			<table style="width: 100%;">
+				<thead>
+					<tr>
+						<th>
+							Tugas/Aktivitas
+						</th>
+						<th>
+							Kemampuan Akhir yang diharapkan atau dievaluasi
+						</th>
+						<th>
+							Waktu
+						</th>
+						<th>
+							Bobot
+						</th>
+						<th>
+							Kriteria Penilaian
+						</th>
+						<th>
+							Indikator Penilaian
+						</th>
+					</tr>
+				</thead>
+				<?php foreach ($tugas_aktivitas as $key => $value) : ?>
+					<tbody>
+						<tr>
+							<td>
+								<?= $value->tugas ?>
+							</td>
+							<td>
+								<?= $value->kemampuan_akhir ?>
+							</td>
+							<td>
+								<?= $value->waktu ?>
+							</td>
+							<td>
+								<?= $value->bobot ?>
+							</td>
+							<td>
+								<?= $value->kriteria_penilaian ?>
+							</td>
+							<td>
+								<?= $value->indikator_penilaian ?>
+							</td>
+						</tr>
+					</tbody>
+				<?php endforeach; ?>
 			</table>
 
 			<div style="background-color:grey;margin-bottom:0px;margin-top:20px">
@@ -380,12 +483,12 @@
 				$aktivitasName = $aktivitas_pembelajaran[$i];
 				$waktuName = $waktu[$i];
 				$penilaianName = $penilaian[$i];
-				echo "<tbody><tr style='text-align:justify;vertical-align:middle'>";
+				echo "<tr style='text-align:justify;vertical-align:middle'>";
 
 				# If this row is not printed then print.
 				# and make the printed value to "yes", so that
 				# next time it will not printed.
-				echo "<td style='text-align:center'>" . $minggu[$i] . "</td>";
+				echo "<tbody><td style='text-align:center'>" . $minggu[$i] . "</td>";
 				if ($kemampuan_arr[$empName]['printed'] == 'no') {
 					echo "<td rowspan='" . $kemampuan_arr[$empName]['rowspan'] . "'>" . $empName . "</td>";
 					$kemampuan_arr[$empName]['printed'] = 'yes';
@@ -404,7 +507,7 @@
 				}
 				echo "<td>" . $waktuName . "</td>";
 				echo "<td>" . $penilaianName . "</td>";
-				echo "</tbody></tr>";
+				echo "</tr></tbody>";
 			}
 			echo "</table>";
 			?>

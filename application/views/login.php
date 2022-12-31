@@ -49,7 +49,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label for="email" class="col-form-label text-md-end">Email</label>
-									<input id="email" type="email" name="email" autocomplete="email" autofocus value="<?php echo set_value('email'); ?>">
+									<input id="email" type="email" name="email" autocomplete="email" autofocus value="<?php echo set_value('email'); ?>" placeholder="johndoe@gmail.com">
 									<span class="invalid-feedback d-block" role="alert">
 										<?php echo form_error('email'); ?>
 									</span>
@@ -58,7 +58,7 @@
 							<div class="col-12">
 								<div class="form-group">
 									<label for="password" class="col-form-label text-md-end">Password</label>
-									<input id="password" type="password" name="password" autocomplete="current-password">
+									<input id="password" type="password" name="password" autocomplete="current-password" placeholder="********">
 									<span class="invalid-feedback d-block" role="alert">
 										<?php echo form_error('password'); ?>
 									</span>

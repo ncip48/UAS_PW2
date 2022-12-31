@@ -19,6 +19,40 @@ class Dosen extends CI_Controller
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('Auth_model', 'auth');
+		$is_login = $this->auth->is_login();
+		if (!$is_login) {
+			redirect('login');
+		}
+		$is_admin = $this->auth->is_dosen();
+		if (!$is_admin) {
+			redirect('admin/home');
+		}
+	}
+
+	public function home()
+	{
+		$data['title'] = 'Home';
+		$this->load->view('dosen/templates/header', $data);
+		$this->load->view('dosen/home/index');
+		$this->load->view('dosen/templates/footer');
+	}
+
+	public function matkul()
+	{
+		$data['title'] = 'Mata Kuliah';
+		$user = $this->db->get_where('tb_user', ['id' =>  $this->session->userdata('userdata')['id']])->row();
+		$dosen = $this->db->get_where('tb_dosen', ['id_dosen' => $user->id_dosen])->row();
+		$data['matkuls'] = $this->db->get_where('tb_matkul', ['id_dosen' => $dosen->id_dosen])->result_array();
+		$this->load->view('dosen/templates/header', $data);
+		$this->load->view('dosen/matkul/index', $data);
+		$this->load->view('dosen/templates/footer');
+	}
+
 	public function cetak_rps()
 	{
 		$rps = $this->db->get('tb_rps');

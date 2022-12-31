@@ -153,7 +153,7 @@ class Admin extends CI_Controller
 		if ($id) {
 			$id = $this->encrypt->decode($id);
 			$data['title'] = 'Edit dosen';
-			$data['dosen'] = $this->db->get_where('tb_dosen', ['id_dosen' => $id])->row();
+			$data['dosen'] = $this->db->get_where('tb_dosen', ['id' => $id])->row();
 			$data['dosens'] = $this->db->get('tb_dosen')->result();
 			$this->load->view('admin/templates/header', $data);
 			$this->load->view('admin/dosen/edit', $data);
@@ -213,48 +213,20 @@ class Admin extends CI_Controller
 
 	public function edit_dosen_aksi()
 	{
-		$this->form_validation->set_rules('nama_dosen', 'Nama', 'required', [
-			'required' => 'Nama harus diisi'
-		]);
-		$this->form_validation->set_rules('nip', 'Nip', 'required', [
+
+		$this->form_validation->set_rules('nip', 'nip', 'required|valid_email|is_unique[tb_dosen.nip]', [
+			'is_unique' => 'NIP sudah terdaftar',
 			'required' => 'NIP harus diisi',
+			'valid_nip' => 'NIP tidak valid',
 		]);
-
-		$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required', [
-			'required' => 'harus dipilih',
-		]);
-		$this->form_validation->set_rules('alamat_dosen', 'Alamat dosen', 'required', [
-			'required' => 'Alamat dosen harus diisi'
-		]);
-
-		if ($this->form_validation->run() == false) {
-			$id = $this->input->post('id');
-			$data['title'] = 'Edit dosen';
-			$data['dosen'] = $this->db->get_where('tb_dosen', ['id_dosen' => $id])->row();
-			$data['dosens'] = $this->db->get('tb_dosen')->result();
-			$this->load->view('admin/templates/header', $data);
-			$this->load->view('admin/dosen/edit', $data);
-			$this->load->view('admin/templates/footer');
-		} else {
-			$data = [
-				'nama_dosen' => htmlspecialchars($this->input->post('nama_dosen', true)),
-				'nip' => htmlspecialchars($this->input->post('nip', true)),
-				'jenis_kelamin' => htmlspecialchars($this->input->post('jenis_kelamin', true)),
-				'alamat_dosen' => htmlspecialchars($this->input->post('alamat_dosen', true)),
-			];
-			$this->db->where('id_dosen', $this->input->post('id'));
-			$this->db->update('tb_dosen', $data);
-			$this->session->set_flashdata('message', 'Dosen berhasil diubah');
-			redirect('admin/dosen');
-		}
 	}
 
-	public function hapus_dosen($id_dosen)
+	public function hapus_dosen($id)
 	{
-		$this->db->where('id_dosen', $id_dosen);
+		$this->db->where('id', $id);
 		$this->db->delete('tb_dosen');
-		$this->session->set_flashdata('message', 'Dosen berhasil dihapus');
-		redirect('admin/dosen');
+		$this->session->set_flashdata('message', 'User berhasil dihapus');
+		redirect('admin/user');
 	}
 
 	public function home()

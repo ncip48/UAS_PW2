@@ -8,14 +8,14 @@
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb mb-0 d-flex align-items-center">
 						<li class="breadcrumb-item">
-							<a href="<?= base_url('admin/home') ?>" class="link"><i class="mdi mdi-home"></i></a>
+							<a href="<?= base_url('dosen/home') ?>" class="link"><i class="mdi mdi-home"></i></a>
 						</li>
 						<li class="breadcrumb-item active" aria-current="page">
-							Dosen
+							RPS
 						</li>
 					</ol>
 				</nav>
-				<h1 class="mb-0 fw-bold">Dosen</h1>
+				<h1 class="mb-0 fw-bold">RPS</h1>
 			</div>
 		</div>
 	</div>
@@ -33,7 +33,7 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="border-bottom title-part-padding">
-						<h4 class="mb-0">List Dosen</h4>
+						<h4 class="mb-0">List RPS</h4>
 					</div>
 					<div class="card-body">
 						<div class="d-flex justify-content-between align-items-center">
@@ -45,9 +45,9 @@
 									</div>
 								<?php endif; ?>
 							</div>
-							<a href="<?= base_url('admin/tambah_dosen') ?>" class="btn btn-info btn-rounded m-t-10 mb-2">
+							<a href="<?= base_url('dosen/tambah_rps') ?>" class="btn btn-info btn-rounded m-t-10 mb-2">
 								<i class="mdi mdi-plus"></i>
-								Tambah Dosen
+								Tambah RPS
 							</a>
 						</div>
 						<div class="table-responsive">
@@ -55,35 +55,36 @@
 								<thead>
 									<tr class="footable-header">
 										<th class="footable-first-visible">No</th>
-										<th>Nama</th>
-										<th>NIP</th>
-										<th>Jenis Kelamin</th>
-										<th>Alamat</th>
-										<th>Action</th>
+										<th>Nomor RPS</th>
+										<th>Kode Mata Kuliah</th>
+										<th>Nama Mata Kuliah</th>
+										<th>Semester</th>
+										<th>Tanggal Disusun</th>
+										<th>Aksi</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php $no = 1; ?>
-									<?php foreach ($dosens as $dosen) : ?>
+									<?php foreach ($rpss as $rps) : ?>
 										<tr>
 											<td class="footable-first-visible"><?= $no++ ?></td>
+											<td><?= $rps['nomor'] ?></td>
+											<td><?= $rps['kode_matkul'] ?></td>
+											<td><?= $rps['nama_matkul'] ?></td>
+											<td><?= $rps['semester'] ?></td>
+											<td><?= $rps['tanggal_disusun'] ?></td>
 											<td>
-												<a href="javascript:void(0)" class="link"><img src="<?= base_url('assets/images/users/4.jpg') ?>" alt="user" width="40" class="rounded-circle">
-													<?= $dosen['nama_dosen'] ?></a>
-											</td>
-											<td><?= $dosen['nip'] ?></td>
-
-											<td><span class="badge <?= $dosen['jenis_kelamin'] == 1 ? 'bg-info' : 'bg-warning' ?>"><?= $dosen['jenis_kelamin'] == 1 ? 'Laki-laki' : 'perempuan' ?></span></td>
-									
-											<td><?= $dosen['alamat_dosen'] ?></td>
-											
-											<td>
-												<a href="<?= base_url('admin/dosen?id=') . $this->encrypt->encode($dosen['id_dosen']) ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
-												<form id="hapus-dosen-<?= $dosen['id_dosen'] ?>" action="<?= base_url('admin/hapus_dosen/') . $dosen['id_dosen'] ?>" hidden>
+												<a href="<?= base_url('dosen/rps?id=' . $this->encrypt->encode($rps['id'])) ?>" class="btn btn-sm btn-primary">
+													<i class="mdi mdi-eye"></i>
+													Lihat
+												</a>
+												<form action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps-<?= $rps['id'] ?>">
+													<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps['id']) ?>">
 												</form>
-												<a onclick="event.preventDefault(); document.getElementById('hapus-dosen-<?= $dosen['id_dosen'] ?>').submit();" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i> Hapus</a>
-											</td>
-
+												<a onclick="event.preventDefault(); document.getElementById('cetak-rps-<?= $rps['id'] ?>').submit();" class="btn btn-sm btn-success">
+													<i class="mdi mdi-printer"></i>
+													Cetak
+												</a>
 										</tr>
 									<?php endforeach; ?>
 								</tbody>

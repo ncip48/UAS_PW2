@@ -296,7 +296,8 @@
 					<td colspan="5">
 						<?php foreach ($dosen_pengampu as $dosen) : ?>
 							<?= $dosen->nama_dosen ?>
-							| NIK: <?= $dosen->nip ?>
+							<br>
+							NIK: <?= $dosen->nip ?>
 							<br>
 						<?php endforeach; ?>
 					</td>

@@ -294,7 +294,11 @@
 						Dosen Pengampu
 					</td>
 					<td colspan="5">
-						<?= $dosen_pengampu->nama_dosen ?> NIK : <?= $dosen_pengampu->nip ?>
+						<?php foreach ($dosen_pengampu as $dosen) : ?>
+							<?= $dosen->nama_dosen ?>
+							| NIK: <?= $dosen->nip ?>
+							<br>
+						<?php endforeach; ?>
 					</td>
 				</tr>
 				<tr>

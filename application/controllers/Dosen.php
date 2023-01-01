@@ -105,7 +105,13 @@ class Dosen extends CI_Controller
 		$this->db->where('tb_prodi.id_fakultas', $matkul->id_fakultas);
 		$sekprodi = $this->db->get()->row();
 
-		$dosen_pengampu = $this->db->get_where('tb_dosen', ['id_dosen' => $matkul->id_dosen])->row();
+		$kode_matkul = $this->db->get_where('tb_matkul', ['id' => $rpss->id_matkul])->row();
+		$kode_matkul = $kode_matkul->kode_matkul;
+		$this->db->select('tb_dosen.*, tb_matkul.id_dosen, tb_matkul.kode_matkul');
+		$this->db->from('tb_dosen');
+		$this->db->join('tb_matkul', 'tb_matkul.id_dosen = tb_dosen.id_dosen');
+		$this->db->where('tb_matkul.kode_matkul', $kode_matkul);
+		$dosen_pengampu = $this->db->get()->result();
 
 		$unit_pembelajaran = $this->db->get_where('tb_rps_unit_pembelajaran', ['id_rps' => $rpss->id])->result();
 

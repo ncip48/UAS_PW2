@@ -256,6 +256,23 @@ class Admin extends CI_Controller
 		$this->session->set_flashdata('message', 'Dosen berhasil dihapus');
 		redirect('admin/dosen');
 	}
+	
+	public function prodi()
+    {
+        $data['title'] = 'prodi';
+        $data['prodi'] = $this->db->get('tb_prodi')->result_array();
+        $this->load->view('admin/templates/header', $data);
+        $this->load->view('admin/prodi/index', $data);
+        $this->load->view('admin/templates/footer');
+    }
+
+    public function hapus_prodi($id)
+    {
+        $this->db->where('id_prodi', $id);
+        $this->db->delete('tb_prodi');
+        $this->session->set_flashdata('message', 'Prodi berhasil dihapus');
+        redirect('admin/prodi');
+    }
 
 	public function home()
 	{

@@ -57,7 +57,7 @@ $user = $this->db->get_where('tb_user', ['id' => $user_data['id']], 1, 0)->row()
 					<!-- ============================================================== -->
 					<!-- Logo -->
 					<!-- ============================================================== -->
-					<a class="navbar-brand" href="index.html">
+					<a class="navbar-brand" href="<?= base_url('admin/home') ?>">
 						<!-- Logo icon -->
 						<b class="logo-icon">
 							<!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->

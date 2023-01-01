@@ -1,4 +1,4 @@
-<div class="page-wrapper" style="display: block;">
+<div class="page-wrapper">
 	<!-- ============================================================== -->
 	<!-- Bread crumb and right sidebar toggle -->
 	<!-- ============================================================== -->
@@ -45,10 +45,10 @@
 									</div>
 								<?php endif; ?>
 							</div>
-							<button type="button" class="btn btn-primary btn-rounded m-t-10 mb-2" data-bs-toggle="modal" data-bs-target="#add-contact">
+							<a href="<?= base_url('admin/tambah_user') ?>" class="btn btn-info btn-rounded m-t-10 mb-2">
 								<i class="mdi mdi-plus"></i>
 								Tambah User
-							</button>
+							</a>
 						</div>
 						<div class="table-responsive">
 							<table id="datatables" class="table m-t-30 table-hover contact-list v-middle text-nowrap footable footable-5 footable-paging footable-paging-center breakpoint-lg" data-paging="true" data-paging-size="7" style="">
@@ -75,7 +75,7 @@
 											<td><span class="badge <?= $user['role'] == 1 ? 'bg-danger' : 'bg-success' ?>"><?= $user['role'] == 1 ? 'Administrator' : 'Dosen' ?></span></td>
 											<td><?= $user['id_dosen'] ? "YA" : "TIDAK" ?></td>
 											<td>
-												<a href="<?= base_url('admin/user/edit/') . $user['id'] ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
+												<a href="<?= base_url('admin/user?id=') . $this->encrypt->encode($user['id']) ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
 												<form id="hapus-user-<?= $user['id'] ?>" action="<?= base_url('admin/hapus_user/') . $user['id'] ?>" hidden>
 												</form>
 												<a onclick="event.preventDefault(); document.getElementById('hapus-user-<?= $user['id'] ?>').submit();" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i> Hapus</a>

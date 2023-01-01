@@ -38,33 +38,54 @@ class Admin extends CI_Controller
 
 	public function user()
 	{
-		$data['title'] = 'User';
-		$data['users'] = $this->db->get('tb_user')->result_array();
-		$this->load->view('admin/templates/header', $data);
-		$this->load->view('admin/user/index', $data);
-		$this->load->view('admin/templates/footer');
+		$id = $this->input->get('id');
+		if ($id) {
+			$id = $this->encrypt->decode($id);
+			$data['title'] = 'Edit User';
+			$data['user'] = $this->db->get_where('tb_user', ['id' => $id])->row();
+			$data['dosens'] = $this->db->get('tb_dosen')->result();
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/user/edit', $data);
+			$this->load->view('admin/templates/footer');
+		} else {
+			$data['title'] = 'User';
+			$data['users'] = $this->db->get('tb_user')->result_array();
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/user/index', $data);
+			$this->load->view('admin/templates/footer');
+		}
 	}
 
 	public function tambah_user()
 	{
 		$data['title'] = 'Tambah User';
+		$data['dosens'] = $this->db->get('tb_dosen')->result_array();
 		$this->load->view('admin/templates/header', $data);
-		$this->load->view('admin/user/tambah', $data);
+		$this->load->view('admin/user/add', $data);
 		$this->load->view('admin/templates/footer');
 	}
 
 	public function tambah_user_aksi()
 	{
-		$this->form_validation->set_rules('nama', 'Nama', 'required|trim');
-		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
-			'is_unique' => 'Email sudah terdaftar'
+		$this->form_validation->set_rules('nama', 'Nama', 'required', [
+			'required' => 'Nama harus diisi'
 		]);
-		$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[3]|matches[password2]', [
-			'matches' => 'Password tidak sama',
-			'min_length' => 'Password terlalu pendek'
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[tb_user.email]', [
+			'is_unique' => 'Email sudah terdaftar',
+			'required' => 'Email harus diisi',
+			'valid_email' => 'Email tidak valid',
 		]);
-		$this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password]');
-
+		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]', [
+			'min_length' => 'Password terlalu pendek',
+			'required' => 'Password harus diisi',
+		]);
+		$this->form_validation->set_rules('password2', 'Password', 'required|matches[password]', [
+			'required' => 'Konfirmasi password harus diisi',
+			'matches' => 'Konfirmasi password tidak sama',
+		]);
+		$this->form_validation->set_rules('role', 'Role', 'required', [
+			'required' => 'Role harus dipilih',
+		]);
 		if ($this->form_validation->run() == false) {
 			$this->tambah_user();
 		} else {
@@ -72,30 +93,28 @@ class Admin extends CI_Controller
 				'nama' => htmlspecialchars($this->input->post('nama', true)),
 				'email' => htmlspecialchars($this->input->post('email', true)),
 				'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-				'role_id' => 2,
-				'is_active' => 1,
-				'date_created' => time()
+				'role' => htmlspecialchars($this->input->post('role', true)),
+				'id_dosen' => htmlspecialchars($this->input->post('id_dosen', true)),
 			];
 
 			$this->db->insert('tb_user', $data);
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">User berhasil ditambahkan</div>');
+			$this->session->set_flashdata('message', 'User berhasil ditambahkan');
 			redirect('admin/user');
 		}
 	}
 
-	public function edit_user($id)
-	{
-		$data['title'] = 'Edit User';
-		$data['user'] = $this->db->get_where('tb_user', ['id' => $id])->row_array();
-		$this->load->view('admin/templates/header', $data);
-		$this->load->view('admin/user/edit', $data);
-		$this->load->view('admin/templates/footer');
-	}
-
 	public function edit_user_aksi()
 	{
-		$this->form_validation->set_rules('nama', 'Nama', 'required|trim');
-		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+		$this->form_validation->set_rules('nama', 'Nama', 'required', [
+			'required' => 'Nama harus diisi'
+		]);
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email', [
+			'required' => 'Email harus diisi',
+			'valid_email' => 'Email tidak valid',
+		]);
+		$this->form_validation->set_rules('role', 'Role', 'required', [
+			'required' => 'Role harus dipilih',
+		]);
 
 		if ($this->form_validation->run() == false) {
 			$this->edit_user($this->input->post('id'));
@@ -103,14 +122,17 @@ class Admin extends CI_Controller
 			$data = [
 				'nama' => htmlspecialchars($this->input->post('nama', true)),
 				'email' => htmlspecialchars($this->input->post('email', true)),
-				'role_id' => 2,
-				'is_active' => 1,
-				'date_created' => time()
+				'role' => htmlspecialchars($this->input->post('role', true)),
+				'id_dosen' => htmlspecialchars($this->input->post('id_dosen', true)),
 			];
+
+			if ($this->input->post('password') != null) {
+				$data['password'] = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+			}
 
 			$this->db->where('id', $this->input->post('id'));
 			$this->db->update('tb_user', $data);
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">User berhasil diubah</div>');
+			$this->session->set_flashdata('message', 'User berhasil diubah');
 			redirect('admin/user');
 		}
 	}
@@ -124,6 +146,116 @@ class Admin extends CI_Controller
 	}
 
 	// end contoh crud
+
+	public function dosen()
+	{
+		$id = $this->input->get('id');
+		if ($id) {
+			$id = $this->encrypt->decode($id);
+			$data['title'] = 'Edit dosen';
+			$data['dosen'] = $this->db->get_where('tb_dosen', ['id_dosen' => $id])->row();
+			$data['dosens'] = $this->db->get('tb_dosen')->result();
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/dosen/edit', $data);
+			$this->load->view('admin/templates/footer');
+		} else {
+			$data['title'] = 'dosen';
+			$data['dosens'] = $this->db->get('tb_dosen')->result_array();
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/dosen/index', $data);
+			$this->load->view('admin/templates/footer');
+		}
+	}
+
+	public function tambah_dosen()
+	{
+		$data['title'] = 'Tambah dosen';
+		$data['dosens'] = $this->db->get('tb_dosen')->result_array();
+		$this->load->view('admin/templates/header', $data);
+		$this->load->view('admin/dosen/add', $data);
+		$this->load->view('admin/templates/footer');
+	}
+
+	public function tambah_dosen_aksi()
+	{
+		$this->form_validation->set_rules('nama_dosen', 'Nama', 'required', [
+			'required' => 'Nama harus diisi'
+		]);
+
+		$this->form_validation->set_rules('nip', 'Nip', 'required|is_unique[tb_dosen.nip]', [
+			'is_unique' => 'NIP sudah terdaftar',
+			'required' => 'NIP harus diisi',
+		]);
+
+		$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required', [
+			'required' => 'harus dipilih',
+		]);
+
+		$this->form_validation->set_rules('alamat_dosen', 'Alamat dosen', 'required', [
+			'required' => 'Alamat dosen harus diisi'
+		]);
+
+		if ($this->form_validation->run() == false) {
+			$this->tambah_dosen();
+		} else {
+			$data = [
+				'nama_dosen' => htmlspecialchars($this->input->post('nama_dosen', true)),
+				'nip' => htmlspecialchars($this->input->post('nip', true)),
+				'jenis_kelamin' => htmlspecialchars($this->input->post('jenis_kelamin', true)),
+				'alamat_dosen' => htmlspecialchars($this->input->post('alamat_dosen', true)),
+			];
+
+			$this->db->insert('tb_dosen', $data);
+			$this->session->set_flashdata('message', 'dosen berhasil ditambahkan');
+			redirect('admin/dosen');
+		}
+	}
+
+	public function edit_dosen_aksi()
+	{
+		$this->form_validation->set_rules('nama_dosen', 'Nama', 'required', [
+			'required' => 'Nama harus diisi'
+		]);
+		$this->form_validation->set_rules('nip', 'Nip', 'required', [
+			'required' => 'NIP harus diisi',
+		]);
+
+		$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required', [
+			'required' => 'harus dipilih',
+		]);
+		$this->form_validation->set_rules('alamat_dosen', 'Alamat dosen', 'required', [
+			'required' => 'Alamat dosen harus diisi'
+		]);
+
+		if ($this->form_validation->run() == false) {
+			$id = $this->input->post('id');
+			$data['title'] = 'Edit dosen';
+			$data['dosen'] = $this->db->get_where('tb_dosen', ['id_dosen' => $id])->row();
+			$data['dosens'] = $this->db->get('tb_dosen')->result();
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/dosen/edit', $data);
+			$this->load->view('admin/templates/footer');
+		} else {
+			$data = [
+				'nama_dosen' => htmlspecialchars($this->input->post('nama_dosen', true)),
+				'nip' => htmlspecialchars($this->input->post('nip', true)),
+				'jenis_kelamin' => htmlspecialchars($this->input->post('jenis_kelamin', true)),
+				'alamat_dosen' => htmlspecialchars($this->input->post('alamat_dosen', true)),
+			];
+			$this->db->where('id_dosen', $this->input->post('id'));
+			$this->db->update('tb_dosen', $data);
+			$this->session->set_flashdata('message', 'Dosen berhasil diubah');
+			redirect('admin/dosen');
+		}
+	}
+
+	public function hapus_dosen($id_dosen)
+	{
+		$this->db->where('id_dosen', $id_dosen);
+		$this->db->delete('tb_dosen');
+		$this->session->set_flashdata('message', 'Dosen berhasil dihapus');
+		redirect('admin/dosen');
+	}
 
 	public function home()
 	{
@@ -141,32 +273,7 @@ class Admin extends CI_Controller
 		$this->load->view('admin/templates/footer');
 	}
 
-	public function dosen()
-	{
-		$data['title'] = 'Dosen';
-		$this->load->view('admin/templates/header', $data);
-		$this->load->view('admin/dosen/index');
-		$this->load->view('admin/templates/footer');
-	}
-	
-//crud prodi
-	public function prodi()
-	{
-		$data['title'] = 'prodi';
-		$data['prodi'] = $this->db->get('tb_prodi')->result_array();
-		$this->load->view('admin/templates/header', $data);
-		$this->load->view('admin/prodi/index', $data);
-		$this->load->view('admin/templates/footer');
-	}
 
-	public function hapus_prodi($id)
-	{
-		$this->db->where('id_prodi', $id);
-		$this->db->delete('tb_prodi');
-		$this->session->set_flashdata('message', 'Prodi berhasil dihapus');
-		redirect('admin/prodi');
-	}
-// end prodi
 
 	public function rps()
 	{

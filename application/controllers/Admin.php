@@ -390,7 +390,22 @@ class Admin extends CI_Controller
 		$this->load->view('admin/templates/footer');
 	}
 
+	public function fakultas()
+	{
+		$data['title'] = 'fakultas';
+		$data['fakultas'] = $this->db->get('tb_fakultas')->result_array();
+		$this->load->view('admin/templates/header', $data);
+		$this->load->view('admin/fakultas/index', $data);
+		$this->load->view('admin/fakultas/footer');
+	}
 
+	public function hapus_fakultas($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('tb_fakultas');
+		$this->session->set_flashdata('message', 'Fakultas berhasil dihapus');
+		redirect('admin/fakultas');
+	}
 
 	public function rps()
 	{

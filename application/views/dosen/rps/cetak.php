@@ -138,16 +138,16 @@
 		</tr>
 		<tr>
 			<td style="text-align:center" class="td-no-left-border">
-				<?= $rps->nomor ?>
+				<i><?= $rps->nomor ?></i>
 			</td>
 			<td style="text-align:center">
-				<?= date('Y', strtotime($rps->tanggal_berlaku)) ?>
+				<i><?= date('Y', strtotime($rps->tanggal_berlaku)) ?></i>
 			</td>
 			<td style="text-align:center">
-				<?= date('d M Y', strtotime($rps->tanggal_disusun)) ?>
+				<i><?= date('d M Y', strtotime($rps->tanggal_disusun)) ?></i>
 			</td>
 			<td style="text-align:center" class="td-no-left-right-border">
-				<?= $rps->revisi ?>
+				<i><?= $rps->revisi ?></i>
 			</td>
 		</tr>
 		<tr>
@@ -219,7 +219,7 @@
 					Nomor
 				</td>
 				<td style="text-align: left;">
-					: <?= $rps->nomor ?>
+					<i>: <?= $rps->nomor ?></i>
 				</td>
 			</tr>
 			<tr>
@@ -227,7 +227,7 @@
 					Tgl Disusun
 				</td>
 				<td style="text-align: left;">
-					: <?= $rps->tanggal_disusun ?>
+					<i>: <?= $rps->tanggal_disusun ?></i>
 				</td>
 			</tr>
 			<tr>
@@ -235,7 +235,7 @@
 					Revisi
 				</td>
 				<td style="text-align: left;">
-					: <?= $rps->revisi ?>
+					<i>: <?= $rps->revisi ?></i>
 				</td>
 			</tr>
 			<tr>
@@ -243,7 +243,7 @@
 					Halaman
 				</td>
 				<td style="text-align: left;">
-					: <span class="pagenum"></span>
+					<i>: <span class="pagenum"></span></i>
 				</td>
 			</tr>
 		</table>
@@ -254,7 +254,7 @@
 			<div style="background-color:grey;margin-bottom:20px">
 				<h4 style="margin:0px;padding:5px">1. Identitas</h4>
 			</div>
-			<table style="width: 100%;">
+			<table style="width: 100%; font-size:14px">
 				<tr>
 					<td>
 						Program Studi
@@ -355,7 +355,7 @@
 			<div style="background-color:grey;margin-bottom:20px;margin-top:20px">
 				<h4 style="margin:0px;padding:5px">5. Unit-Unit Pembelajaran secara spesifik</h4>
 			</div>
-			<table style="width: 100%;">
+			<table style="width: 100%;font-size:14px">
 				<thead>
 					<tr>
 						<th>
@@ -413,7 +413,7 @@
 			<div style="background-color:grey;margin-bottom:20px;margin-top:20px">
 				<h4 style="margin:0px;padding:5px">6. Tugas/Aktivitas dan Penilaian</h4>
 			</div>
-			<table style="width: 100%;">
+			<table style="width: 100%;font-size:14px">
 				<thead>
 					<tr>
 						<th>
@@ -467,7 +467,7 @@
 			</div>
 			<i style="margin-bottom:20px;">Bagian ini memuat keterangan tentang Rencana Pelaksanaan Pembelajaran secara detail setiap pertemuan</i>
 			<?php
-			echo "<table class='table table-bordered'>
+			echo "<table class='table table-bordered' style='font-size:14px'>
 <thead>
 <tr style='text-align:center'>
 <th>Minggu</th>

@@ -45,10 +45,10 @@
 									</div>
 								<?php endif; ?>
 							</div>
-							<button type="button" class="btn btn-primary btn-rounded m-t-10 mb-2" data-bs-toggle="modal" data-bs-target="#add-contact">
+							<a href="<?= base_url('admin/tambah_prodi') ?>" class="btn btn-info btn-rounded m-t-10 mb-2">
 								<i class="mdi mdi-plus"></i>
 								Tambah Prodi
-							</button>
+							</a>
 						</div>
 						<div class="table-responsive">
 							<table id="datatables" class="table m-t-30 table-hover contact-list v-middle text-nowrap footable footable-5 footable-paging footable-paging-center breakpoint-lg" data-paging="true" data-paging-size="7" style="">
@@ -63,20 +63,21 @@
 								</thead>
 								<tbody>
 									<?php $no = 1; ?>
-									<?php foreach ($prodi as $prodi) : ?>
+									<?php foreach ($prodis as $prodi) : ?>
 										<tr>
 											<td class="footable-first-visible"><?= $no++ ?></td>
                                             <td><?= $prodi['nama_prodi'] ?></td>
 											<td>
 												<a href="javascript:void(0)" class="link"><img src="<?= base_url('assets/images/users/4.jpg') ?>" alt="user" width="40" class="rounded-circle">
 													<?= $prodi['kaprodi'] ?></a>
+													
 											</td>
 											<td>
 												<a href="javascript:void(0)" class="link"><img src="<?= base_url('assets/images/users/4.jpg') ?>" alt="user" width="40" class="rounded-circle">
 													<?= $prodi['sekprodi'] ?></a>
 											</td>
 											<td>
-												<a href="<?= base_url('admin/prodi/edit/') . $prodi['id_prodi'] ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
+												<a href="<?= base_url('admin/prodi/edit?id_prodi=') . $prodi['id_prodi'] ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
 												<form id="hapus-prodi-<?= $prodi['id_prodi'] ?>" action="<?= base_url('admin/hapus_prodi/') . $prodi['id_prodi'] ?>" hidden>
 												</form>
 												<a onclick="event.preventDefault(); document.getElementById('hapus-prodi-<?= $prodi['id_prodi'] ?>').submit();" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i> Hapus</a>

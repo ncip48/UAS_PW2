@@ -83,7 +83,7 @@
 								</span>
 							</div>
 							<div class="form-floating mb-3">
-								<select class="form-select border border-info" name="id_dosen" aria-label="Floating label select example">
+								<select class="form-select border border-info" name="sekprodi" aria-label="Floating label select example">
 									<option value="">---Pilih Sekretaris Program Studi---</option>
 									<?php foreach ($dosens as $dosen) : ?>
 										<option value="<?= $dosen['id_dosen'] ?>"><?= $dosen['nama_dosen'] ?></option>

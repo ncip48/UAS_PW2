@@ -55,6 +55,7 @@
 								<thead>
 									<tr class="footable-header">
 										<th class="footable-first-visible">No</th>
+										<th>Fakultas</th>
 										<th>Program Studi</th>
 										<th>Kaprodi</th>
 										<th>Sekprodi</th>
@@ -66,11 +67,18 @@
 									<?php foreach ($prodis as $prodi) : ?>
 										<tr>
 											<td class="footable-first-visible"><?= $no++ ?></td>
+											<td>
+												<?php
+											$this->db->select('*');
+											$this->db->from('tb_prodi');
+											$this->db->join('tb_fakultas', 'tb_fakultas.id = tb_prodi.id_fakultas', 'left');
+											$query = $this->db->get();
+											?>	
+											</td>
                                             <td><?= $prodi['nama_prodi'] ?></td>
 											<td>
 												<a href="javascript:void(0)" class="link"><img src="<?= base_url('assets/images/users/4.jpg') ?>" alt="user" width="40" class="rounded-circle">
-													<?= $prodi['kaprodi'] ?></a>
-													
+													<?= $prodi['kaprodi'] ?></a>	
 											</td>
 											<td>
 												<a href="javascript:void(0)" class="link"><img src="<?= base_url('assets/images/users/4.jpg') ?>" alt="user" width="40" class="rounded-circle">

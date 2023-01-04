@@ -264,7 +264,7 @@ class Admin extends CI_Controller
 			$id = $this->encrypt->decode($id);
 			$data['title'] = 'Edit prodi';
 			$data['prodi'] = $this->db->get_where('tb_prodi', ['id_prodi' => $id])->row();
-			$data['fakultase'] = $this->db->get('tb_fakultas')->result();
+			$data['fakultas'] = $this->db->get('tb_fakultas')->result();
 			$data['dosens'] = $this->db->get('tb_dosen')->result();
 			$this->load->view('admin/templates/header', $data);
 			$this->load->view('admin/prodi/edit', $data);
@@ -293,7 +293,7 @@ class Admin extends CI_Controller
 		$this->form_validation->set_rules('fakultas', 'fakultas', 'required', [
 			'required' => 'silahkan pilih fakultas',
 		]);
-		$this->form_validation->set_rules('nama_prodi', 'Nama', 'required', [
+		$this->form_validation->set_rules('nama_prodi', 'nama_prodi', 'required', [
 			'required' => 'Nama harus diisi'
 		]);$this->form_validation->set_rules('kaprodi', 'kaprodi', 'required', [
 			'required' => 'silahkan pilih kaprodi',
@@ -306,7 +306,7 @@ class Admin extends CI_Controller
 			$this->tambah_prodi();
 		} else {
 			$data = [
-				'id_fakultas' => htmlspecialchars($this->input->post('id_fakultas', true)),
+				'id_fakultas' => htmlspecialchars($this->input->post('fakultas', true)),
 				'nama_prodi' => htmlspecialchars($this->input->post('nama_prodi', true)),
 				'kaprodi' => htmlspecialchars($this->input->post('kaprodi', true)),
 				'sekprodi' => htmlspecialchars($this->input->post('sekprodi', true)),
@@ -330,41 +330,21 @@ class Admin extends CI_Controller
 			'required' => 'silahkan pilih sekprodi',
 		]);
 
-		// if ($this->form_validation->run() == false) {
-		// 	$id = $this->input->post('id');
-		// 	$data['title'] = 'Edit prodi';
-		// 	$data['prodi'] = $this->db->get_where('tb_prodi', ['id_prodi' => $id])->row();
-		// 	$data['prodis'] = $this->db->get('tb_prodi')->result();
-		// 	$this->load->view('admin/templates/header', $data);
-		// 	$this->load->view('admin/prodi/edit', $data);
-		// 	$this->load->view('admin/templates/footer');
-		// } else {
-		// 	$data = [
-		// 		'fakultas' => htmlspecialchars($this->input->post('fakultas', true)),
-		// 		'nama_prodi' => htmlspecialchars($this->input->post('nama_prodi', true)),
-		// 		'kaprodi' => htmlspecialchars($this->input->post('kaprodi', true)),
-		// 		'sekprodi' => htmlspecialchars($this->input->post('sekprodi', true)),
-		// 	];
-		// 	$this->db->where('id_prodi', $this->input->post('id'));
-		// 	$this->db->update('tb_prodi', $data);
-		// 	$this->session->set_flashdata('message', 'prodi berhasil diubah');
-		// 	redirect('admin/prodi');
-		// }
+		if ($this->form_validation->run() == false) {
+			$this->edit_prodi($this->input->post('id_prodi'));
+		} else {
+			$data = [
+				'id_fakultas' => htmlspecialchars($this->input->post('fakultas', true)),
+				'nama_prodi' => htmlspecialchars($this->input->post('nama_prodi', true)),
+				'kaprodi' => htmlspecialchars($this->input->post('kaprodi', true)),
+				'sekprodi' => htmlspecialchars($this->input->post('sekprodi', true)),
+			];
 
-		// if ($this->form_validation->run() == false) {
-		// 	$this->edit_prodi($this->input->post('id_prodi'));
-		// } else {
-		// 	$data = [
-		// 		'id_fakultas' => htmlspecialchars($this->input->post('id_fakultas', true)),
-		// 		'nama_prodi' => htmlspecialchars($this->input->post('nama_prodi', true)),
-		// 		'id_dosen' => htmlspecialchars($this->input->post('id_dosen', true)),
-		// 	];
-
-		// 	$this->db->where('id', $this->input->post('id'));
-		// 	$this->db->update('tb_user', $data);
-		// 	$this->session->set_flashdata('message', 'prodi berhasil diubah');
-		// 	redirect('admin/prodi');
-		// }
+			$this->db->where('id', $this->input->post('id'));
+			$this->db->update('tb_user', $data);
+			$this->session->set_flashdata('message', 'prodi berhasil diubah');
+			redirect('admin/prodi');
+		}
 	}
     public function hapus_prodi($id)
     {

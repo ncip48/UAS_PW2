@@ -44,9 +44,11 @@
 						<form autocomplete="off" method="POST" action="<?= base_url('admin/edit_prodi_aksi') ?>">
 							<div class="form-floating mb-3">
 								<select class="form-select border border-info" name="fakultas" aria-label="Floating label select example">
-									<option value="">Pilih Fakultas</option>
-									<?php foreach ($dosens as $dosen) : ?>
-										<option value="<?= $dosen['id_dosen'] ?>"><?= $dosen['nama_dosen'] ?></option>
+								<option value="">---Pilih Fakultas---</option>
+								<?php foreach ($fakultass as $fakultas) : ?>
+										<option value="<?= $fakultas->id_fakultas ?>" <?php if ($fakultas->id_fakultas == $fakultas->id_fakultas) {
+																					echo "selected";
+																				} ?>><?= $fakultas->nama ?></option>
 									<?php endforeach; ?>
 								</select>
 								<label>
@@ -69,9 +71,12 @@
 							</div>
 							<div class="form-floating mb-3">
 								<select class="form-select border border-info" name="kaprodi" aria-label="Floating label select example">
-                                    <option value="">Pilih Kepala Program Studi</option>
+                                    <option value="">---Pilih Kepala Program Studi---</option>
                                     <?php foreach ($dosens as $dosen) : ?>
-										<option value="<?= $dosen['id_dosen'] ?>"><?= $dosen['nama_dosen'] ?></option>
+										<option value="<?= $dosen->id_dosen ?>" 
+										<?php if ($dosen->id_dosen == $dosen->id_dosen) {
+											echo "selected";
+										} ?>><?= $dosen->nama_dosen ?></option>
 									<?php endforeach; ?>
 								</select>
 								<label>
@@ -83,10 +88,12 @@
 								</span>
 							</div>
 							<div class="form-floating mb-3">
-								<select class="form-select border border-info" name="id_dosen" aria-label="Floating label select example">
+								<select class="form-select border border-info" name="sekprodi" aria-label="Floating label select example">
 									<option value="">---Pilih Sekretaris Program Studi---</option>
 									<?php foreach ($dosens as $dosen) : ?>
-										<option value="<?= $dosen['id_dosen'] ?>"><?= $dosen['nama_dosen'] ?></option>
+										<option value="<?= $dosen->id_dosen ?>" <?php if ($dosen->id_dosen == $dosen->id_dosen) {
+																					echo "selected";
+																				} ?>><?= $dosen->nama_dosen ?></option>
 									<?php endforeach; ?>
 								</select>
 								</select>

@@ -1,4 +1,4 @@
-<div class="page-wrapper" style="display: block;">
+<div class="page-wrapper">
 	<!-- ============================================================== -->
 	<!-- Bread crumb and right sidebar toggle -->
 	<!-- ============================================================== -->
@@ -11,11 +11,11 @@
 							<a href="<?= base_url('admin/home') ?>" class="link"><i class="mdi mdi-home"></i></a>
 						</li>
 						<li class="breadcrumb-item active" aria-current="page">
-							Prodi
+							Dosen
 						</li>
 					</ol>
 				</nav>
-				<h1 class="mb-0 fw-bold">Program Studi</h1>
+				<h1 class="mb-0 fw-bold">Dosen</h1>
 			</div>
 		</div>
 	</div>
@@ -33,7 +33,7 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="border-bottom title-part-padding">
-						<h4 class="mb-0">Daftar Program Studi</h4>
+						<h4 class="mb-0">List Dosen</h4>
 					</div>
 					<div class="card-body">
 						<div class="d-flex justify-content-between align-items-center">
@@ -45,9 +45,9 @@
 									</div>
 								<?php endif; ?>
 							</div>
-							<a href="<?= base_url('admin/tambah_prodi') ?>" class="btn btn-info btn-rounded m-t-10 mb-2">
+							<a href="<?= base_url('admin/tambah_dosen') ?>" class="btn btn-info btn-rounded m-t-10 mb-2">
 								<i class="mdi mdi-plus"></i>
-								Tambah Prodi
+								Tambah Dosen
 							</a>
 						</div>
 						<div class="table-responsive">
@@ -55,33 +55,35 @@
 								<thead>
 									<tr class="footable-header">
 										<th class="footable-first-visible">No</th>
-										<th>Program Studi</th>
-										<th>Kaprodi</th>
-										<th>Sekprodi</th>
+										<th>Nama</th>
+										<th>NIP</th>
+										<th>Jenis Kelamin</th>
+										<th>Alamat</th>
 										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php $no = 1; ?>
-									<?php foreach ($prodis as $prodi) : ?>
+									<?php foreach ($dosens as $dosen) : ?>
 										<tr>
 											<td class="footable-first-visible"><?= $no++ ?></td>
-                                            <td><?= $prodi['nama_prodi'] ?></td>
 											<td>
 												<a href="javascript:void(0)" class="link"><img src="<?= base_url('assets/images/users/4.jpg') ?>" alt="user" width="40" class="rounded-circle">
-													<?= $prodi['kaprodi'] ?></a>
-													
+													<?= $dosen['nama_dosen'] ?></a>
 											</td>
+											<td><?= $dosen['nip'] ?></td>
+
+											<td><span class="badge <?= $dosen['jenis_kelamin'] == 1 ? 'bg-info' : 'bg-warning' ?>"><?= $dosen['jenis_kelamin'] == 1 ? 'Laki-laki' : 'perempuan' ?></span></td>
+									
+											<td><?= $dosen['alamat_dosen'] ?></td>
+											
 											<td>
-												<a href="javascript:void(0)" class="link"><img src="<?= base_url('assets/images/users/4.jpg') ?>" alt="user" width="40" class="rounded-circle">
-													<?= $prodi['sekprodi'] ?></a>
-											</td>
-											<td>
-												<a href="<?= base_url('admin/prodi/edit?id_prodi=') . $prodi['id_prodi'] ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
-												<form id="hapus-prodi-<?= $prodi['id_prodi'] ?>" action="<?= base_url('admin/hapus_prodi/') . $prodi['id_prodi'] ?>" hidden>
+												<a href="<?= base_url('admin/dosen?id=') . $this->encrypt->encode($dosen['id_dosen']) ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
+												<form id="hapus-dosen-<?= $dosen['id_dosen'] ?>" action="<?= base_url('admin/hapus_dosen/') . $dosen['id_dosen'] ?>" hidden>
 												</form>
-												<a onclick="event.preventDefault(); document.getElementById('hapus-prodi-<?= $prodi['id_prodi'] ?>').submit();" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i> Hapus</a>
+												<a onclick="event.preventDefault(); document.getElementById('hapus-dosen-<?= $dosen['id_dosen'] ?>').submit();" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i> Hapus</a>
 											</td>
+
 										</tr>
 									<?php endforeach; ?>
 								</tbody>

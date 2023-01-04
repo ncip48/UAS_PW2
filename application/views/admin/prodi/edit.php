@@ -42,11 +42,12 @@
 							silahkan input untuk edit Program Studi
 						</h5>
 						<form autocomplete="off" method="POST" action="<?= base_url('admin/edit_prodi_aksi') ?>">
+						<input type="hidden" name="id" value="<?= $prodi->id_prodi?>">
 							<div class="form-floating mb-3">
 								<select class="form-select border border-info" name="fakultas" aria-label="Floating label select example">
 								<option value="">---Pilih Fakultas---</option>
 								<?php foreach ($fakultass as $fakultas) : ?>
-										<option value="<?= $fakultas->id_fakultas ?>" <?php if ($fakultas->id_fakultas == $fakultas->id_fakultas) {
+										<option value="<?= $fakultas->id ?>" <?php if ($fakultas->id == $prodi->id_fakultas) {
 																					echo "selected";
 																				} ?>><?= $fakultas->nama ?></option>
 									<?php endforeach; ?>
@@ -60,7 +61,7 @@
 								</span>
 							</div>
 							<div class="form-floating mb-3">
-								<input type="text" class="form-control border border-info" name="nama_prodi" placeholder="Nama Program Studi" value="<?php echo set_value('nama_prodi'); ?>">
+								<input type="text" class="form-control border border-info" name="nama_prodi" placeholder="Nama Program Studi" value="<?php echo $prodi->nama_prodi ?>">
 								<label>
                                     <i class="mdi mdi-book text-info fill-white me-2"></i>
 									<span class="border-start border-info ps-3">Nama Program Studi</span>
@@ -74,7 +75,7 @@
                                     <option value="">---Pilih Kepala Program Studi---</option>
                                     <?php foreach ($dosens as $dosen) : ?>
 										<option value="<?= $dosen->id_dosen ?>" 
-										<?php if ($dosen->id_dosen == $dosen->id_dosen) {
+										<?php if ($prodi->kaprodi == $dosen->id_dosen) {
 											echo "selected";
 										} ?>><?= $dosen->nama_dosen ?></option>
 									<?php endforeach; ?>
@@ -91,7 +92,7 @@
 								<select class="form-select border border-info" name="sekprodi" aria-label="Floating label select example">
 									<option value="">---Pilih Sekretaris Program Studi---</option>
 									<?php foreach ($dosens as $dosen) : ?>
-										<option value="<?= $dosen->id_dosen ?>" <?php if ($dosen->id_dosen == $dosen->id_dosen) {
+										<option value="<?= $dosen->id_dosen ?>" <?php if ($prodi->sekprodi == $dosen->id_dosen) {
 																					echo "selected";
 																				} ?>><?= $dosen->nama_dosen ?></option>
 									<?php endforeach; ?>

@@ -68,24 +68,19 @@
 										<tr>
 											<td class="footable-first-visible"><?= $no++ ?></td>
 											<td>
-												<?php
-											$this->db->select('*');
-											$this->db->from('tb_prodi');
-											$this->db->join('tb_fakultas', 'tb_fakultas.id = tb_prodi.id_fakultas', 'left');
-											$query = $this->db->get();
-											?>	
+												<?= $prodi['nama'] ?>	
 											</td>
                                             <td><?= $prodi['nama_prodi'] ?></td>
 											<td>
 												<a href="javascript:void(0)" class="link"><img src="<?= base_url('assets/images/users/4.jpg') ?>" alt="user" width="40" class="rounded-circle">
-													<?= $prodi['kaprodi'] ?></a>	
+													<?= $prodi['nama_kaprodi'] ?></a>	
 											</td>
 											<td>
 												<a href="javascript:void(0)" class="link"><img src="<?= base_url('assets/images/users/4.jpg') ?>" alt="user" width="40" class="rounded-circle">
-													<?= $prodi['sekprodi'] ?></a>
+													<?= $prodi['nama_sekprodi'] ?></a>
 											</td>
 											<td>
-												<a href="<?= base_url('admin/prodi/edit?id_prodi=') . $prodi['id_prodi'] ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
+												<a href="<?= base_url('admin/prodi/edit?id_prodi=') .  $this->encrypt->encode($prodi['id_prodi']) ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
 												<form id="hapus-prodi-<?= $prodi['id_prodi'] ?>" action="<?= base_url('admin/hapus_prodi/') . $prodi['id_prodi'] ?>" hidden>
 												</form>
 												<a onclick="event.preventDefault(); document.getElementById('hapus-prodi-<?= $prodi['id_prodi'] ?>').submit();" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i> Hapus</a>

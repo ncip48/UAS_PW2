@@ -264,14 +264,27 @@ class Admin extends CI_Controller
 			$id = $this->encrypt->decode($id);
 			$data['title'] = 'Edit prodi';
 			$data['prodi'] = $this->db->get_where('tb_prodi', ['id_prodi' => $id])->row();
-			$data['fakultas'] = $this->db->get('tb_fakultas')->result();
+			$data['fakultass'] = $this->db->get('tb_fakultas')->result();
 			$data['dosens'] = $this->db->get('tb_dosen')->result();
 			$this->load->view('admin/templates/header', $data);
 			$this->load->view('admin/prodi/edit', $data);
 			$this->load->view('admin/templates/footer');
 		} else {
 			$data['title'] = 'prodi';
-			$data['prodis'] = $this->db->get('tb_prodi')->result_array();
+			$this->db->select('tb_prodi.*, tb_fakultas.nama, tb_dosen.nama_dosen as nama_kaprodi');
+			$this->db->join('tb_fakultas', 'tb_fakultas.id = tb_prodi.id_fakultas', 'left');
+			$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_prodi.kaprodi', 'left');
+			$prodi_kaprodi = $this->db->get('tb_prodi')->result_array();
+			
+			$this->db->select('tb_prodi.*, tb_fakultas.nama, tb_dosen.nama_dosen as nama_sekprodi');
+			$this->db->join('tb_fakultas', 'tb_fakultas.id = tb_prodi.id_fakultas', 'left');
+			$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_prodi.sekprodi', 'left');
+			$prodi_sekprodi = $this->db->get('tb_prodi')->result_array();
+
+			$data['prodis'] = array_map(function($prodi_kaprodi, $prodi_sekprodi){
+				return array_merge($prodi_kaprodi, $prodi_sekprodi);
+			}, $prodi_kaprodi, $prodi_sekprodi);
+
 			$this->load->view('admin/templates/header', $data);
 			$this->load->view('admin/prodi/index', $data);
 			$this->load->view('admin/templates/footer');
@@ -342,8 +355,8 @@ class Admin extends CI_Controller
 				'sekprodi' => htmlspecialchars($this->input->post('sekprodi', true)),
 			];
 
-			$this->db->where('id', $this->input->post('id'));
-			$this->db->update('tb_user', $data);
+			$this->db->where('id_prodi', $this->input->post('id'));
+			$this->db->update('tb_prodi', $data);
 			$this->session->set_flashdata('message', 'prodi berhasil diubah');
 			redirect('admin/prodi');
 		}

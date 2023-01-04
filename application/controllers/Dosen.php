@@ -142,19 +142,44 @@ class Dosen extends CI_Controller
 		# loop over all the sal array
 		for ($i = 0; $i < sizeof($minggu); $i++) {
 			$kemampuanName = $kemampuan_akhir[$i];
+			$index = 0;
 
-			# If there is no array for the employee
-			# then create a elemnt.
-			if (!isset($kemampuan_arr[$kemampuanName])) {
-				$kemampuan_arr[$kemampuanName] = array();
-				$kemampuan_arr[$kemampuanName]['rowspan'] = 0;
+			#if there is same kemampuan_name in 1 row then give blank value and increment index else set index to 0
+			if ($i == 0) {
+				$kemampuan_arr[$i]['kemampuan_akhir'] = $kemampuanName;
+				$kemampuan_arr[$i]['index'] = 0;
+				$kemampuan_arr[$i]['remove_top_border'] = false;
+				$kemampuan_arr[$i]['remove_bottom_border'] = true;
+			} else {
+				if ($kemampuan_akhir[$i] == $kemampuan_akhir[$i - 1]) {
+					$kemampuanName = "";
+					$index = $kemampuan_arr[$i - 1]['index'] + 1;
+					$kemampuan_arr[$i]['index'] = $index;
+					$kemampuan_arr[$i]['remove_top_border'] = true;
+					if ($kemampuan_arr[$i]['index'] == 3) {
+						$kemampuan_arr[$i]['remove_bottom_border'] = false;
+					}
+				} else {
+					$kemampuanName = $kemampuan_akhir[$i];
+					$kemampuan_arr[$i]['index'] = 0;
+					$kemampuan_arr[$i]['remove_top_border'] = false;
+					if ($kemampuan_arr[$i]['index'] == $kemampuan_arr[$i - 1]['index']) {
+						$kemampuan_arr[$i]['remove_bottom_border'] = false;
+					}
+				}
+				#check if index in last row is same as current row then remove bottom border
+				if ($kemampuan_arr[$i]['index'] == $kemampuan_arr[$i - 1]['index']) {
+					$kemampuan_arr[$i - 1]['remove_bottom_border'] = false;
+				}
+				$kemampuan_arr[$i]['kemampuan_akhir'] = $kemampuanName;
 			}
-
-			$kemampuan_arr[$kemampuanName]['printed'] = "no";
-
-			# Increment the row span value.
-			$kemampuan_arr[$kemampuanName]['rowspan'] += 1;
 		}
+
+		# to json
+		$kemampuan_arr = json_encode($kemampuan_arr);
+		echo ($kemampuan_arr);
+		die();
+
 		$arr_indikator = array();
 		# loop over all the sal array
 		for ($i = 0; $i < sizeof($minggu); $i++) {
@@ -268,7 +293,7 @@ class Dosen extends CI_Controller
 
 		$this->pdf->setPaper('A4', 'landscape');
 		$this->pdf->filename = $rpss->nomor . ".pdf";
-		$this->pdf->load_view('dosen/rps/cetak', $data);
+		$this->pdf->load_view('dosen/rps/cetak2', $data);
 		// $this->load->view('dosen/rps/cetak', $data);
 	}
 }

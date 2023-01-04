@@ -85,6 +85,7 @@
 													<i class="mdi mdi-printer"></i>
 													Cetak
 												</a>
+											</td>
 										</tr>
 									<?php endforeach; ?>
 								</tbody>

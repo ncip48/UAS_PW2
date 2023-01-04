@@ -3,7 +3,7 @@
         'name' => 'codeigniter/framework',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '1c4d7ba26bdcefa8880c498c50a31b03ecda1e14',
+        'reference' => 'a391521f607d5b03a10ff06afc97be61f5815126',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'codeigniter/framework' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '1c4d7ba26bdcefa8880c498c50a31b03ecda1e14',
+            'reference' => 'a391521f607d5b03a10ff06afc97be61f5815126',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -315,6 +315,15 @@
             'install_path' => __DIR__ . '/../sebastian/version',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'tecnickcom/tcpdf' => array(
+            'pretty_version' => '6.6.2',
+            'version' => '6.6.2.0',
+            'reference' => 'e3cffc9bcbc76e89e167e9eb0bbda0cab7518459',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../tecnickcom/tcpdf',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'theseer/tokenizer' => array(
             'pretty_version' => '1.2.1',

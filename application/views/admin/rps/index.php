@@ -88,7 +88,7 @@
 													<i class="mdi mdi-eye"></i>
 													Lihat
 												</a>
-												<form target="_blank" action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps-<?= $rps->id ?>">
+												<form target="_blank" action="<?= base_url('admin/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps-<?= $rps->id ?>">
 													<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
 												</form>
 												<a onclick="event.preventDefault(); document.getElementById('cetak-rps-<?= $rps->id ?>').submit();" class="btn btn-sm btn-success">

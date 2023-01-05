@@ -90,6 +90,7 @@ class Dosen extends CI_Controller
 		$id_user = $this->session->userdata('userdata')['id'];
 		$this->db->join('tb_user', 'tb_user.id_dosen = tb_dosen.id_dosen');
 		$id_pembuat = $this->db->get_where('tb_dosen', ['tb_user.id' => $id_user])->row();
+		$id_pembuat = $id_pembuat->id_dosen;
 		$revisi = "00";
 		$bobot_sks = $this->input->post('bobot_sks');
 		$detail_penilaian = $this->input->post('detail_penilaian');

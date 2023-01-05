@@ -48,6 +48,8 @@ class Dosen extends CI_Controller
 		$user = $this->db->get_where('tb_user', ['id' =>  $this->session->userdata('userdata')['id']])->row();
 		$dosen = $this->db->get_where('tb_dosen', ['id_dosen' => $user->id_dosen])->row();
 		$data['matkuls'] = $this->db->get_where('tb_matkul', ['id_dosen' => $dosen->id_dosen])->result_array();
+		// var_dump($user->id_dosen);
+		// die();
 		$this->load->view('dosen/templates/header', $data);
 		$this->load->view('dosen/matkul/index', $data);
 		$this->load->view('dosen/templates/footer');
@@ -57,11 +59,9 @@ class Dosen extends CI_Controller
 	{
 		$data['title'] = 'RPS';
 		$user = $this->db->get_where('tb_user', ['id' =>  $this->session->userdata('userdata')['id']])->row();
-		$dosen = $this->db->get_where('tb_dosen', ['id_dosen' => $user->id_dosen])->row();
-		$matkul = $this->db->get_where('tb_matkul', ['id_dosen' => $dosen->id_dosen])->row();
-		$this->db->get_where('tb_rps', ['id_matkul' => $matkul->id]);
 		$this->db->join('tb_matkul', 'tb_matkul.id = tb_rps.id_matkul');
-		$data['rpss'] = $this->db->get('tb_rps')->result_array();
+		$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_matkul.id_dosen');
+		$data['rpss'] = $this->db->get_where('tb_rps', ['tb_dosen.id_dosen' => $user->id_dosen])->result_array();
 		$this->load->view('dosen/templates/header', $data);
 		$this->load->view('dosen/rps/index', $data);
 		$this->load->view('dosen/templates/footer');

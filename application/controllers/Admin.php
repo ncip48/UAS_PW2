@@ -404,14 +404,20 @@ class Admin extends CI_Controller
 
 	public function rps()
 	{
+		$id_fakultas = $this->input->get('fakultas');
 		$data['title'] = 'RPS';
 		$this->db->select('tb_rps.*, tb_matkul.nama_matkul, tb_prodi.nama_prodi, tb_fakultas.nama as nama_fakultas');
 		$this->db->from('tb_rps');
 		$this->db->join('tb_matkul', 'tb_matkul.id = tb_rps.id_matkul');
 		$this->db->join('tb_prodi', 'tb_prodi.id_prodi = tb_matkul.id_prodi');
 		$this->db->join('tb_fakultas', 'tb_fakultas.id = tb_prodi.id_fakultas');
+		if ($id_fakultas) {
+			$id_fakultas = $this->encrypt->decode($id_fakultas);
+			$this->db->where('tb_fakultas.id', $id_fakultas);
+		}
 		$data['rpss'] = $this->db->get()->result();
-
+		$data['fakultass'] = $this->db->get('tb_fakultas')->result();
+		$data['title_fakultas'] = $id_fakultas ? $this->db->get_where('tb_fakultas', ['id' => $id_fakultas])->row()->nama : "Pilih Fakultas";
 		$this->load->view('admin/templates/header', $data);
 		$this->load->view('admin/rps/index', $data);
 		$this->load->view('admin/templates/footer');

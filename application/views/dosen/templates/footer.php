@@ -54,7 +54,7 @@
 					"next": "Selanjutnya",
 					"previous": "Sebelumnya"
 				}
-			}
+			},
 		});
 	});
 </script>

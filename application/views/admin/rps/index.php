@@ -50,6 +50,17 @@
 								Tambah Dosen
 							</a> -->
 						</div>
+						<div class="btn-group">
+							<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+								<?= $title_fakultas ?>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item" href="<?= base_url('admin/rps') ?>">Semua Fakultas</a></li>
+								<?php foreach ($fakultass as $fak) : ?>
+									<li><a class="dropdown-item" href="<?= base_url('admin/rps?fakultas=') . $this->encrypt->encode($fak->id) ?>"><?= $fak->nama ?></a></li>
+								<?php endforeach; ?>
+							</ul>
+						</div>
 						<div class="table-responsive">
 							<table id="datatables" class="table m-t-30 table-hover contact-list v-middle text-nowrap footable footable-5 footable-paging footable-paging-center breakpoint-lg" data-paging="true" data-paging-size="7" style="">
 								<thead>

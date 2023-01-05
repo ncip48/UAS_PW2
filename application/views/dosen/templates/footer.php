@@ -61,6 +61,32 @@
 <script>
 	feather.replace()
 </script>
+<script>
+	ClassicEditor
+		.create(document.querySelector('#ck_dp'))
+		.catch(error => {
+			console.error(error);
+		});
+
+	ClassicEditor
+		.create(document.querySelector('#ck_gu'))
+		.catch(error => {
+			console.error(error);
+		});
+
+	ClassicEditor
+		.create(document.querySelector('#ck_ca'))
+		.catch(error => {
+			console.error(error);
+		});
+
+	ClassicEditor
+		.create(document.querySelector('#ck_pr'))
+		.catch(error => {
+			console.error(error);
+		});
+</script>
+
 </body>
 
 </html>

@@ -67,6 +67,60 @@ class Dosen extends CI_Controller
 		$this->load->view('dosen/templates/footer');
 	}
 
+	public function tambah_rps()
+	{
+		$data['title'] = 'Tambah RPS';
+		$this->db->group_by('kode_matkul');
+		$matkuls = $this->db->get('tb_matkul')->result();
+		//remove one duplicate data from matkul
+		$data['matkuls'] = $matkuls;
+		$this->load->view('dosen/templates/header', $data);
+		$this->load->view('dosen/rps/add', $data);
+		$this->load->view('dosen/templates/footer');
+	}
+
+	public function tambah_rps_aksi()
+	{
+		$id_matkul = $this->input->post('id_matkul');
+		$semester = $this->input->post('semester');
+		$matkul = $this->db->get_where('tb_matkul', ['id' => $id_matkul])->row();
+		$nomor = "RPS-" . $matkul->kode_matkul;
+		$tanggal_berlaku = date('Y-m-d');
+		$tanggal_disusun = date('Y-m-d');
+		$id_user = $this->session->userdata('userdata')['id'];
+		$this->db->join('tb_user', 'tb_user.id_dosen = tb_dosen.id_dosen');
+		$id_pembuat = $this->db->get_where('tb_dosen', ['tb_user.id' => $id_user])->row();
+		$revisi = "00";
+		$bobot_sks = $this->input->post('bobot_sks');
+		$detail_penilaian = $this->input->post('detail_penilaian');
+		$gambaran_umum = $this->input->post('gambaran_umum');
+		$capaian = $this->input->post('capaian');
+		$prasyarat = $this->input->post('prasyarat');
+
+		//action to input tb_rps
+		$data = [
+			'id_matkul' => $id_matkul,
+			'semester' => $semester,
+			'nomor' => $nomor,
+			'tanggal_berlaku' => $tanggal_berlaku,
+			'tanggal_disusun' => $tanggal_disusun,
+			'id_pembuat' => $id_pembuat,
+			'revisi' => $revisi,
+			'bobot_sks' => $bobot_sks,
+			'detail_penilaian' => $detail_penilaian,
+			'gambaran_umum' => $gambaran_umum,
+			'capaian' => $capaian,
+			'prasyarat' => $prasyarat,
+		];
+
+		$this->db->insert('tb_rps', $data);
+		$id_rps = $this->db->insert_id();
+		//return redirect to detail_rps
+		$id = $this->encrypt->encode($id_rps);
+		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">RPS berhasil ditambahkan</div>');
+		return redirect('dosen/detail_rps?id=' . $id);
+	}
+
 	public function cetak_rps()
 	{
 		$id = $this->input->get('id');

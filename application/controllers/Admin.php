@@ -626,4 +626,128 @@ class Admin extends CI_Controller
 		$this->pdf->filename = $rpss->nomor . ".pdf";
 		$this->pdf->load_view('dosen/rps/cetak', $data);
 	}
+
+	public function matkul()
+	{
+		$id = $this->input->get('id');
+		if ($id) {
+			$id = $this->encrypt->decode($id);
+			$data['title'] = 'Edit matkul';
+			$data['matkul'] = $this->db->get_where('tb_matkul', ['id' => $id])->row();
+			$data['matkuls'] = $this->db->get('tb_matkul')->result();
+			$data['dosens'] = $this->db->get('tb_dosen')->result_array();
+			$data['prodis'] = $this->db->get('tb_prodi')->result_array();
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/matkul/edit', $data);
+			$this->load->view('admin/templates/footer');
+		} else {
+			$data['title'] = 'matkul';
+			$this->db->select('tb_matkul.*, tb_prodi.nama_prodi, tb_dosen.nama_dosen');
+			$this->db->from('tb_matkul');
+			$this->db->join('tb_prodi', 'tb_prodi.id_prodi = tb_matkul.id_prodi');
+			$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_matkul.id_dosen');
+			$data['matkuls'] = $this->db->get()->result_array();  
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/matkul/index', $data);
+			$this->load->view('admin/templates/footer');
+		}
+	}
+
+	//Function Matkul
+	public function tambah_matkul()
+	{
+		$data['title'] = 'Tambah Matkul';
+		$data['matkuls'] = $this->db->get('tb_matkul')->result_array();
+		$data['dosens'] = $this->db->get('tb_dosen')->result_array();
+		$data['prodis'] = $this->db->get('tb_prodi')->result_array();
+		$this->load->view('admin/templates/header', $data);
+		$this->load->view('admin/matkul/add', $data);
+		$this->load->view('admin/templates/footer');
+	}
+
+	public function tambah_matkul_aksi()
+	{
+		$this->form_validation->set_rules('nama_matkul', 'Nama Matkul', 'required|is_unique[tb_matkul.nama_matkul]', [
+			'is_unique' => 'Nama Matkul sudah ada',
+			'required' => 'Nama Matkul harus diisi'
+		]);
+
+		$this->form_validation->set_rules('id_dosen', 'Nama Dosen', 'required', [
+			'required' => 'Nama Dosen harus dipilih',
+		]);
+
+		$this->form_validation->set_rules('kode_matkul', 'Kode Matkul', 'required', [
+			'required' => 'Kode Matkul harus diisi',
+		]);
+
+		$this->form_validation->set_rules('id_prodi', 'Nama Prodi', 'required', [
+			'required' => 'Nama Prodi harus dipilih'
+		]);
+
+		if ($this->form_validation->run() == false) {
+			$this->tambah_matkul();
+		} else {
+			$data = [
+				'nama_matkul' => htmlspecialchars($this->input->post('nama_matkul', true)),
+				'id_dosen' => htmlspecialchars($this->input->post('id_dosen', true)),
+				'kode_matkul' => htmlspecialchars($this->input->post('kode_matkul', true)),
+				'id_prodi' => htmlspecialchars($this->input->post('id_prodi', true)),
+			];
+
+			$this->db->insert('tb_matkul', $data);
+			$this->session->set_flashdata('message', 'Matkul berhasil ditambahkan');
+			redirect('admin/matkul');
+		}
+	}
+
+	public function edit_matkul_aksi()
+	{
+		$this->form_validation->set_rules('nama_matkul', 'Nama Matkul', 'required|is_unique[tb_matkul.nama_matkul]', [
+			'is_unique' => 'Nama Matkul sudah ada',
+			'required' => 'Nama Matkul harus diisi'
+		]);
+
+		$this->form_validation->set_rules('id_dosen', 'Nama Dosen', 'required', [
+			'required' => 'Nama Dosen harus dipilih',
+		]);
+
+		$this->form_validation->set_rules('kode_matkul', 'Kode Matkul', 'required', [
+			'required' => 'Kode Matkul harus diisi',
+		]);
+
+		$this->form_validation->set_rules('id_prodi', 'Nama Prodi', 'required', [
+			'required' => 'Nama Prodi harus dipilih'
+		]);
+
+		if ($this->form_validation->run() == false) {
+			$id = $this->input->post('id');
+			$data['title'] = 'Edit Matkul';
+			$data['matkul'] = $this->db->get_where('tb_matkul', ['id' => $id])->row();
+			$data['matkuls'] = $this->db->get('tb_matkul')->result();	
+			$data['dosens'] = $this->db->get('tb_dosen')->result_array();
+			$data['prodis'] = $this->db->get('tb_prodi')->result_array();
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/matkul/edit', $data);
+			$this->load->view('admin/templates/footer');
+		} else {
+			$data = [
+				'nama_matkul' => htmlspecialchars($this->input->post('nama_matkul', true)),
+				'id_dosen' => htmlspecialchars($this->input->post('id_dosen', true)),
+				'kode_matkul' => htmlspecialchars($this->input->post('kode_matkul', true)),
+				'id_prodi' => htmlspecialchars($this->input->post('id_prodi', true)),
+			];
+			$this->db->where('id', $this->input->post('id'));
+			$this->db->update('tb_matkul', $data);
+			$this->session->set_flashdata('message', 'Matkul berhasil diubah');
+			redirect('admin/matkul');
+		}
+	}
+
+	public function hapus_matkul($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('tb_matkul');
+		$this->session->set_flashdata('message', 'Matkul berhasil dihapus');
+		redirect('admin/matkul');
+	}
 }

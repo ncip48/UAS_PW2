@@ -243,7 +243,7 @@
 					Halaman
 				</td>
 				<td style="text-align: left;">
-					<i>: <span class="pagenum"></span></i>
+					<i>: <span class="pagenum"></span></i> dari
 				</td>
 			</tr>
 		</table>

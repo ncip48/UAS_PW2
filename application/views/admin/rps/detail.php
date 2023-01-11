@@ -101,7 +101,7 @@
 									<tbody>
 										<tr>
 											<td style="width: 25%;" class="pb-3">
-												<h3 style="margin-bottom: 0px;">Nomor RPS</h3>
+												<h5 style="margin-bottom: 0px;">Nomor RPS</h5>
 											</td>
 											<td style="width: 10%;" class="pb-3">
 												:
@@ -112,7 +112,7 @@
 										</tr>
 										<tr>
 											<td style="width: 25%;" class="pb-3">
-												<h3 style="margin-bottom: 0px;">Mata Kuliah</h3>
+												<h5 style="margin-bottom: 0px;">Mata Kuliah</h5>
 											</td>
 											<td style="width: 10%;" class="pb-3">
 												:
@@ -123,7 +123,7 @@
 										</tr>
 										<tr>
 											<td style="width: 25%;" class="pb-3">
-												<h3 style="margin-bottom: 0px;">Program Studi</h3>
+												<h5 style="margin-bottom: 0px;">Program Studi</h5>
 											</td>
 											<td style="width: 10%;" class="pb-3">
 												:
@@ -134,7 +134,7 @@
 										</tr>
 										<tr>
 											<td style="width: 25%;" class="pb-3">
-												<h3 style="margin-bottom: 0px;">Semester / SKS</h3>
+												<h5 style="margin-bottom: 0px;">Semester / SKS</h5>
 											</td>
 											<td style="width: 10%;" class="pb-3">
 												:
@@ -145,7 +145,7 @@
 										</tr>
 										<tr>
 											<td style="width: 25%;" class="pb-3">
-												<h3 style="margin-bottom: 0px;">Tanggal Berlaku</h3>
+												<h5 style="margin-bottom: 0px;">Tanggal Berlaku</h5>
 											</td>
 											<td style="width: 10%;" class="pb-3">
 												:
@@ -156,7 +156,7 @@
 										</tr>
 										<tr>
 											<td style="width: 25%;" class="pb-3">
-												<h3 style="margin-bottom: 0px;">Tanggal Disusun</h3>
+												<h5 style="margin-bottom: 0px;">Tanggal Disusun</h5>
 											</td>
 											<td style="width: 10%;" class="pb-3">
 												:
@@ -167,7 +167,7 @@
 										</tr>
 										<tr>
 											<td style="width: 25%;" class="pb-3">
-												<h3 style="margin-bottom: 0px;">Penyusun</h3>
+												<h5 style="margin-bottom: 0px;">Penyusun</h5>
 											</td>
 											<td style="width: 10%;" class="pb-3">
 												:

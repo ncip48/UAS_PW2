@@ -192,6 +192,20 @@ class Dosen extends CI_Controller
 		return redirect('dosen/detail_rps?id=' . $id);
 	}
 
+	public function edit_penilaian_rps()
+	{
+		$id = $this->input->post('id');
+		$detail_penilaian = $this->input->post('detail_penilaian');
+		$data = [
+			'detail_penilaian' => $detail_penilaian
+		];
+		$this->db->where('id', $id);
+		$this->db->update('tb_rps', $data);
+		// $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Detail penilaian berhasil diubah</div>');
+		$id = $this->encrypt->encode($id);
+		return redirect('dosen/detail_rps?id=' . $id);
+	}
+
 	public function cetak_rps()
 	{
 		$id = $this->input->get('id');

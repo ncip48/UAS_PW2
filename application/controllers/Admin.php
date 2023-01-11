@@ -423,6 +423,75 @@ class Admin extends CI_Controller
 		$this->load->view('admin/templates/footer');
 	}
 
+	public function detail_rps()
+	{
+		$data['title'] = "Detail RPS";
+		//buat fungsi menampilkan rps
+		$id = $this->input->get('id');
+		$id = $this->encrypt->decode($id);
+		$rps = $this->db->get_where('tb_rps', ['id' => $id])->row();
+
+		$this->db->select('tb_matkul.*, tb_prodi.*, tb_fakultas.nama as nama_fakultas, tb_fakultas.id as id_fakultas');
+		$this->db->from('tb_matkul');
+		$this->db->join('tb_prodi', 'tb_prodi.id_prodi = tb_matkul.id_prodi');
+		$this->db->join('tb_fakultas', 'tb_fakultas.id = tb_prodi.id_fakultas');
+		$this->db->where('tb_matkul.id', $rps->id_matkul);
+		$matkul = $this->db->get()->row();
+
+		$this->db->select('tb_fakultas.*, tb_dosen.nama_dosen as nama_dekan, tb_dosen.nip as nip_dekan');
+		$this->db->from('tb_fakultas');
+		$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_fakultas.id_dekan');
+		$this->db->where('tb_fakultas.id', $matkul->id_fakultas);
+		$fakultas = $this->db->get()->row();
+
+		$this->db->select('tb_prodi.*, tb_dosen.nama_dosen as nama_kaprodi, tb_dosen.nip as nip_kaprodi');
+		$this->db->from('tb_prodi');
+		$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_prodi.kaprodi');
+		$this->db->where('tb_prodi.id_fakultas', $matkul->id_fakultas);
+		$prodi = $this->db->get()->row();
+
+		$this->db->select('tb_dosen.nama_dosen as nama_pembuat, tb_dosen.nip as nip_pembuat, tb_rps.*');
+		$this->db->from('tb_dosen');
+		$this->db->join('tb_rps', 'tb_rps.id_pembuat = tb_dosen.id_dosen');
+		$this->db->where('tb_rps.id', $rps->id);
+		$pembuat = $this->db->get()->row();
+
+		$this->db->select('tb_prodi.*, tb_dosen.nama_dosen as nama_sekprodi, tb_dosen.nip as nip_sekprodi');
+		$this->db->from('tb_prodi');
+		$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_prodi.sekprodi');
+		$this->db->where('tb_prodi.id_fakultas', $matkul->id_fakultas);
+		$sekprodi = $this->db->get()->row();
+
+		$kode_matkul = $this->db->get_where('tb_matkul', ['id' => $rps->id_matkul])->row();
+		$kode_matkul = $kode_matkul->kode_matkul;
+		$this->db->select('tb_dosen.*, tb_matkul.id_dosen, tb_matkul.kode_matkul');
+		$this->db->from('tb_dosen');
+		$this->db->join('tb_matkul', 'tb_matkul.id_dosen = tb_dosen.id_dosen');
+		$this->db->where('tb_matkul.kode_matkul', $kode_matkul);
+		$dosen_pengampu = $this->db->get()->result();
+
+		$unit_pembelajaran = $this->db->get_where('tb_rps_unit_pembelajaran', ['id_rps' => $rps->id])->result();
+
+		$tugas_aktivitas = $this->db->get_where('tb_rps_tugas', ['id_rps' => $rps->id])->result();
+
+		$rpp = $this->db->get_where('tb_rps_detail', ['id_rps' => $rps->id])->result();
+
+		$data['matkul'] = $matkul;
+		$data['rps'] = $rps;
+		$data['fakultas'] = $fakultas;
+		$data['prodi'] = $prodi;
+		$data['pembuat'] = $pembuat;
+		$data['sekprodi'] = $sekprodi;
+		$data['dosen_pengampu'] = $dosen_pengampu;
+		$data['unit_pembelajaran'] = $unit_pembelajaran;
+		$data['tugas_aktivitas'] = $tugas_aktivitas;
+		$data['rpp'] = $rpp;
+
+		$this->load->view('admin/templates/header', $data);
+		$this->load->view('admin/rps/detail', $data);
+		$this->load->view('admin/templates/footer');
+	}
+
 	public function cetak_rps()
 	{
 		$id = $this->input->get('id');
@@ -646,7 +715,7 @@ class Admin extends CI_Controller
 			$this->db->from('tb_matkul');
 			$this->db->join('tb_prodi', 'tb_prodi.id_prodi = tb_matkul.id_prodi');
 			$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_matkul.id_dosen');
-			$data['matkuls'] = $this->db->get()->result_array();  
+			$data['matkuls'] = $this->db->get()->result_array();
 			$this->load->view('admin/templates/header', $data);
 			$this->load->view('admin/matkul/index', $data);
 			$this->load->view('admin/templates/footer');
@@ -723,7 +792,7 @@ class Admin extends CI_Controller
 			$id = $this->input->post('id');
 			$data['title'] = 'Edit Matkul';
 			$data['matkul'] = $this->db->get_where('tb_matkul', ['id' => $id])->row();
-			$data['matkuls'] = $this->db->get('tb_matkul')->result();	
+			$data['matkuls'] = $this->db->get('tb_matkul')->result();
 			$data['dosens'] = $this->db->get('tb_dosen')->result_array();
 			$data['prodis'] = $this->db->get('tb_prodi')->result_array();
 			$this->load->view('admin/templates/header', $data);

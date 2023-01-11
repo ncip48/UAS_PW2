@@ -186,39 +186,6 @@
 							<div class="border-bottom title-part-padding">
 								<div class="d-flex justify-content-between align-items-center">
 									<h4 class="mb-0">Penilaian</h4>
-									<button data-bs-toggle="modal" data-bs-target="#modal-penilaian" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
-										<i class="mdi mdi-pencil me-2"></i>
-										Edit
-									</button>
-									<!-- Vertically centered modal -->
-									<div class="modal fade" id="modal-penilaian" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
-										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-											<div class="modal-content">
-												<div class="modal-header d-flex align-items-center">
-													<h4 class="modal-title" id="myLargeModalLabel">
-														Edit Penilaian
-													</h4>
-													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-												</div>
-												<div class="modal-body">
-													<form id="edit-penilaian" method="POST" action="<?= base_url('dosen/edit_penilaian_rps') ?>">
-														<input type="hidden" name="id" value="<?= $rps->id ?>">
-														<div class="form-floating">
-															<textarea class="form-control border border-info" id="ck_dp" name="detail_penilaian"><?= $rps->detail_penilaian ?></textarea>
-														</div>
-													</form>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-light-danger text-danger font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
-														Batalkan
-													</button>
-													<button type="button" onclick="event.preventDefault(); document.getElementById('edit-penilaian').submit();" class="btn btn-light-primary text-primary font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
-														Simpan
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
 								</div>
 							</div>
 							<div class="card-body">
@@ -231,13 +198,6 @@
 							<div class="border-bottom title-part-padding">
 								<div class="d-flex justify-content-between align-items-center">
 									<h4 class="mb-0">Gambaran Umum</h4>
-									<form target="_blank" action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps">
-										<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
-									</form>
-									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
-										<i class="mdi mdi-pencil me-2"></i>
-										Edit
-									</a>
 								</div>
 							</div>
 							<div class="card-body">
@@ -248,13 +208,6 @@
 							<div class="border-bottom title-part-padding">
 								<div class="d-flex justify-content-between align-items-center">
 									<h4 class="mb-0">Capaian Pembelajaran</h4>
-									<form target="_blank" action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps">
-										<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
-									</form>
-									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
-										<i class="mdi mdi-pencil me-2"></i>
-										Edit
-									</a>
 								</div>
 							</div>
 							<div class="card-body">
@@ -265,13 +218,6 @@
 							<div class="border-bottom title-part-padding">
 								<div class="d-flex justify-content-between align-items-center">
 									<h4 class="mb-0">Prasyarat dan Pengetahuan Awal</h4>
-									<form target="_blank" action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps">
-										<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
-									</form>
-									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
-										<i class="mdi mdi-pencil me-2"></i>
-										Edit
-									</a>
 								</div>
 							</div>
 							<div class="card-body">
@@ -284,10 +230,6 @@
 							<div class="border-bottom title-part-padding">
 								<div class="d-flex justify-content-between align-items-center">
 									<h4 class="mb-0">Unit Pembelajaran</h4>
-									<a href="<?= base_url('dosen/rps_unit') ?>" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
-										<i class="mdi mdi-plus me-2"></i>
-										Tambah
-									</a>
 								</div>
 							</div>
 							<div class="card-body">
@@ -316,9 +258,6 @@
 												<th>
 													Bahan Ajar
 												</th>
-												<th>
-													Aksi
-												</th>
 											</tr>
 										</thead>
 										<?php foreach ($unit_pembelajaran as $key => $value) : ?>
@@ -344,16 +283,6 @@
 												<td>
 													<?= $value->bahan_ajar ?>
 												</td>
-												<td>
-													<div class="d-flex">
-														<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center me-2">
-															<i class="mdi mdi-pencil"></i>
-														</a>
-														<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-danger text-danger font-weight-medium d-flex align-items-center">
-															<i class="mdi mdi-delete"></i>
-														</a>
-													</div>
-												</td>
 											</tr>
 										<?php endforeach; ?>
 									</table>
@@ -366,10 +295,6 @@
 							<div class="border-bottom title-part-padding">
 								<div class="d-flex justify-content-between align-items-center">
 									<h4 class="mb-0">Tugas/Aktivitas dan Penilaian</h4>
-									<a href="<?= base_url('dosen/rps_unit') ?>" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
-										<i class="mdi mdi-plus me-2"></i>
-										Tambah
-									</a>
 								</div>
 							</div>
 							<div class="card-body">
@@ -395,9 +320,6 @@
 												<th>
 													Indikator Penilaian
 												</th>
-												<th>
-													Aksi
-												</th>
 											</tr>
 										</thead>
 										<?php foreach ($tugas_aktivitas as $key => $value) : ?>
@@ -421,16 +343,6 @@
 													<td>
 														<?= $value->indikator_penilaian ?>
 													</td>
-													<td>
-														<div class="d-flex">
-															<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center me-2">
-																<i class="mdi mdi-pencil"></i>
-															</a>
-															<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-danger text-danger font-weight-medium d-flex align-items-center">
-																<i class="mdi mdi-delete"></i>
-															</a>
-														</div>
-													</td>
 												</tr>
 											</tbody>
 										<?php endforeach; ?>
@@ -444,10 +356,6 @@
 							<div class="border-bottom title-part-padding">
 								<div class="d-flex justify-content-between align-items-center">
 									<h4 class="mb-0">Rencana Pelaksanaan Pembelajaran </h4>
-									<a href="<?= base_url('dosen/rps_unit') ?>" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
-										<i class="mdi mdi-plus me-2"></i>
-										Tambah
-									</a>
 								</div>
 							</div>
 							<div class="card-body">
@@ -462,7 +370,6 @@
 												<th>Aktivitas & Strategi Pembelajaran</th>
 												<th>Waktu</th>
 												<th>Penilaian</th>
-												<th>Aksi</th>
 											</tr>
 										</thead>
 										<?php foreach ($rpp as $key => $value) : ?>
@@ -488,16 +395,6 @@
 													</td>
 													<td>
 														<?= $value->penilaian ?>
-													</td>
-													<td>
-														<div class="d-flex">
-															<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center me-2">
-																<i class="mdi mdi-pencil"></i>
-															</a>
-															<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-danger text-danger font-weight-medium d-flex align-items-center">
-																<i class="mdi mdi-delete"></i>
-															</a>
-														</div>
 													</td>
 												</tr>
 											</tbody>

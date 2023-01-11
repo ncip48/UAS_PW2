@@ -37,8 +37,11 @@ class Dosen extends CI_Controller
 	public function home()
 	{
 		$data['title'] = 'Home';
+		$user = $this->db->get_where('tb_user', ['id' =>  $this->session->userdata('userdata')['id']])->row();
+		$data['user'] = $user;
+		$data['dosen'] = $this->db->get_where('tb_dosen', ['id_dosen' => $user->id_dosen])->row();
 		$this->load->view('dosen/templates/header', $data);
-		$this->load->view('dosen/home/index');
+		$this->load->view('dosen/home/index', $data);
 		$this->load->view('dosen/templates/footer');
 	}
 

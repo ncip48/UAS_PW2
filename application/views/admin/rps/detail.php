@@ -87,7 +87,7 @@
 							<div class="border-bottom title-part-padding">
 								<div class="d-flex justify-content-between align-items-center">
 									<h4 class="mb-0">Informasi RPS</h4>
-									<form target="_blank" action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps">
+									<form target="_blank" action="<?= base_url('admin/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps">
 										<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
 									</form>
 									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">

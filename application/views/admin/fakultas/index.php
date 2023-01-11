@@ -47,7 +47,7 @@
 							</div>
 							<a href="<?= base_url('admin/tambah_fakultas') ?>" class="btn btn-info btn-rounded m-t-10 mb-2">
 								<i class="mdi mdi-plus"></i>
-								Tambah Dosen
+								Tambah Fakultas
 							</a>
 						</div>
 						<div class="table-responsive">
@@ -69,7 +69,7 @@
 												<a href="javascript:void(0)" class="link"><img src="<?= base_url('assets/images/users/4.jpg') ?>" alt="user" width="40" class="rounded-circle">
 													<?= $fakultas['nama'] ?></a>
 											</td>
-											<td><?= $fakultas['nama'] ?></td>
+											<td><?= $fakultas['nama_dosen'] ?></td>
 											<td>
 												<a href="<?= base_url('admin/fakultas?id=') . $this->encrypt->encode($fakultas['id']) ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
 												<form id="hapus-fakultas-<?= $fakultas['id'] ?>" action="<?= base_url('admin/hapus_fakultas/') . $fakultas['id'] ?>" hidden>

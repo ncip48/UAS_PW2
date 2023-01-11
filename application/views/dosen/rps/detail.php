@@ -90,9 +90,9 @@
 									<form target="_blank" action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps">
 										<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
 									</form>
-									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center">
+									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
 										<i class="mdi mdi-printer me-2"></i>
-										Print
+										Cetak
 									</a>
 								</div>
 							</div>
@@ -189,7 +189,7 @@
 									<form target="_blank" action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps">
 										<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
 									</form>
-									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center">
+									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
 										<i class="mdi mdi-pencil me-2"></i>
 										Edit
 									</a>
@@ -208,7 +208,7 @@
 									<form target="_blank" action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps">
 										<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
 									</form>
-									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center">
+									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
 										<i class="mdi mdi-pencil me-2"></i>
 										Edit
 									</a>
@@ -225,7 +225,7 @@
 									<form target="_blank" action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps">
 										<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
 									</form>
-									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center">
+									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
 										<i class="mdi mdi-pencil me-2"></i>
 										Edit
 									</a>
@@ -242,7 +242,7 @@
 									<form target="_blank" action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps">
 										<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
 									</form>
-									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center">
+									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
 										<i class="mdi mdi-pencil me-2"></i>
 										Edit
 									</a>
@@ -258,7 +258,7 @@
 							<div class="border-bottom title-part-padding">
 								<div class="d-flex justify-content-between align-items-center">
 									<h4 class="mb-0">Unit Pembelajaran</h4>
-									<a href="<?= base_url('dosen/rps_unit') ?>" class="justify-content-center btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center">
+									<a href="<?= base_url('dosen/rps_unit') ?>" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
 										<i class="mdi mdi-plus me-2"></i>
 										Tambah
 									</a>
@@ -296,41 +296,39 @@
 											</tr>
 										</thead>
 										<?php foreach ($unit_pembelajaran as $key => $value) : ?>
-											<tbody>
-												<tr>
-													<td>
-														<?= $value->kemampuan_akhir ?>
-													</td>
-													<td>
-														<?= $value->indikator ?>
-													</td>
-													<td>
-														<?= $value->bahan_kajian ?>
-													</td>
-													<td>
-														<?= $value->metode_pembelajaran ?>
-													</td>
-													<td>
-														<?= $value->waktu ?>
-													</td>
-													<td>
-														<?= $value->metode_penilaian ?>
-													</td>
-													<td>
-														<?= $value->bahan_ajar ?>
-													</td>
-													<td>
-														<div class="d-flex">
-															<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center me-2">
-																<i class="mdi mdi-pencil"></i>
-															</a>
-															<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-danger text-danger font-weight-medium d-flex align-items-center">
-																<i class="mdi mdi-delete"></i>
-															</a>
-														</div>
-													</td>
-												</tr>
-											</tbody>
+											<tr>
+												<td>
+													<?= $value->kemampuan_akhir ?>
+												</td>
+												<td>
+													<?= $value->indikator ?>
+												</td>
+												<td>
+													<?= $value->bahan_kajian ?>
+												</td>
+												<td>
+													<?= $value->metode_pembelajaran ?>
+												</td>
+												<td>
+													<?= $value->waktu ?>
+												</td>
+												<td>
+													<?= $value->metode_penilaian ?>
+												</td>
+												<td>
+													<?= $value->bahan_ajar ?>
+												</td>
+												<td>
+													<div class="d-flex">
+														<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center me-2">
+															<i class="mdi mdi-pencil"></i>
+														</a>
+														<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-danger text-danger font-weight-medium d-flex align-items-center">
+															<i class="mdi mdi-delete"></i>
+														</a>
+													</div>
+												</td>
+											</tr>
 										<?php endforeach; ?>
 									</table>
 								</div>
@@ -342,7 +340,7 @@
 							<div class="border-bottom title-part-padding">
 								<div class="d-flex justify-content-between align-items-center">
 									<h4 class="mb-0">Tugas/Aktivitas dan Penilaian</h4>
-									<a href="<?= base_url('dosen/rps_unit') ?>" class="justify-content-center btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center">
+									<a href="<?= base_url('dosen/rps_unit') ?>" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
 										<i class="mdi mdi-plus me-2"></i>
 										Tambah
 									</a>
@@ -396,6 +394,74 @@
 													</td>
 													<td>
 														<?= $value->indikator_penilaian ?>
+													</td>
+													<td>
+														<div class="d-flex">
+															<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center me-2">
+																<i class="mdi mdi-pencil"></i>
+															</a>
+															<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-danger text-danger font-weight-medium d-flex align-items-center">
+																<i class="mdi mdi-delete"></i>
+															</a>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										<?php endforeach; ?>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane p-3" id="rpp" role="tabpanel">
+						<div class="card">
+							<div class="border-bottom title-part-padding">
+								<div class="d-flex justify-content-between align-items-center">
+									<h4 class="mb-0">Rencana Pelaksanaan Pembelajaran </h4>
+									<a href="<?= base_url('dosen/rps_unit') ?>" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
+										<i class="mdi mdi-plus me-2"></i>
+										Tambah
+									</a>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table customize-table mb-0 v-middle table-bordered">
+										<thead class=" table-light">
+											<tr style='text-align:center'>
+												<th>Minggu</th>
+												<th>Kemampuan Akhir yang Diharapkan</th>
+												<th>Indikator</th>
+												<th>Topik & Sub Topik</th>
+												<th>Aktivitas & Strategi Pembelajaran</th>
+												<th>Waktu</th>
+												<th>Penilaian</th>
+												<th>Aksi</th>
+											</tr>
+										</thead>
+										<?php foreach ($rpp as $key => $value) : ?>
+											<tbody>
+												<tr>
+													<td>
+														<?= $value->minggu ?>
+													</td>
+													<td>
+														<?= $value->kemampuan_akhir ?>
+													</td>
+													<td>
+														<?= $value->indikator ?>
+													</td>
+													<td>
+														<?= $value->topik ?>
+													</td>
+													<td>
+														<?= $value->aktivitas_pembelajaran ?>
+													</td>
+													<td>
+														<?= $value->waktu ?>
+													</td>
+													<td>
+														<?= $value->penilaian ?>
 													</td>
 													<td>
 														<div class="d-flex">

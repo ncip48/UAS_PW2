@@ -131,7 +131,7 @@ class Dosen extends CI_Controller
 
 		$tugas_aktivitas = $this->db->get_where('tb_rps_tugas', ['id_rps' => $rps->id])->result();
 
-		$rpp = $this->db->get_where('tb_rps_detail', ['id_rps' => $rps->id]);
+		$rpp = $this->db->get_where('tb_rps_detail', ['id_rps' => $rps->id])->result();
 
 		$data['matkul'] = $matkul;
 		$data['rps'] = $rps;

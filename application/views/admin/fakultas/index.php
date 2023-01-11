@@ -11,11 +11,11 @@
 							<a href="<?= base_url('admin/home') ?>" class="link"><i class="mdi mdi-home"></i></a>
 						</li>
 						<li class="breadcrumb-item active" aria-current="page">
-							Dosen
+							Fakultas
 						</li>
 					</ol>
 				</nav>
-				<h1 class="mb-0 fw-bold">Dosen</h1>
+				<h1 class="mb-0 fw-bold">Fakultas</h1>
 			</div>
 		</div>
 	</div>
@@ -33,7 +33,7 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="border-bottom title-part-padding">
-						<h4 class="mb-0">List Dosen</h4>
+						<h4 class="mb-0">List Fakultas</h4>
 					</div>
 					<div class="card-body">
 						<div class="d-flex justify-content-between align-items-center">
@@ -45,7 +45,7 @@
 									</div>
 								<?php endif; ?>
 							</div>
-							<a href="<?= base_url('admin/tambah_dosen') ?>" class="btn btn-info btn-rounded m-t-10 mb-2">
+							<a href="<?= base_url('admin/tambah_fakultas') ?>" class="btn btn-info btn-rounded m-t-10 mb-2">
 								<i class="mdi mdi-plus"></i>
 								Tambah Dosen
 							</a>
@@ -55,33 +55,26 @@
 								<thead>
 									<tr class="footable-header">
 										<th class="footable-first-visible">No</th>
-										<th>Nama</th>
-										<th>NIP</th>
-										<th>Jenis Kelamin</th>
-										<th>Alamat</th>
-										<th>Action</th>
+										<th>Nama Fakultas</th>
+										<th>Nama Dekan</th>
+										<th>Aksi</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php $no = 1; ?>
-									<?php foreach ($dosens as $dosen) : ?>
+									<?php foreach ($fakultass as $fakultas) : ?>
 										<tr>
 											<td class="footable-first-visible"><?= $no++ ?></td>
 											<td>
 												<a href="javascript:void(0)" class="link"><img src="<?= base_url('assets/images/users/4.jpg') ?>" alt="user" width="40" class="rounded-circle">
-													<?= $dosen['nama_dosen'] ?></a>
+													<?= $fakultas['nama'] ?></a>
 											</td>
-											<td><?= $dosen['nip'] ?></td>
-
-											<td><span class="badge <?= $dosen['jenis_kelamin'] == 1 ? 'bg-info' : 'bg-warning' ?>"><?= $dosen['jenis_kelamin'] == 1 ? 'Laki-laki' : 'perempuan' ?></span></td>
-									
-											<td><?= $dosen['alamat_dosen'] ?></td>
-											
+											<td><?= $fakultas['nama'] ?></td>
 											<td>
-												<a href="<?= base_url('admin/dosen?id=') . $this->encrypt->encode($dosen['id_dosen']) ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
-												<form id="hapus-dosen-<?= $dosen['id_dosen'] ?>" action="<?= base_url('admin/hapus_dosen/') . $dosen['id_dosen'] ?>" hidden>
+												<a href="<?= base_url('admin/fakultas?id=') . $this->encrypt->encode($fakultas['id']) ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
+												<form id="hapus-fakultas-<?= $fakultas['id'] ?>" action="<?= base_url('admin/hapus_fakultas/') . $fakultas['id'] ?>" hidden>
 												</form>
-												<a onclick="event.preventDefault(); document.getElementById('hapus-dosen-<?= $dosen['id_dosen'] ?>').submit();" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i> Hapus</a>
+												<a onclick="event.preventDefault(); document.getElementById('hapus-fakultas-<?= $fakultas['id'] ?>').submit();" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i> Hapus</a>
 											</td>
 
 										</tr>

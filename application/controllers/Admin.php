@@ -388,11 +388,41 @@ class Admin extends CI_Controller
 	public function fakultas()
 	{
 		$data['title'] = 'fakultas';
-		$data['fakultas'] = $this->db->get('tb_fakultas')->result_array();
+		$this->db->join('tb_dosen', 'tb_dosen.id_dosen=tb_fakultas.id_dekan');
+		$data['fakultass'] = $this->db->get('tb_fakultas')->result_array();
 		$this->load->view('admin/templates/header', $data);
 		$this->load->view('admin/fakultas/index', $data);
 		$this->load->view('admin/fakultas/footer');
 	}
+
+	public function tambah_fakultas()
+	{
+		$data['title'] = 'Tambah Fakultas';
+		$data['dosens'] = $this->db->get('tb_dosen')->result_array();
+		$this->load->view('admin/templates/header', $data);
+		$this->load->view('admin/fakultas/add', $data);
+		$this->load->view('admin/templates/footer');
+	}
+
+	public function tambah_fakultas_aksi()
+	{
+		$this->form_validation->set_rules('nama', 'Nama', 'required', [
+			'required' => 'Fakultas harus diisi'
+		]);
+		if ($this->form_validation->run() == false) {
+			$this->tambah_fakultas();
+		} else {
+			$data = [
+				'nama' => htmlspecialchars($this->input->post('nama', true)),
+				'id_dekan' => htmlspecialchars($this->input->post('id_dekan', true)),
+			];
+
+			$this->db->insert('tb_fakultas', $data);
+			$this->session->set_flashdata('message', 'Fakultas berhasil ditambahkan');
+			redirect('admin/fakultas');
+		}
+	}
+
 
 	public function hapus_fakultas($id)
 	{

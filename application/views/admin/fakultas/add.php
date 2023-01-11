@@ -11,14 +11,14 @@
 							<a href="index.html" class="link"><i class="mdi mdi-home fs-5"></i></a>
 						</li>
 						<li class="breadcrumb-item active" aria-current="page">
-							Dosen
+							Fakultas
 						</li>
 						<li class="breadcrumb-item active" aria-current="page">
-							Tambah Dosen
+							Tambah Fakultas
 						</li>
 					</ol>
 				</nav>
-				<h1 class="mb-0 fw-bold">Tambah Dosen</h1>
+				<h1 class="mb-0 fw-bold">Tambah Fakultas</h1>
 			</div>
 		</div>
 	</div>
@@ -37,58 +37,34 @@
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-body">
-						<h4 class="card-title">Tambah Dosen</h4>
+						<h4 class="card-title">Tambah Fakultas</h4>
 						<h5 class="card-subtitle mb-3 pb-3 border-bottom">
-							silahkan input untuk menambahkan Dosen
+							silahkan input untuk menambahkan Fakultas
 						</h5>
-						<form autocomplete="off" method="POST" action="<?= base_url('admin/tambah_dosen_aksi') ?>">
+						<form autocomplete="off" method="POST" action="<?= base_url('admin/tambah_fakultas_aksi') ?>">
 						
 							<div class="form-floating mb-3">
-								<input type="text" class="form-control border border-info" name="nama_dosen" placeholder="Nama" value="<?php echo set_value('nama_dosen'); ?>">
+								<input type="text" class="form-control border border-info" name="nama" placeholder="Nama" value="<?php echo set_value('nama'); ?>">
 								<label>
 									<i data-feather="user" class="feather feather-user feather-sm text-info fill-white me-2"></i>
-									<span class="border-start border-info ps-3">Nama</span>
+									<span class="border-start border-info ps-3">Nama Fakultas</span>
 								</label>
 								<span class="invalid-feedback d-block" role="alert">
-									<?php echo form_error('nama_dosen'); ?>
+									<?php echo form_error('nama'); ?>
 								</span>
 							</div>
 							<div class="form-floating mb-3">
-								<input type="text" class="form-control border border-info" name="nip" placeholder="NIP">
-								<label>
-									<i data-feather="lock" class="feather feather-lock feather-sm text-info fill-white me-2"></i>
-									<span class="border-start border-info ps-3">NIP</span>
-								</label>
-								<span class="invalid-feedback d-block" role="alert">
-									<?php echo form_error('nip'); ?>
-								</span>
-							</div>
-							
-							<div class="form-floating mb-3">
-								<select class="form-select border border-info" name="jenis_kelamin" aria-label="Floating label select example">
-									<option value="1">Laki-laki</option>
-									<option value="0">perempuan</option>
+								<select class="form-select border border-info" name="id_dekan" aria-label="Floating label select example">
+									<option value="">---Pilih Dekan---</option>
+									<?php foreach ($dosens as $dosen) : ?>
+										<option value="<?= $dosen['id_dosen'] ?>"><?= $dosen['nama_dosen'] ?></option>
+									<?php endforeach; ?>
 								</select>
 								<label>
 									<i data-feather="user-check" class="feather feather-user-check feather-sm text-info fill-white me-2"></i>
-									<span class="border-start border-info ps-3">Jenis Kelamin</span>
+									<span class="border-start border-info ps-3">Dekan</span>
 								</label>
-								<span class="invalid-feedback d-block" role="alert">
-									<?php echo form_error('jenis_kelamin'); ?>
-								</span>
 							</div>
-
-							<div class="form-floating mb-3">
-								<input type="text" class="form-control border border-info" name="alamat_dosen" placeholder="Alamat">
-								<label>
-									<i data-feather="lock" class="feather feather-lock feather-sm text-info fill-white me-2"></i>
-									<span class="border-start border-info ps-3">Alamat Dosen</span>
-								</label>
-								<span class="invalid-feedback d-block" role="alert">
-									<?php echo form_error('alamat_dosen'); ?>
-								</span>
-							</div>
-
 							<div class="d-md-flex align-items-center justify-content-end">
 								<div class="mt-3 mt-md-0 ms-auto">
 									<a href="<?= base_url('admin/dosen') ?>" class="btn btn-danger font-weight-medium rounded-pill px-4 ">

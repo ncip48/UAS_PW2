@@ -191,7 +191,7 @@
 										Edit
 									</button>
 									<!-- Vertically centered modal -->
-									<div class="modal fade" id="modal-penilaian" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
+									<div class="modal fade" id="modal-penilaian" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
 										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
 											<div class="modal-content">
 												<div class="modal-header d-flex align-items-center">
@@ -234,10 +234,38 @@
 									<form target="_blank" action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps">
 										<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
 									</form>
-									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
+									<button data-bs-toggle="modal" data-bs-target="#modal-gambaran" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
 										<i class="mdi mdi-pencil me-2"></i>
 										Edit
-									</a>
+									</button>
+									<div class="modal fade" id="modal-gambaran" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+											<div class="modal-content">
+												<div class="modal-header d-flex align-items-center">
+													<h4 class="modal-title" id="myLargeModalLabel">
+														Edit Gambaran Umum
+													</h4>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<form id="edit-gambaran" method="POST" action="<?= base_url('dosen/edit_gambaran_umum_rps') ?>">
+														<input type="hidden" name="id" value="<?= $rps->id ?>">
+														<div class="form-floating">
+															<textarea class="form-control border border-info" id="ck_gu" name="gambaran_umum"><?= $rps->gambaran_umum ?></textarea>
+														</div>
+													</form>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-light-danger text-danger font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														Batalkan
+													</button>
+													<button type="button" onclick="event.preventDefault(); document.getElementById('edit-gambaran').submit();" class="btn btn-light-primary text-primary font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														Simpan
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="card-body">
@@ -248,13 +276,38 @@
 							<div class="border-bottom title-part-padding">
 								<div class="d-flex justify-content-between align-items-center">
 									<h4 class="mb-0">Capaian Pembelajaran</h4>
-									<form target="_blank" action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps">
-										<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
-									</form>
-									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
+									<button data-bs-toggle="modal" data-bs-target="#modal-capaian" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
 										<i class="mdi mdi-pencil me-2"></i>
 										Edit
-									</a>
+									</button>
+									<div class="modal fade" id="modal-capaian" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+											<div class="modal-content">
+												<div class="modal-header d-flex align-items-center">
+													<h4 class="modal-title" id="myLargeModalLabel">
+														Edit Capaian Pembelajaran
+													</h4>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<form id="edit-capaian" method="POST" action="<?= base_url('dosen/edit_capaian_rps') ?>">
+														<input type="hidden" name="id" value="<?= $rps->id ?>">
+														<div class="form-floating">
+															<textarea class="form-control border border-info" id="ck_ca" name="capaian"><?= $rps->capaian ?></textarea>
+														</div>
+													</form>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-light-danger text-danger font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														Batalkan
+													</button>
+													<button type="button" onclick="event.preventDefault(); document.getElementById('edit-capaian').submit();" class="btn btn-light-primary text-primary font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														Simpan
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="card-body">
@@ -265,13 +318,38 @@
 							<div class="border-bottom title-part-padding">
 								<div class="d-flex justify-content-between align-items-center">
 									<h4 class="mb-0">Prasyarat dan Pengetahuan Awal</h4>
-									<form target="_blank" action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps">
-										<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
-									</form>
-									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
+									<button data-bs-toggle="modal" data-bs-target="#modal-prasyarat" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
 										<i class="mdi mdi-pencil me-2"></i>
 										Edit
-									</a>
+									</button>
+									<div class="modal fade" id="modal-prasyarat" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+											<div class="modal-content">
+												<div class="modal-header d-flex align-items-center">
+													<h4 class="modal-title" id="myLargeModalLabel">
+														Edit Prasyarat dan Pengetahuan Awal
+													</h4>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<form id="edit-prasyarat" method="POST" action="<?= base_url('dosen/edit_prasyarat_rps') ?>">
+														<input type="hidden" name="id" value="<?= $rps->id ?>">
+														<div class="form-floating">
+															<textarea class="form-control border border-info" id="ck_pr" name="prasyarat"><?= $rps->prasyarat ?></textarea>
+														</div>
+													</form>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-light-danger text-danger font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														Batalkan
+													</button>
+													<button type="button" onclick="event.preventDefault(); document.getElementById('edit-prasyarat').submit();" class="btn btn-light-primary text-primary font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														Simpan
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="card-body">

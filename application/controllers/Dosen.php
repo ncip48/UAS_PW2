@@ -206,6 +206,48 @@ class Dosen extends CI_Controller
 		return redirect('dosen/detail_rps?id=' . $id);
 	}
 
+	public function edit_gambaran_umum_rps()
+	{
+		$id = $this->input->post('id');
+		$gambaran_umum = $this->input->post('gambaran_umum');
+		$data = [
+			'gambaran_umum' => $gambaran_umum
+		];
+		$this->db->where('id', $id);
+		$this->db->update('tb_rps', $data);
+		// $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Gambaran umum berhasil diubah</div>');
+		$id = $this->encrypt->encode($id);
+		return redirect('dosen/detail_rps?id=' . $id);
+	}
+
+	public function edit_capaian_rps()
+	{
+		$id = $this->input->post('id');
+		$capaian = $this->input->post('capaian');
+		$data = [
+			'capaian' => $capaian
+		];
+		$this->db->where('id', $id);
+		$this->db->update('tb_rps', $data);
+		// $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Capaian berhasil diubah</div>');
+		$id = $this->encrypt->encode($id);
+		return redirect('dosen/detail_rps?id=' . $id);
+	}
+
+	public function edit_prasyarat_rps()
+	{
+		$id = $this->input->post('id');
+		$prasyarat = $this->input->post('prasyarat');
+		$data = [
+			'prasyarat' => $prasyarat
+		];
+		$this->db->where('id', $id);
+		$this->db->update('tb_rps', $data);
+		// $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Prasyarat berhasil diubah</div>');
+		$id = $this->encrypt->encode($id);
+		return redirect('dosen/detail_rps?id=' . $id);
+	}
+
 	public function cetak_rps()
 	{
 		$id = $this->input->get('id');

@@ -55,9 +55,9 @@
 							</div>
 							<div class="form-floating mb-3">
 								<select class="form-select border border-info" name="id_dosen" aria-label="Floating label select example">
-								<?php foreach ($dosens as $dosen) : ?>
-									<option value="<?= $dosen['id_dosen'] ?>"><?= $dosen['nama_dosen'] ?></option>
-								<?php endforeach; ?>
+									<?php foreach ($dosens as $dosen) : ?>
+										<option value="<?= $dosen['id_dosen'] ?>"><?= $dosen['nama_dosen'] ?></option>
+									<?php endforeach; ?>
 								</select>
 								<label>
 									<i data-feather="lock" class="feather feather-lock feather-sm text-info fill-white me-2"></i>
@@ -67,7 +67,7 @@
 									<?php echo form_error('id_dosen'); ?>
 								</span>
 							</div>
-							
+
 							<div class="form-floating mb-3">
 								<input type="text" class="form-control border border-info" name="kode_matkul" placeholder="Kode Matkul" value="<?= $matkul->kode_matkul ?>">
 								<label>
@@ -78,12 +78,14 @@
 									<?php echo form_error('kode_matkul'); ?>
 								</span>
 							</div>
-							
+
 							<div class="form-floating mb-3">
 								<select class="form-select border border-info" name="id_prodi" aria-label="Floating label select example">
-								<?php foreach ($prodis as $prodi) : ?>
-									<option value="<?= $prodi['id_prodi'] ?>"><?= $prodi['nama_prodi'] ?></option>
-								<?php endforeach; ?>
+									<?php foreach ($prodis as $prodi) : ?>
+										<option value="<?= $prodi['id_prodi'] ?>" <?php if ($prodi['id_prodi'] == $matkul->id_prodi) {
+																						echo "selected";
+																					} ?>><?= $prodi['nama_prodi'] ?></option>
+									<?php endforeach; ?>
 								</select>
 								<label>
 									<i data-feather="lock" class="feather feather-lock feather-sm text-info fill-white me-2"></i>

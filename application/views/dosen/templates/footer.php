@@ -162,6 +162,28 @@
 		$("#kriteria_penilaian_up2_e").val(kriteria_penilaian);
 		$("#indikator_penilaian_up2_e").val(indikator_penilaian);
 	});
+
+	$(document).on("click", "#edit-rpp-btn", function() {
+		var content = $(this).data('content');
+		console.log(content['id']);
+		var id = content['id']
+		var minggu = content['minggu'];
+		var kemampuan_akhir = content['kemampuan_akhir'];
+		var indikator = content['indikator'];
+		var topik = content['topik'];
+		var aktivitas_pembelajaran = content['aktivitas_pembelajaran'];
+		var waktu = content['waktu'];
+		var penilaian = content['penilaian'];
+
+		$("#id_rpp_e").val(id);
+		$("#minggu_rpp_e").val(minggu);
+		$("#kemampuan_akhir_rpp_e").val(kemampuan_akhir);
+		$("#indikator_rpp_e").val(indikator);
+		$("#topik_rpp_e").val(topik);
+		$("#aktivitas_pembelajaran_rpp_e").val(aktivitas_pembelajaran);
+		$("#waktu_rpp_e").val(waktu);
+		$("#penilaian_rpp_e").val(penilaian);
+	});
 </script>
 
 </body>

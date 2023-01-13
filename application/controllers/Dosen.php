@@ -357,6 +357,34 @@ class Dosen extends CI_Controller
 		return redirect('dosen/detail_rps?id=' . $id);
 	}
 
+	public function edit_rpp()
+	{
+		$id = $this->input->post('id');
+		$id_rps = $this->input->post('id_rps');
+		$minggu = $this->input->post('minggu');
+		$kemampuan_akhir = $this->input->post('kemampuan_akhir');
+		$indikator = $this->input->post('indikator');
+		$topik = $this->input->post('topik');
+		$aktivitas_pembelajaran = $this->input->post('aktivitas_pembelajaran');
+		$waktu = $this->input->post('waktu');
+		$penilaian = $this->input->post('penilaian');
+
+		$data = [
+			'minggu' => $minggu,
+			'kemampuan_akhir' => $kemampuan_akhir,
+			'indikator' => $indikator,
+			'topik' => $topik,
+			'aktivitas_pembelajaran' => $aktivitas_pembelajaran,
+			'waktu' => $waktu,
+			'penilaian' => $penilaian,
+		];
+
+		$this->db->where('id', $id);
+		$this->db->update('tb_rps_detail', $data);
+		$id = $this->encrypt->encode($id_rps);
+		return redirect('dosen/detail_rps?id=' . $id);
+	}
+
 	public function hapus_rpp()
 	{
 		$id = $this->input->post('id');

@@ -804,6 +804,60 @@
 											</div>
 										</div>
 									</div>
+									<div class="modal fade" id="modal-edit-rpp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+											<div class="modal-content">
+												<div class="modal-header d-flex align-items-center">
+													<h4 class="modal-title" id="myLargeModalLabel">
+														Edit Unit Pembelajaran
+													</h4>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<form id="edit-rpp" method="POST" action="<?= base_url('dosen/edit_rpp') ?>">
+														<input type="hidden" name="id" id="id_rpp_e">
+														<input type="hidden" name="id_rps" value="<?= $rps->id ?>">
+														<div class="mb-2">
+															<label for="minggu" class="form-label">Minggu</label>
+															<input type="text" class="form-control" id="minggu_rpp_e" name="minggu" readonly>
+														</div>
+														<div class="mb-2">
+															<label for="kemampuan_akhir" class="form-label">Kemampuan Akhir yang Diharapkan</label>
+															<textarea class="form-control" id="kemampuan_akhir_rpp_e" name="kemampuan_akhir" rows="3"></textarea>
+														</div>
+														<div class="mb-2">
+															<label for="indikator" class="form-label">Indikator</label>
+															<textarea class="form-control" id="indikator_rpp_e" name="indikator" rows="3"></textarea>
+														</div>
+														<div class="mb-2">
+															<label for="topik" class="form-label">Topik & Sub Topik</label>
+															<input type="text" class="form-control" id="topik_rpp_e" name="topik">
+														</div>
+														<div class="mb-2">
+															<label for="aktivitas_pembelajaran" class="form-label">Aktivitas & Strategi Pembelajaran</label>
+															<textarea class="form-control" id="aktivitas_pembelajaran_rpp_e" name="aktivitas_pembelajaran" rows="3"></textarea>
+														</div>
+														<div class="mb-2">
+															<label for="waktu" class="form-label">Waktu</label>
+															<input type="text" class="form-control" id="waktu_rpp_e" name="waktu">
+														</div>
+														<div class="mb-2">
+															<label for="penilaian" class="form-label">Penilaian</label>
+															<input type="text" class="form-control" id="penilaian_rpp_e" name="penilaian">
+														</div>
+													</form>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-light-danger text-danger font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														Batalkan
+													</button>
+													<button type="button" onclick="event.preventDefault(); document.getElementById('edit-rpp').submit();" class="btn btn-light-primary text-primary font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														Simpan
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="card-body">
@@ -847,7 +901,7 @@
 													</td>
 													<td>
 														<div class="d-flex">
-															<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center me-2">
+															<a id="edit-rpp-btn" data-bs-toggle="modal" data-bs-target="#modal-edit-rpp" data-content='<?= json_encode($value) ?>' class="btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center me-2">
 																<i class="mdi mdi-pencil"></i>
 															</a>
 															<form id="hapus-rpp-<?= $value->id ?>" action="<?= base_url('dosen/hapus_rpp') ?>" method="POST" class="d-inline" hidden>

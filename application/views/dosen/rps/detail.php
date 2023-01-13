@@ -564,10 +564,60 @@
 							<div class="border-bottom title-part-padding">
 								<div class="d-flex justify-content-between align-items-center">
 									<h4 class="mb-0">Tugas/Aktivitas dan Penilaian</h4>
-									<a href="<?= base_url('dosen/rps_unit') ?>" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
+									<button data-bs-toggle="modal" data-bs-target="#modal-tambah-tugas" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
 										<i class="mdi mdi-plus me-2"></i>
 										Tambah
-									</a>
+									</button>
+									<!-- Vertically centered modal -->
+									<div class="modal fade" id="modal-tambah-tugas" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+											<div class="modal-content">
+												<div class="modal-header d-flex align-items-center">
+													<h4 class="modal-title" id="myLargeModalLabel">
+														Tambah Tugas/Aktivitas dan Penilaian
+													</h4>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<form id="tambah-tugas" method="POST" action="<?= base_url('dosen/tambah_tugas_rps') ?>">
+														<input type="hidden" name="id_rps" value="<?= $rps->id ?>">
+														<div class="mb-2">
+															<label for="tugas" class="form-label">Tugas/Aktivitas</label>
+															<input type="text" class="form-control" id="tugas" name="tugas">
+														</div>
+														<div class="mb-2">
+															<label for="kemampuan_akhir" class="form-label">Kemampuan Akhir yang Diharapkan</label>
+															<textarea class="form-control" id="kemampuan_akhir" name="kemampuan_akhir" rows="3"></textarea>
+														</div>
+														<div class="mb-2">
+															<label for="waktu" class="form-label">Waktu</label>
+															<textarea class="form-control" id="waktu" name="waktu" rows="3"></textarea>
+														</div>
+														<div class="mb-2">
+															<label for="bobot" class="form-label">Bobot</label>
+															<input type="text" class="form-control" id="bobot" name="bobot">
+														</div>
+														<div class="mb-2">
+															<label for="kriteria_penilaian" class="form-label">Kriteria Penilaian</label>
+															<textarea class="form-control" id="kriteria_penilaian" name="kriteria_penilaian" rows="3"></textarea>
+														</div>
+														<div class="mb-2">
+															<label for="indikator_penilaian" class="form-label">Indikator Penilaian</label>
+															<textarea class="form-control" id="indikator_penilaian" name="indikator_penilaian" rows="3"></textarea>
+														</div>
+													</form>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-light-danger text-danger font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														Batalkan
+													</button>
+													<button type="button" onclick="event.preventDefault(); document.getElementById('tambah-tugas').submit();" class="btn btn-light-primary text-primary font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														Simpan
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="card-body">

@@ -74,7 +74,7 @@
 											<td><?= $rps['semester'] ?></td>
 											<td><?= $rps['tanggal_disusun'] ?></td>
 											<td>
-												<a href="<?= base_url('dosen/rps?id=' . $this->encrypt->encode($rps['id'])) ?>" class="btn btn-sm btn-primary">
+												<a href="<?= base_url('dosen/detail_rps?id=' . $this->encrypt->encode($rps['id'])) ?>" class="btn btn-sm btn-primary">
 													<i class="mdi mdi-eye"></i>
 													Lihat
 												</a>

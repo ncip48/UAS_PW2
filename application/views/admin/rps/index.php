@@ -50,6 +50,17 @@
 								Tambah Dosen
 							</a> -->
 						</div>
+						<div class="btn-group">
+							<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+								<?= $title_fakultas ?>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item" href="<?= base_url('admin/rps') ?>">Semua Fakultas</a></li>
+								<?php foreach ($fakultass as $fak) : ?>
+									<li><a class="dropdown-item" href="<?= base_url('admin/rps?fakultas=') . $this->encrypt->encode($fak->id) ?>"><?= $fak->nama ?></a></li>
+								<?php endforeach; ?>
+							</ul>
+						</div>
 						<div class="table-responsive">
 							<table id="datatables" class="table m-t-30 table-hover contact-list v-middle text-nowrap footable footable-5 footable-paging footable-paging-center breakpoint-lg" data-paging="true" data-paging-size="7" style="">
 								<thead>
@@ -84,11 +95,11 @@
 												<?= $rps->tanggal_disusun ?>
 											</td>
 											<td>
-												<a href="<?= base_url('admin/rps?id=' . $this->encrypt->encode($rps->id)) ?>" class="btn btn-sm btn-primary">
+												<a href="<?= base_url('admin/detail_rps?id=' . $this->encrypt->encode($rps->id)) ?>" class="btn btn-sm btn-primary">
 													<i class="mdi mdi-eye"></i>
 													Lihat
 												</a>
-												<form target="_blank" action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps-<?= $rps->id ?>">
+												<form target="_blank" action="<?= base_url('admin/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps-<?= $rps->id ?>">
 													<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
 												</form>
 												<a onclick="event.preventDefault(); document.getElementById('cetak-rps-<?= $rps->id ?>').submit();" class="btn btn-sm btn-success">

@@ -11,11 +11,11 @@
 							<a href="<?= base_url('admin/home') ?>" class="link"><i class="mdi mdi-home"></i></a>
 						</li>
 						<li class="breadcrumb-item active" aria-current="page">
-							Fakultas
+							Matkul
 						</li>
 					</ol>
 				</nav>
-				<h1 class="mb-0 fw-bold">Fakultas</h1>
+				<h1 class="mb-0 fw-bold">Matkul</h1>
 			</div>
 		</div>
 	</div>
@@ -33,7 +33,7 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="border-bottom title-part-padding">
-						<h4 class="mb-0">List Fakultas</h4>
+						<h4 class="mb-0">List Matkul</h4>
 					</div>
 					<div class="card-body">
 						<div class="d-flex justify-content-between align-items-center">
@@ -45,9 +45,9 @@
 									</div>
 								<?php endif; ?>
 							</div>
-							<a href="<?= base_url('admin/tambah_fakultas') ?>" class="btn btn-info btn-rounded m-t-10 mb-2">
+							<a href="<?= base_url('admin/tambah_matkul') ?>" class="btn btn-info btn-rounded m-t-10 mb-2">
 								<i class="mdi mdi-plus"></i>
-								Tambah Fakultas
+								Tambah Matkul
 							</a>
 						</div>
 						<div class="table-responsive">
@@ -55,26 +55,28 @@
 								<thead>
 									<tr class="footable-header">
 										<th class="footable-first-visible">No</th>
-										<th>Nama Fakultas</th>
-										<th>Nama Dekan</th>
-										<th>Aksi</th>
+										<th>Nama</th>
+										<th>Prodi</th>
+										<th>Dosen Pengajar</th>
+										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php $no = 1; ?>
-									<?php foreach ($fakultass as $fakultas) : ?>
+									<?php foreach ($matkuls as $matkul) : ?>
 										<tr>
 											<td class="footable-first-visible"><?= $no++ ?></td>
+											<td><?= $matkul['nama_matkul'] ?></td>
+
+											<td><?= $matkul['nama_prodi'] ?></td>
+									
+											<td><?= $matkul['nama_dosen'] ?></td>
+											
 											<td>
-												<a href="javascript:void(0)" class="link"><img src="<?= base_url('assets/images/users/4.jpg') ?>" alt="user" width="40" class="rounded-circle">
-													<?= $fakultas['nama'] ?></a>
-											</td>
-											<td><?= $fakultas['nama_dosen'] ?></td>
-											<td>
-												<a href="<?= base_url('admin/fakultas?id=') . $this->encrypt->encode($fakultas['id']) ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
-												<form id="hapus-fakultas-<?= $fakultas['id'] ?>" action="<?= base_url('admin/hapus_fakultas/') . $fakultas['id'] ?>" hidden>
+												<a href="<?= base_url('admin/matkul?id=') . $this->encrypt->encode($matkul['id']) ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
+												<form id="hapus-matkul-<?= $matkul['id'] ?>" action="<?= base_url('admin/hapus_matkul/') . $matkul['id'] ?>" hidden>
 												</form>
-												<a onclick="event.preventDefault(); document.getElementById('hapus-fakultas-<?= $fakultas['id'] ?>').submit();" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i> Hapus</a>
+												<a onclick="event.preventDefault(); document.getElementById('hapus-matkul-<?= $matkul['id'] ?>').submit();" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i> Hapus</a>
 											</td>
 
 										</tr>

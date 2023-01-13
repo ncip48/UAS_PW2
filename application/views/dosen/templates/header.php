@@ -24,12 +24,18 @@ $user = $this->db->get_where('tb_user', ['id' => $user_data['id']], 1, 0)->row()
 	<!-- Custom CSS -->
 	<link href="<?= base_url('assets/dist/css/style.min.css') ?>" rel="stylesheet">
 	<link href="<?= base_url('assets/dist/css/datatables.min.css') ?>" rel="stylesheet">
+	<script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+	<style>
+		.ck-editor__editable {
+			min-height: 200px !important;
+		}
+	</style>
 </head>
 
 <body>
@@ -121,15 +127,7 @@ $user = $this->db->get_where('tb_user', ['id' => $user_data['id']], 1, 0)->row()
 					<!-- Right side toggle and nav items -->
 					<!-- ============================================================== -->
 					<ul class="navbar-nav">
-						<li class="nav-item">
-							<a class="nav-link nav-sidebar" href="javascript:void(0)">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
-									<circle cx="9" cy="21" r="1"></circle>
-									<circle cx="20" cy="21" r="1"></circle>
-									<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-								</svg>
-							</a>
-						</li>
+						
 						<!-- ============================================================== -->
 						<!-- Messages -->
 						<!-- ============================================================== -->

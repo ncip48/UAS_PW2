@@ -485,7 +485,11 @@
 														<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center me-2">
 															<i class="mdi mdi-pencil"></i>
 														</a>
-														<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-danger text-danger font-weight-medium d-flex align-items-center">
+														<form id="hapus-up-<?= $value->id ?>" action="<?= base_url('dosen/hapus_unit_pembelajaran') ?>" method="POST" class="d-inline" hidden>
+															<input type="hidden" name="id" value="<?= $value->id ?>">
+															<input type="hidden" name="id_rps" value="<?= $rps->id ?>">
+														</form>
+														<a onclick="event.preventDefault(); document.getElementById('hapus-up-<?= $value->id ?>').submit();" class="btn btn-rounded btn-light-danger text-danger font-weight-medium d-flex align-items-center">
 															<i class="mdi mdi-delete"></i>
 														</a>
 													</div>

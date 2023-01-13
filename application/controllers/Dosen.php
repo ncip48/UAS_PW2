@@ -223,6 +223,16 @@ class Dosen extends CI_Controller
 		return redirect('dosen/detail_rps?id=' . $id);
 	}
 
+	public function hapus_unit_pembelajaran()
+	{
+		$id = $this->input->post('id');
+		$id_rps = $this->input->post('id_rps');
+		$this->db->where('id', $id);
+		$this->db->delete('tb_rps_unit_pembelajaran');
+		$id = $this->encrypt->encode($id_rps);
+		return redirect('dosen/detail_rps?id=' . $id);
+	}
+
 	public function edit_penilaian_rps()
 	{
 		$id = $this->input->post('id');

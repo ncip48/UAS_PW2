@@ -362,10 +362,68 @@
 							<div class="border-bottom title-part-padding">
 								<div class="d-flex justify-content-between align-items-center">
 									<h4 class="mb-0">Unit Pembelajaran</h4>
-									<a href="<?= base_url('dosen/rps_unit') ?>" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
+									<button data-bs-toggle="modal" data-bs-target="#modal-tambah-up" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
 										<i class="mdi mdi-plus me-2"></i>
 										Tambah
-									</a>
+									</button>
+									<!-- Vertically centered modal -->
+									<div class="modal fade" id="modal-tambah-up" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+											<div class="modal-content">
+												<div class="modal-header d-flex align-items-center">
+													<h4 class="modal-title" id="myLargeModalLabel">
+														Tambah Unit Pembelajaran
+													</h4>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<form id="tambah-up" method="POST" action="<?= base_url('dosen/tambah_unit_pembelajaran') ?>">
+														<input type="hidden" name="id_rps" value="<?= $rps->id ?>">
+														<div class="mb-2">
+															<label for="kemampuan_akhir" class="form-label">Kemampuan Akhir yang Diharapkan</label>
+															<textarea class="form-control" id="kemampuan_akhir" name="kemampuan_akhir" rows="3"></textarea>
+														</div>
+														<h5 class="card-subtitle mt-4 pt-2">
+															Indikator
+														</h5>
+														<div class="form-floating mb-2">
+															<textarea class="form-control border border-info" id="up1" name="indikator"></textarea>
+														</div>
+														<h5 class="card-subtitle mt-4 pt-2">
+															Bahan Kajian
+														</h5>
+														<div class="form-floating mb-2">
+															<textarea class="form-control border border-info" id="up2" name="bahan_kajian"></textarea>
+														</div>
+														<div class="mb-2">
+															<label for="metode_pembelajaran" class="form-label">Metode Pembelajaran</label>
+															<input type="text" class="form-control" id="metode_pembelajaran" name="metode_pembelajaran">
+														</div>
+														<div class="mb-2">
+															<label for="waktu" class="form-label">Waktu</label>
+															<input type="text" class="form-control" id="waktu" name="waktu">
+														</div>
+														<div class="mb-2">
+															<label for="metode_penilaian" class="form-label">Metode Penilaian</label>
+															<input type="text" class="form-control" id="metode_penilaian" name="metode_penilaian">
+														</div>
+														<div class="mb-2">
+															<label for="bahan_ajar" class="form-label">Bahan Ajar</label>
+															<input type="text" class="form-control" id="bahan_ajar" name="bahan_ajar">
+														</div>
+													</form>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-light-danger text-danger font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														Batalkan
+													</button>
+													<button type="button" onclick="event.preventDefault(); document.getElementById('tambah-up').submit();" class="btn btn-light-primary text-primary font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														Simpan
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="card-body">

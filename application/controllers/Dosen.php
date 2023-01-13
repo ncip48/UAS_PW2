@@ -195,6 +195,34 @@ class Dosen extends CI_Controller
 		return redirect('dosen/detail_rps?id=' . $id);
 	}
 
+	public function tambah_unit_pembelajaran()
+	{
+		$id_rps = $this->input->post('id_rps');
+		$kemampuan_akhir = $this->input->post('kemampuan_akhir');
+		$indikator = $this->input->post('indikator');
+		$bahan_kajian = $this->input->post('bahan_kajian');
+		$metode_pembelajaran = $this->input->post('metode_pembelajaran');
+		$waktu = $this->input->post('waktu');
+		$metode_penilaian = $this->input->post('metode_penilaian');
+		$bahan_ajar = $this->input->post('bahan_ajar');
+
+
+		$data = [
+			'id_rps' => $id_rps,
+			'kemampuan_akhir' => $kemampuan_akhir,
+			'indikator' => $indikator,
+			'bahan_kajian' => $bahan_kajian,
+			'metode_pembelajaran' => $metode_pembelajaran,
+			'waktu' => $waktu,
+			'metode_penilaian' => $metode_penilaian,
+			'bahan_ajar' => $bahan_ajar,
+		];
+
+		$this->db->insert('tb_rps_unit_pembelajaran', $data);
+		$id = $this->encrypt->encode($id_rps);
+		return redirect('dosen/detail_rps?id=' . $id);
+	}
+
 	public function edit_penilaian_rps()
 	{
 		$id = $this->input->post('id');

@@ -85,6 +85,18 @@
 		.catch(error => {
 			console.error(error);
 		});
+
+	ClassicEditor
+		.create(document.querySelector('#up1'))
+		.catch(error => {
+			console.error(error);
+		});
+
+	ClassicEditor
+		.create(document.querySelector('#up2'))
+		.catch(error => {
+			console.error(error);
+		});
 </script>
 
 </body>

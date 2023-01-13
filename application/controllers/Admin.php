@@ -270,20 +270,31 @@ class Admin extends CI_Controller
 			$this->load->view('admin/prodi/edit', $data);
 			$this->load->view('admin/templates/footer');
 		} else {
+			$id_fakultas = $this->input->get('fakultas');
 			$data['title'] = 'prodi';
 			$this->db->select('tb_prodi.*, tb_fakultas.nama, tb_dosen.nama_dosen as nama_kaprodi');
 			$this->db->join('tb_fakultas', 'tb_fakultas.id = tb_prodi.id_fakultas', 'left');
 			$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_prodi.kaprodi', 'left');
+			if ($id_fakultas) {
+				$id_fakultas = $this->encrypt->decode($id_fakultas);
+				$this->db->where('tb_prodi.id_fakultas', $id_fakultas);
+			}
 			$prodi_kaprodi = $this->db->get('tb_prodi')->result_array();
 
 			$this->db->select('tb_prodi.*, tb_fakultas.nama, tb_dosen.nama_dosen as nama_sekprodi');
 			$this->db->join('tb_fakultas', 'tb_fakultas.id = tb_prodi.id_fakultas', 'left');
 			$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_prodi.sekprodi', 'left');
+			if ($id_fakultas) {
+				$this->db->where('tb_prodi.id_fakultas', $id_fakultas);
+			}
 			$prodi_sekprodi = $this->db->get('tb_prodi')->result_array();
 
 			$data['prodis'] = array_map(function ($prodi_kaprodi, $prodi_sekprodi) {
 				return array_merge($prodi_kaprodi, $prodi_sekprodi);
 			}, $prodi_kaprodi, $prodi_sekprodi);
+
+			$data['fakultass'] = $this->db->get('tb_fakultas')->result();
+			$data['title_fakultas'] = $id_fakultas ? $this->db->get_where('tb_fakultas', ['id' => $id_fakultas])->row()->nama : "Pilih Fakultas";
 
 			$this->load->view('admin/templates/header', $data);
 			$this->load->view('admin/prodi/index', $data);

@@ -746,10 +746,64 @@
 							<div class="border-bottom title-part-padding">
 								<div class="d-flex justify-content-between align-items-center">
 									<h4 class="mb-0">Rencana Pelaksanaan Pembelajaran </h4>
-									<a href="<?= base_url('dosen/rps_unit') ?>" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
+									<button data-bs-toggle="modal" data-bs-target="#modal-tambah-rpp" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
 										<i class="mdi mdi-plus me-2"></i>
 										Tambah
-									</a>
+									</button>
+									<!-- Vertically centered modal -->
+									<div class="modal fade" id="modal-tambah-rpp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+											<div class="modal-content">
+												<div class="modal-header d-flex align-items-center">
+													<h4 class="modal-title" id="myLargeModalLabel">
+														Tambah Unit Pembelajaran
+													</h4>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<form id="tambah-rpp" method="POST" action="<?= base_url('dosen/tambah_rpp') ?>">
+														<input type="hidden" name="id_rps" value="<?= $rps->id ?>">
+														<div class="mb-2">
+															<label for="minggu" class="form-label">Minggu</label>
+															<input type="text" class="form-control" id="minggu" name="minggu" value="<?= $rpp_latest ?>" readonly>
+														</div>
+														<div class="mb-2">
+															<label for="kemampuan_akhir" class="form-label">Kemampuan Akhir yang Diharapkan</label>
+															<textarea class="form-control" id="kemampuan_akhir" name="kemampuan_akhir" rows="3"></textarea>
+														</div>
+														<div class="mb-2">
+															<label for="indikator" class="form-label">Indikator</label>
+															<textarea class="form-control" id="indikator" name="indikator" rows="3"></textarea>
+														</div>
+														<div class="mb-2">
+															<label for="topik" class="form-label">Topik & Sub Topik</label>
+															<input type="text" class="form-control" id="topik" name="topik">
+														</div>
+														<div class="mb-2">
+															<label for="aktivitas_pembelajaran" class="form-label">Aktivitas & Strategi Pembelajaran</label>
+															<textarea class="form-control" id="aktivitas_pembelajaran" name="aktivitas_pembelajaran" rows="3"></textarea>
+														</div>
+														<div class="mb-2">
+															<label for="waktu" class="form-label">Waktu</label>
+															<input type="text" class="form-control" id="waktu" name="waktu">
+														</div>
+														<div class="mb-2">
+															<label for="penilaian" class="form-label">Penilaian</label>
+															<input type="text" class="form-control" id="penilaian" name="penilaian">
+														</div>
+													</form>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-light-danger text-danger font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														Batalkan
+													</button>
+													<button type="button" onclick="event.preventDefault(); document.getElementById('tambah-rpp').submit();" class="btn btn-light-primary text-primary font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														Simpan
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="card-body">
@@ -796,7 +850,11 @@
 															<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center me-2">
 																<i class="mdi mdi-pencil"></i>
 															</a>
-															<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-danger text-danger font-weight-medium d-flex align-items-center">
+															<form id="hapus-rpp-<?= $value->id ?>" action="<?= base_url('dosen/hapus_rpp') ?>" method="POST" class="d-inline" hidden>
+																<input type="hidden" name="id" value="<?= $value->id ?>">
+																<input type="hidden" name="id_rps" value="<?= $rps->id ?>">
+															</form>
+															<a onclick="event.preventDefault(); document.getElementById('hapus-rpp-<?= $value->id ?>').submit();" class="btn btn-rounded btn-light-danger text-danger font-weight-medium d-flex align-items-center">
 																<i class="mdi mdi-delete"></i>
 															</a>
 														</div>

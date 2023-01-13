@@ -424,6 +424,64 @@
 											</div>
 										</div>
 									</div>
+									<div class="modal fade" id="modal-edit-up" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+											<div class="modal-content">
+												<div class="modal-header d-flex align-items-center">
+													<h4 class="modal-title" id="myLargeModalLabel">
+														Edit Unit Pembelajaran
+													</h4>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<form id="edit-up" method="POST" action="<?= base_url('dosen/edit_unit_pembelajaran') ?>">
+														<input type="hidden" name="id_rps" value="<?= $rps->id ?>">
+														<input type="hidden" name="id" id="id_up_e">
+														<div class="mb-2">
+															<label for="kemampuan_akhir_e" class="form-label">Kemampuan Akhir yang Diharapkan</label>
+															<textarea class="form-control" id="kemampuan_akhir_e" name="kemampuan_akhir" rows="3"></textarea>
+														</div>
+														<h5 class="card-subtitle mt-4 pt-2">
+															Indikator
+														</h5>
+														<div class="form-floating mb-2">
+															<textarea class="form-control border border-info" id="up1_e" name="indikator"></textarea>
+														</div>
+														<h5 class="card-subtitle mt-4 pt-2">
+															Bahan Kajian
+														</h5>
+														<div class="form-floating mb-2">
+															<textarea class="form-control border border-info" id="up2_e" name="bahan_kajian"></textarea>
+														</div>
+														<div class="mb-2">
+															<label for="metode_pembelajaran_e" class="form-label">Metode Pembelajaran</label>
+															<input type="text" class="form-control" id="metode_pembelajaran_e" name="metode_pembelajaran">
+														</div>
+														<div class="mb-2">
+															<label for="waktu_e" class="form-label">Waktu</label>
+															<input type="text" class="form-control" id="waktu_e" name="waktu">
+														</div>
+														<div class="mb-2">
+															<label for="metode_penilaian_e" class="form-label">Metode Penilaian</label>
+															<input type="text" class="form-control" id="metode_penilaian_e" name="metode_penilaian">
+														</div>
+														<div class="mb-2">
+															<label for="bahan_ajar_e" class="form-label">Bahan Ajar</label>
+															<input type="text" class="form-control" id="bahan_ajar_e" name="bahan_ajar">
+														</div>
+													</form>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-light-danger text-danger font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														Batalkan
+													</button>
+													<button type="button" onclick="event.preventDefault(); document.getElementById('edit-up').submit();" class="btn btn-light-primary text-primary font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														Simpan
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="card-body">
@@ -482,7 +540,7 @@
 												</td>
 												<td>
 													<div class="d-flex">
-														<a href="<?= base_url('dosen/rps_unit') ?>" class="btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center me-2">
+														<a id="edit-up-btn" data-bs-toggle="modal" data-bs-target="#modal-edit-up" data-content='<?= json_encode($value) ?>' class="btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center me-2">
 															<i class="mdi mdi-pencil"></i>
 														</a>
 														<form id="hapus-up-<?= $value->id ?>" action="<?= base_url('dosen/hapus_unit_pembelajaran') ?>" method="POST" class="d-inline" hidden>

@@ -142,6 +142,26 @@
 		$("#bahan_ajar_e").val(bahan_ajar);
 
 	});
+
+	$(document).on("click", "#edit-up2-btn", function() {
+		var content = $(this).data('content');
+		console.log(content['id']);
+		var id = content['id']
+		var tugas = content['tugas'];
+		var kemampuan_akhir = content['kemampuan_akhir'];
+		var waktu = content['waktu'];
+		var bobot = content['bobot'];
+		var kriteria_penilaian = content['kriteria_penilaian'];
+		var indikator_penilaian = content['indikator_penilaian'];
+
+		$("#id_up2_e").val(id);
+		$("#tugas_up2_e").val(tugas);
+		$("#kemampuan_akhir_up2_e").val(kemampuan_akhir);
+		$("#waktu_up2_e").val(waktu);
+		$("#bobot_up2_e").val(bobot);
+		$("#kriteria_penilaian_up2_e").val(kriteria_penilaian);
+		$("#indikator_penilaian_up2_e").val(indikator_penilaian);
+	});
 </script>
 
 </body>

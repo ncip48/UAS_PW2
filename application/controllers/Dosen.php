@@ -150,6 +150,9 @@ class Dosen extends CI_Controller
 		//get the latest tb_rps_detail
 		$rpp_latest = $this->db->order_by('id', 'DESC')->get_where('tb_rps_detail', ['id_rps' => $rps->id])->row();
 		$rpp_latest = $rpp_latest->minggu;
+		if ($rpp_latest == NULL) {
+			$rpp_latest = 0;
+		}
 		//increment
 		$rpp_latest = $rpp_latest + 1;
 		$data['rpp_latest'] = $rpp_latest;

@@ -41,59 +41,35 @@
 						<h5 class="card-subtitle mb-3 pb-3 border-bottom">
 							silahkan input untuk mengedit Dosen
 						</h5>
-						<form autocomplete="off" method="POST" action="<?= base_url('admin/edit_dosen_aksi') ?>">
-							<input type="hidden" class="form-control border border-info" name="id" placeholder="ID" value="<?= $dosen->id_dosen ?>">
+						<form autocomplete="off" method="POST" action="<?= base_url('admin/edit_fakultas_aksi') ?>">
+							<input type="hidden" class="form-control border border-info" name="id" placeholder="ID" value="<?= $fakultas->id ?>">
 							<div class="form-floating mb-3">
-								<input type="text" class="form-control border border-info" name="nama_dosen" placeholder="Nama" value="<?= $dosen->nama_dosen ?>">
+								<input type="text" class="form-control border border-info" name="nama" placeholder="Nama" value="<?= $fakultas->nama ?>">
 								<label>
 									<i data-feather="user" class="feather feather-user feather-sm text-info fill-white me-2"></i>
-									<span class="border-start border-info ps-3">Nama Dosen</span>
+									<span class="border-start border-info ps-3">Nama Fakultas</span>
 								</label>
 								<span class="invalid-feedback d-block" role="alert">
-									<?php echo form_error('nama_dosen'); ?>
+									<?php echo form_error('nama'); ?>
 								</span>
 							</div>
 							<div class="form-floating mb-3">
-								<input type="text" class="form-control border border-info" name="nip" placeholder="NIP" value="<?= $dosen->nip ?>">
-								<label>
-									<i data-feather="lock" class="feather feather-lock feather-sm text-info fill-white me-2"></i>
-									<span class="border-start border-info ps-3">NIP</span>
-								</label>
-								<span class="invalid-feedback d-block" role="alert">
-									<?php echo form_error('nip'); ?>
-								</span>
-							</div>
-							<div class="form-floating mb-3">
-								<select class="form-select border border-info" name="jenis_kelamin" aria-label="Floating label select example">
-									<option value="1" <?php if ($dosen->jenis_kelamin == 1) {
-															echo "selected";
-														} ?>>Laki-laki</option>
-									<option value="0" <?php if ($dosen->jenis_kelamin == 0) {
-															echo "selected";
-														} ?>>Perempuan</option>
+								<select class="form-select border border-info" name="id_dekan" aria-label="Floating label select example">
+									<option value="">---Pilih Dekan---</option>
+									<?php foreach ($dosens as $dosen) : ?>
+										<option value="<?= $dosen->id_dosen ?>" <?php if ($fakultas->id_dekan == $dosen->id_dosen) {
+																					echo "selected";
+																				} ?>><?= $dosen->nama_dosen ?></option>
+									<?php endforeach; ?>
 								</select>
 								<label>
 									<i data-feather="user-check" class="feather feather-user-check feather-sm text-info fill-white me-2"></i>
-									<span class="border-start border-info ps-3">Jenis Kelamin</span>
+									<span class="border-start border-info ps-3">Dekan</span>
 								</label>
-								<span class="invalid-feedback d-block" role="alert">
-									<?php echo form_error('jenis_kelamin'); ?>
-								</span>
 							</div>
-							<div class="form-floating mb-3">
-								<input type="text" class="form-control border border-info" name="alamat_dosen" placeholder="Alamat" value="<?= $dosen->alamat_dosen ?>">
-								<label>
-									<i data-feather="lock" class="feather feather-lock feather-sm text-info fill-white me-2"></i>
-									<span class="border-start border-info ps-3">Alamat Dosen</span>
-								</label>
-								<span class="invalid-feedback d-block" role="alert">
-									<?php echo form_error('alamat_dosen'); ?>
-								</span>
-							</div>
-
 							<div class="d-md-flex align-items-center justify-content-end">
 								<div class="mt-3 mt-md-0 ms-auto">
-									<a href="<?= base_url('admin/dosen') ?>" class="btn btn-danger font-weight-medium rounded-pill px-4 ">
+									<a href="<?= base_url('admin/fakultas') ?>" class="btn btn-danger font-weight-medium rounded-pill px-4 ">
 										<div class="d-flex align-items-center">
 											<i data-feather="x-circle" class="feather feather-save feather-sm text-white fill-white me-2"></i>
 											Gak Jadi

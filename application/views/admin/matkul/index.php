@@ -56,6 +56,7 @@
 									<tr class="footable-header">
 										<th class="footable-first-visible">No</th>
 										<th>Nama</th>
+										<th>Kode Matkul</th>
 										<th>Prodi</th>
 										<th>Dosen Pengajar</th>
 										<th>Action</th>
@@ -69,9 +70,11 @@
 											<td><?= $matkul['nama_matkul'] ?></td>
 
 											<td><?= $matkul['nama_prodi'] ?></td>
-									
+
+											<td><?= $matkul['kode'] ?></td>
+
 											<td><?= $matkul['nama_dosen'] ?></td>
-											
+
 											<td>
 												<a href="<?= base_url('admin/matkul?id=') . $this->encrypt->encode($matkul['id']) ?>" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
 												<form id="hapus-matkul-<?= $matkul['id'] ?>" action="<?= base_url('admin/hapus_matkul/') . $matkul['id'] ?>" hidden>

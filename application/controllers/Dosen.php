@@ -62,10 +62,17 @@ class Dosen extends CI_Controller
 	{
 		$data['title'] = 'RPS';
 		$user = $this->db->get_where('tb_user', ['id' =>  $this->session->userdata('userdata')['id']])->row();
+		$matkul = $this->db->get_where('tb_matkul', ['id_dosen' => $user->id_dosen])->result();
+		$kode_matkul = [];
+		foreach ($matkul as $m) {
+			$kode_matkul[] = $m->kode_matkul;
+		}
 		$this->db->select('tb_rps.*, tb_matkul.nama_matkul, tb_matkul.kode_matkul');
 		$this->db->join('tb_matkul', 'tb_matkul.id = tb_rps.id_matkul');
 		$this->db->join('tb_dosen', 'tb_dosen.id_dosen = tb_matkul.id_dosen');
-		$data['rpss'] = $this->db->get_where('tb_rps', ['tb_dosen.id_dosen' => $user->id_dosen])->result_array();
+		//where in
+		$this->db->where_in('tb_matkul.kode_matkul', $kode_matkul);
+		$data['rpss'] = $this->db->get('tb_rps')->result_array();
 		$this->load->view('dosen/templates/header', $data);
 		$this->load->view('dosen/rps/index', $data);
 		$this->load->view('dosen/templates/footer');

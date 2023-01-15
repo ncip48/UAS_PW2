@@ -777,8 +777,7 @@ class Admin extends CI_Controller
 
 	public function tambah_matkul_aksi()
 	{
-		$this->form_validation->set_rules('nama_matkul', 'Nama Matkul', 'required|is_unique[tb_matkul.nama_matkul]', [
-			'is_unique' => 'Nama Matkul sudah ada',
+		$this->form_validation->set_rules('nama_matkul', 'Nama Matkul', 'required', [
 			'required' => 'Nama Matkul harus diisi'
 		]);
 

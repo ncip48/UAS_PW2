@@ -71,7 +71,7 @@
 
 											<td><?= $matkul['nama_prodi'] ?></td>
 
-											<td><?= $matkul['kode'] ?></td>
+											<td><?= $matkul['kode_matkul'] ?></td>
 
 											<td><?= $matkul['nama_dosen'] ?></td>
 

@@ -398,12 +398,24 @@ class Admin extends CI_Controller
 
 	public function fakultas()
 	{
+		$id = $this->input->get('id');
+		if ($id) {
+			$id = $this->encrypt->decode($id);
+			$data['title'] = 'Edit fakultas';
+			$data['fakultas'] = $this->db->get_where('tb_fakultas', ['id' => $id])->row();
+			$data['dosens'] = $this->db->get('tb_dosen')->result();
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/fakultas/edit', $data);
+			$this->load->view('admin/templates/footer');
+		} else {
 		$data['title'] = 'fakultas';
 		$this->db->join('tb_dosen', 'tb_dosen.id_dosen=tb_fakultas.id_dekan');
 		$data['fakultass'] = $this->db->get('tb_fakultas')->result_array();
 		$this->load->view('admin/templates/header', $data);
 		$this->load->view('admin/fakultas/index', $data);
 		$this->load->view('admin/fakultas/footer');
+		}
+		
 	}
 
 	public function tambah_fakultas()
@@ -434,6 +446,30 @@ class Admin extends CI_Controller
 		}
 	}
 
+	public function edit_fakultas_aksi()
+	{
+		$this->form_validation->set_rules('nama', 'Nama', 'required', [
+			'required' => 'Nama harus diisi'
+		]);
+		if ($this->form_validation->run() == false) {
+			$id = $this->input->post('id');
+			$data['title'] = 'Edit fakultas';
+			$data['fakultas'] = $this->db->get_where('tb_fakultas', ['id' => $id])->row();
+			$data['dosens'] = $this->db->get('tb_dosen')->result();
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/fakultas/edit', $data);
+			$this->load->view('admin/templates/footer');
+		} else {
+			$data = [
+				'nama' => htmlspecialchars($this->input->post('nama', true)),
+				'id_dekan' => htmlspecialchars($this->input->post('id_dekan', true)),
+			];
+			$this->db->where('id', $this->input->post('id'));
+			$this->db->update('tb_fakultas', $data);
+			$this->session->set_flashdata('message', 'Fakultas berhasil diubah');
+			redirect('admin/fakultas');
+		}
+	}
 
 	public function hapus_fakultas($id)
 	{

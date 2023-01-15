@@ -69,9 +69,9 @@
 											<td class="footable-first-visible"><?= $no++ ?></td>
 											<td><?= $matkul['nama_matkul'] ?></td>
 
-											<td><?= $matkul['nama_prodi'] ?></td>
-
 											<td><?= $matkul['kode_matkul'] ?></td>
+
+											<td><?= $matkul['nama_prodi'] ?></td>
 
 											<td><?= $matkul['nama_dosen'] ?></td>
 

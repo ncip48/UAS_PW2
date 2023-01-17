@@ -144,6 +144,7 @@ class Dosen extends CI_Controller
 		$rpp = $this->db->get_where('tb_rps_detail', ['id_rps' => $rps->id])->result();
 
 		$data['matkul'] = $matkul;
+		$data['matkuld'] = $matkul;
 		$data['rps'] = $rps;
 		$data['fakultas'] = $fakultas;
 		$data['prodi'] = $prodi;

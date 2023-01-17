@@ -188,7 +188,7 @@
 												:
 											</td>
 											<td style="width: 100%;" class="pb-3">
-												<?= $matkul->nama_matkul ?>
+												<?= $matkuld->nama_matkul ?>
 											</td>
 										</tr>
 										<tr>

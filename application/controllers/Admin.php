@@ -408,14 +408,13 @@ class Admin extends CI_Controller
 			$this->load->view('admin/fakultas/edit', $data);
 			$this->load->view('admin/templates/footer');
 		} else {
-		$data['title'] = 'fakultas';
-		$this->db->join('tb_dosen', 'tb_dosen.id_dosen=tb_fakultas.id_dekan');
-		$data['fakultass'] = $this->db->get('tb_fakultas')->result_array();
-		$this->load->view('admin/templates/header', $data);
-		$this->load->view('admin/fakultas/index', $data);
-		$this->load->view('admin/fakultas/footer');
+			$data['title'] = 'fakultas';
+			$this->db->join('tb_dosen', 'tb_dosen.id_dosen=tb_fakultas.id_dekan');
+			$data['fakultass'] = $this->db->get('tb_fakultas')->result_array();
+			$this->load->view('admin/templates/header', $data);
+			$this->load->view('admin/fakultas/index', $data);
+			$this->load->view('admin/fakultas/footer');
 		}
-		
 	}
 
 	public function tambah_fakultas()
@@ -567,6 +566,18 @@ class Admin extends CI_Controller
 		$this->load->view('admin/templates/header', $data);
 		$this->load->view('admin/rps/detail', $data);
 		$this->load->view('admin/templates/footer');
+	}
+
+	public function hapus_rps()
+	{
+		$id = $this->input->post('id');
+		$id = $this->encrypt->decode($id);
+		$this->db->delete('tb_rps', ['id' => $id]);
+		$this->db->delete('tb_rps_detail', ['id_rps' => $id]);
+		$this->db->delete('tb_rps_tugas', ['id_rps' => $id]);
+		$this->db->delete('tb_rps_unit_pembelajaran', ['id_rps' => $id]);
+		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">RPS berhasil dihapus!</div>');
+		redirect('admin/rps');
 	}
 
 	public function cetak_rps()

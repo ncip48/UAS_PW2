@@ -106,6 +106,13 @@
 													<i class="mdi mdi-printer"></i>
 													Cetak
 												</a>
+												<form action="<?= base_url('admin/hapus_rps') ?>" method="POST" class="d-inline" id="hapus-rps-<?= $rps->id ?>">
+													<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
+												</form>
+												<a onclick="event.preventDefault(); document.getElementById('hapus-rps-<?= $rps->id ?>').submit();" class="btn btn-sm btn-danger">
+													<i class="mdi mdi-delete"></i>
+													Hapus
+												</a>
 											</td>
 										</tr>
 									<?php endforeach; ?>

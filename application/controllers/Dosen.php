@@ -170,6 +170,18 @@ class Dosen extends CI_Controller
 		$this->load->view('dosen/templates/footer');
 	}
 
+	public function hapus_rps()
+	{
+		$id = $this->input->post('id');
+		$id = $this->encrypt->decode($id);
+		$this->db->delete('tb_rps', ['id' => $id]);
+		$this->db->delete('tb_rps_detail', ['id_rps' => $id]);
+		$this->db->delete('tb_rps_tugas', ['id_rps' => $id]);
+		$this->db->delete('tb_rps_unit_pembelajaran', ['id_rps' => $id]);
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data berhasil dihapus!</div>');
+		redirect('dosen/rps');
+	}
+
 	public function tambah_rps_aksi()
 	{
 		$id_matkul = $this->input->post('id_matkul');

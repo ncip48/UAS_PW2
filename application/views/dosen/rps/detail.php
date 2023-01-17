@@ -87,13 +87,83 @@
 							<div class="border-bottom title-part-padding">
 								<div class="d-flex justify-content-between align-items-center">
 									<h4 class="mb-0">Informasi RPS</h4>
-									<form target="_blank" action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps">
-										<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
-									</form>
-									<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
-										<i class="mdi mdi-printer me-2"></i>
-										Cetak
-									</a>
+									<div class="d-flex align-items-center">
+										<form target="_blank" action="<?= base_url('dosen/cetak_rps') ?>" method="GET" class="d-inline" id="cetak-rps">
+											<input type="hidden" name="id" value="<?= $this->encrypt->encode($rps->id) ?>">
+										</form>
+										<a onclick="event.preventDefault(); document.getElementById('cetak-rps').submit();" class="justify-content-center btn btn-rounded btn-light-primary text-primary font-weight-medium d-flex align-items-center">
+											<i class="mdi mdi-printer me-2"></i>
+											Cetak
+										</a>
+										<!-- buat button edit -->
+										<button data-bs-toggle="modal" data-bs-target="#modal-penilaian" class="ms-2 justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
+											<i class="mdi mdi-pencil me-2"></i>
+											Edit
+										</button>
+										<!-- Vertically centered modal -->
+										<div class="modal fade" id="modal-penilaian" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+												<div class="modal-content">
+													<div class="modal-header d-flex align-items-center">
+														<h4 class="modal-title" id="myLargeModalLabel">
+															Edit RPS
+														</h4>
+														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<div class="modal-body">
+														<form id="edit-penilaian" method="POST" action="<?= base_url('dosen/edit_rps') ?>">
+															<input type="hidden" name="id" value="<?= $rps->id ?>">
+															<div class="form-floating mb-3">
+																<select class="form-select border border-info" name="id_matkul" aria-label="Floating label select example">
+																	<option value="">Pilih Matkul</option>
+																	<?php foreach ($matkuls as $matkul) : ?>
+																		<option value="<?= $matkul->id ?>" <?= $matkul->id == $rps->id_matkul ? 'selected' : '' ?>><?= $matkul->nama_matkul ?> | <?= $matkul->kode_matkul ?></option>
+																	<?php endforeach; ?>
+																</select>
+																<label>
+																	<i class="mdi mdi-home-modern text-info fill-white me-2"></i>
+																	<span class="border-start border-info ps-3">Mata Kuliah</span>
+																</label>
+															</div>
+															<div class="form-floating mb-3">
+																<input type="text" class="form-control border border-info" name="semester" placeholder="Semester" value="<?= $rps->semester ?>">
+																<label>
+																	<i data-feather="mail" class="feather feather-mail feather-sm text-info fill-white me-2"></i>
+																	<span class="border-start border-info ps-3">Semester</span>
+																</label>
+															</div>
+															<div class="form-floating mb-3">
+																<input type="text" class="form-control border border-info" name="bobot_sks" placeholder="Bobot SKS" value="<?= $rps->bobot_sks ?>">
+																<label>
+																	<i data-feather="user" class="feather feather-user feather-sm text-info fill-white me-2"></i>
+																	<span class="border-start border-info ps-3">Bobot SKS</span>
+																</label>
+															</div>
+															<div class="form-floating mb-3">
+																<select class="form-select border border-info" name="tanggal_berlaku" aria-label="Floating label select example">
+																	<?php foreach ($years as $year) : ?>
+																		<option value="<?= $year ?>" <?= $year == date('Y', strtotime($rps->tanggal_berlaku)) ? 'selected' : '' ?>><?= $year ?></option>
+																	<?php endforeach; ?>
+																</select>
+																<label>
+																	<i data-feather="user" class="feather feather-user feather-sm text-info fill-white me-2"></i>
+																	<span class="border-start border-info ps-3">Tanggal Berlaku</span>
+																</label>
+															</div>
+														</form>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-light-danger text-danger font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+															Batalkan
+														</button>
+														<button type="button" onclick="event.preventDefault(); document.getElementById('edit-penilaian').submit();" class="btn btn-light-primary text-primary font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+															Simpan
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="card-body">

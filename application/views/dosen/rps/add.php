@@ -51,10 +51,10 @@
 								</select>
 								<label>
 									<i class="mdi mdi-home-modern text-info fill-white me-2"></i>
-									<span class="border-start border-info ps-3">Fakultas</span>
+									<span class="border-start border-info ps-3">Mata Kuliah</span>
 								</label>
 								<span class="invalid-feedback d-block" role="alert">
-									<?php echo form_error('fakultas'); ?>
+									<?php echo form_error('id_matkul'); ?>
 								</span>
 							</div>
 							<div class="form-floating mb-3">

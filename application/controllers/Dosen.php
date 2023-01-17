@@ -153,6 +153,10 @@ class Dosen extends CI_Controller
 		$data['unit_pembelajaran'] = $unit_pembelajaran;
 		$data['tugas_aktivitas'] = $tugas_aktivitas;
 		$data['rpp'] = $rpp;
+		//date + 3 years
+		$matkuls = $this->db->get('tb_matkul')->result();
+		$data['matkuls'] = $matkuls;
+		$data['years'] = range(2010, date('Y') + 3);
 
 		//get the latest tb_rps_detail
 		$rpp_latest_check = $this->db->order_by('id', 'DESC')->get_where('tb_rps_detail', ['id_rps' => $rps->id])->row();
@@ -168,6 +172,33 @@ class Dosen extends CI_Controller
 		$this->load->view('dosen/templates/header', $data);
 		$this->load->view('dosen/rps/detail', $data);
 		$this->load->view('dosen/templates/footer');
+	}
+
+	public function edit_rps()
+	{
+		$id_rps = $this->input->post('id');
+		$id_matkul = $this->input->post('id_matkul');
+		$semester = $this->input->post('semester');
+		$bobot_sks = $this->input->post('bobot_sks');
+		$tanggal_berlaku = $this->input->post('tanggal_berlaku');
+		$tanggal_berlaku = date('Y-m-d', strtotime($tanggal_berlaku . '-01-01'));
+		//increment the revisi start with 00
+		$revisi = $this->db->get_where('tb_rps', ['id' => $id_rps])->row();
+		$revisi = $revisi->revisi;
+		$revisi = str_split($revisi);
+		$revisi = $revisi[1] == 9 ? $revisi[0] + 1 . '0' : $revisi[0] . $revisi[1] + 1;
+		//update tb_rps
+		$data = [
+			'id_matkul' => $id_matkul,
+			'semester' => $semester,
+			'bobot_sks' => $bobot_sks,
+			'tanggal_berlaku' => $tanggal_berlaku,
+			'revisi' => $revisi
+		];
+		$this->db->where('id', $id_rps);
+		$this->db->update('tb_rps', $data);
+		$id = $this->encrypt->encode($id_rps);
+		redirect('dosen/detail_rps?id=' . $id);
 	}
 
 	public function hapus_rps()

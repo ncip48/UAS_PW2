@@ -96,12 +96,12 @@
 											Cetak
 										</a>
 										<!-- buat button edit -->
-										<button data-bs-toggle="modal" data-bs-target="#modal-penilaian" class="ms-2 justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
+										<button data-bs-toggle="modal" data-bs-target="#modal-edit-rps" class="ms-2 justify-content-center btn btn-rounded btn-light-success text-success font-weight-medium d-flex align-items-center">
 											<i class="mdi mdi-pencil me-2"></i>
 											Edit
 										</button>
 										<!-- Vertically centered modal -->
-										<div class="modal fade" id="modal-penilaian" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
+										<div class="modal fade" id="modal-edit-rps" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
 											<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
 												<div class="modal-content">
 													<div class="modal-header d-flex align-items-center">
@@ -111,7 +111,7 @@
 														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 													</div>
 													<div class="modal-body">
-														<form id="edit-penilaian" method="POST" action="<?= base_url('dosen/edit_rps') ?>">
+														<form id="edit-rps" method="POST" action="<?= base_url('dosen/edit_rps') ?>">
 															<input type="hidden" name="id" value="<?= $rps->id ?>">
 															<div class="form-floating mb-3">
 																<select class="form-select border border-info" name="id_matkul" aria-label="Floating label select example">
@@ -156,7 +156,7 @@
 														<button type="button" class="btn btn-light-danger text-danger font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
 															Batalkan
 														</button>
-														<button type="button" onclick="event.preventDefault(); document.getElementById('edit-penilaian').submit();" class="btn btn-light-primary text-primary font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
+														<button type="button" onclick="event.preventDefault(); document.getElementById('edit-rps').submit();" class="btn btn-light-primary text-primary font-weight-medium waves-effect text-start " data-bs-dismiss="modal">
 															Simpan
 														</button>
 													</div>

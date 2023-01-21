@@ -1,3 +1,7 @@
+## Instalasi
+
+1. composer install (wajib)
+
 ## User Login
 
 1. Admin
